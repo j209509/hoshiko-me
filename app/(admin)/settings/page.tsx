@@ -219,7 +219,7 @@ export default function SettingsPage() {
                         <Select value={form.category} onValueChange={(v) => v && update("category", v)}>
                           <SelectTrigger className="border-gray-200"><SelectValue /></SelectTrigger>
                           <SelectContent>
-                            {categories.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+                            {categories.map((c) => <SelectItem key={c} value={c} label={c}>{c}</SelectItem>)}
                           </SelectContent>
                         </Select>
                       </div>
@@ -309,9 +309,11 @@ export default function SettingsPage() {
                     <div className="space-y-2">
                       <Label>通知するしきい値（この星以下で通知）</Label>
                       <Select value={String(form.notifyThreshold)} onValueChange={(v) => update("notifyThreshold", Number(v))}>
-                        <SelectTrigger className="border-gray-200 w-40"><SelectValue /></SelectTrigger>
+                        <SelectTrigger className="border-gray-200 w-40">
+                          <SelectValue>★{form.notifyThreshold}以下</SelectValue>
+                        </SelectTrigger>
                         <SelectContent>
-                          {[1,2,3].map((v) => <SelectItem key={v} value={String(v)}>★{v}以下</SelectItem>)}
+                          {[1,2,3].map((v) => <SelectItem key={v} value={String(v)} label={`★${v}以下`}>★{v}以下</SelectItem>)}
                         </SelectContent>
                       </Select>
                     </div>

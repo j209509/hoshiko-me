@@ -79,10 +79,12 @@ export default function QrGeneratorPage() {
                   value={selectedStore?.id ?? ""}
                   onValueChange={(v) => v && setSelectedStoreId(v)}
                 >
-                  <SelectTrigger className="border-gray-200"><SelectValue /></SelectTrigger>
+                  <SelectTrigger className="border-gray-200 w-full">
+                    <SelectValue>{selectedStore?.name ?? "店舗を選択"}</SelectValue>
+                  </SelectTrigger>
                   <SelectContent>
                     {stores.map((s) => (
-                      <SelectItem key={s.id} value={s.id}>{s.name}</SelectItem>
+                      <SelectItem key={s.id} value={s.id} label={s.name}>{s.name}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
@@ -96,7 +98,7 @@ export default function QrGeneratorPage() {
                   <SelectTrigger className="border-gray-200"><SelectValue /></SelectTrigger>
                   <SelectContent>
                     {incentiveOptions.map((opt) => (
-                      <SelectItem key={opt} value={opt}>{opt}</SelectItem>
+                      <SelectItem key={opt} value={opt} label={opt}>{opt}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>

@@ -162,7 +162,7 @@ export default function AnalyticsPage() {
                 <SelectTrigger className="w-32 h-8 text-xs border-gray-200"><SelectValue /></SelectTrigger>
                 <SelectContent>
                   {["全て", "高評価", "要改善"].map((r) => (
-                    <SelectItem key={r} value={r} className="text-xs">{r}</SelectItem>
+                    <SelectItem key={r} value={r} label={r} className="text-xs">{r}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
