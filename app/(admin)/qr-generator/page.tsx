@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { QRCodeSVG as QRCode } from "qrcode.react";
-import { Download, Printer, Star, Gift, QrCode, AlertCircle } from "lucide-react";
+import { Printer, Star, Gift, QrCode, AlertCircle } from "lucide-react";
 import { useStores } from "@/components/providers/store-provider";
 
 const incentiveOptions = ["ドリンク1杯無料", "次回10%割引クーポン", "デザートサービス", "ポイント2倍", "特典なし"];
