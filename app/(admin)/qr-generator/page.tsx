@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,14 +12,18 @@ import { useStores } from "@/components/providers/store-provider";
 
 const incentiveOptions = ["ドリンク1杯無料", "次回10%割引クーポン", "デザートサービス", "ポイント2倍", "特典なし"];
 
+// pw/ph = portrait width/height (mm). landscape swaps them.
 const SIZES = [
-  { id: "meishi",   label: "名刺",   sub: "91×55mm",   aspect: "91/55",   maxW: "max-w-[220px]" },
-  { id: "hagaki",   label: "はがき", sub: "100×148mm",  aspect: "100/148", maxW: "max-w-xs"       },
-  { id: "l",        label: "L判",    sub: "89×127mm",   aspect: "89/127",  maxW: "max-w-[240px]" },
-  { id: "a5",       label: "A5",     sub: "148×210mm",  aspect: "148/210", maxW: "max-w-sm"       },
-  { id: "a4",       label: "A4",     sub: "210×297mm",  aspect: "210/297", maxW: "max-w-sm"       },
+  { id: "meishi",   label: "名刺",   pw: 55,  ph: 91,  pmaxW: "max-w-[180px]", lmaxW: "max-w-[300px]" },
+  { id: "hagaki",   label: "はがき", pw: 100, ph: 148, pmaxW: "max-w-xs",       lmaxW: "max-w-sm"       },
+  { id: "l",        label: "L判",    pw: 89,  ph: 127, pmaxW: "max-w-[240px]",  lmaxW: "max-w-sm"       },
+  { id: "a5",       label: "A5",     pw: 148, ph: 210, pmaxW: "max-w-sm",       lmaxW: "max-w-md"       },
+  { id: "a4",       label: "A4",     pw: 210, ph: 297, pmaxW: "max-w-sm",       lmaxW: "max-w-lg"       },
 ] as const;
 type SizeId = typeof SIZES[number]["id"];
+
+// ポスターは常にこの幅でレンダリングし、コンテナに合わせてscale縮小する
+const CANONICAL_W = 320;
 
 interface PosterProps { storeName: string; incentive: string; reviewUrl: string; }
 
@@ -1417,7 +1421,21 @@ export default function QrGeneratorPage() {
   const [templateId, setTemplateId] = useState<TemplateId>("aurora");
   const [templateExpanded, setTemplateExpanded] = useState(false);
   const [sizeId, setSizeId] = useState<SizeId>("hagaki");
+  const [orientation, setOrientation] = useState<"portrait" | "landscape">("portrait");
+  const [previewPx, setPreviewPx] = useState(288);
   const posterRef = useRef<HTMLDivElement>(null);
+  const previewRef = useRef<HTMLDivElement>(null);
+
+  // コンテナ幅を監視してscaleを計算
+  useEffect(() => {
+    const el = previewRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(entries => {
+      setPreviewPx(entries[0].contentRect.width);
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
 
   const displayIncentive = incentive === "特典なし" ? "" : (customIncentive || incentive);
   const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://review-guard-demo.vercel.app";
@@ -1425,6 +1443,14 @@ export default function QrGeneratorPage() {
   const template = TEMPLATES.find(t => t.id === templateId) ?? TEMPLATES[0];
   const PosterComponent = template.Component;
   const size = SIZES.find(s => s.id === sizeId) ?? SIZES[1];
+
+  // 縦横に応じてmm寸法・アスペクト比・maxWを決定
+  const mmW = orientation === "portrait" ? size.pw : size.ph;
+  const mmH = orientation === "portrait" ? size.ph : size.pw;
+  const maxW = orientation === "portrait" ? size.pmaxW : size.lmaxW;
+  const aspectRatio = `${mmW}/${mmH}`;
+  const canonicalH = CANONICAL_W * (mmH / mmW);
+  const posterScale = previewPx / CANONICAL_W;
 
   if (loading) {
     return (
@@ -1549,37 +1575,75 @@ export default function QrGeneratorPage() {
         {/* Preview */}
         <div>
           <div className="flex items-center justify-between mb-3">
-            <p className="text-sm font-medium text-gray-600">プレビュー（{size.sub}）</p>
+            <p className="text-sm font-medium text-gray-600">プレビュー（{mmW}×{mmH}mm）</p>
             <span className="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">{template.name}</span>
           </div>
 
-          {/* Size selector */}
-          <div className="flex gap-1.5 mb-4 flex-wrap">
-            {SIZES.map(s => (
+          {/* Size + orientation selector */}
+          <div className="flex items-center gap-2 mb-4 flex-wrap">
+            <div className="flex gap-1.5 flex-wrap flex-1">
+              {SIZES.map(s => (
+                <button
+                  key={s.id}
+                  onClick={() => setSizeId(s.id)}
+                  className={`flex flex-col items-center px-3 py-1.5 rounded-lg border text-xs font-medium transition-all ${
+                    sizeId === s.id
+                      ? "border-indigo-500 bg-indigo-50 text-indigo-700"
+                      : "border-gray-200 bg-white text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                  }`}
+                >
+                  <span className="font-semibold">{s.label}</span>
+                  <span className={`text-[10px] font-normal ${sizeId === s.id ? "text-indigo-400" : "text-gray-400"}`}>{orientation === "portrait" ? `${s.pw}×${s.ph}` : `${s.ph}×${s.pw}`}mm</span>
+                </button>
+              ))}
+            </div>
+
+            {/* 縦横トグル */}
+            <div className="flex rounded-lg border border-gray-200 overflow-hidden shrink-0">
               <button
-                key={s.id}
-                onClick={() => setSizeId(s.id)}
-                className={`flex flex-col items-center px-3 py-1.5 rounded-lg border text-xs font-medium transition-all ${
-                  sizeId === s.id
-                    ? "border-indigo-500 bg-indigo-50 text-indigo-700"
-                    : "border-gray-200 bg-white text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                onClick={() => setOrientation("portrait")}
+                title="縦（ポートレート）"
+                className={`flex items-center gap-1 px-2.5 py-2 text-xs font-medium transition-all ${
+                  orientation === "portrait" ? "bg-indigo-600 text-white" : "bg-white text-gray-500 hover:bg-gray-50"
                 }`}
               >
-                <span className="font-semibold">{s.label}</span>
-                <span className={`text-[10px] font-normal ${sizeId === s.id ? "text-indigo-400" : "text-gray-400"}`}>{s.sub}</span>
+                {/* 縦長の長方形アイコン */}
+                <svg width="12" height="16" viewBox="0 0 12 16" fill="none">
+                  <rect x="1" y="1" width="10" height="14" rx="1.5" stroke="currentColor" strokeWidth="1.5"/>
+                </svg>
+                縦
               </button>
-            ))}
+              <button
+                onClick={() => setOrientation("landscape")}
+                title="横（ランドスケープ）"
+                className={`flex items-center gap-1 px-2.5 py-2 text-xs font-medium transition-all border-l border-gray-200 ${
+                  orientation === "landscape" ? "bg-indigo-600 text-white" : "bg-white text-gray-500 hover:bg-gray-50"
+                }`}
+              >
+                {/* 横長の長方形アイコン */}
+                <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
+                  <rect x="1" y="1" width="14" height="10" rx="1.5" stroke="currentColor" strokeWidth="1.5"/>
+                </svg>
+                横
+              </button>
+            </div>
           </div>
 
-          <div className={`border border-gray-200 rounded-xl overflow-hidden shadow-lg mx-auto ${size.maxW}`}>
-            <div ref={posterRef} className="relative" style={{ aspectRatio: size.aspect }}>
-              {selectedStore && reviewUrl ? (
-                <PosterComponent storeName={selectedStore.name} incentive={displayIncentive} reviewUrl={reviewUrl}/>
-              ) : (
-                <div className="w-full h-full flex items-center justify-center bg-gray-50 text-gray-400 text-sm">
-                  店舗を選択してください
-                </div>
-              )}
+          {/* ポスタープレビュー：常にCANONICAL_Wでレンダリングしscaleで縮小 */}
+          <div ref={previewRef} className={`mx-auto ${maxW}`}>
+            <div
+              className="border border-gray-200 rounded-xl overflow-hidden shadow-lg"
+              style={{ aspectRatio }}
+            >
+              <div ref={posterRef} style={{ position: "relative", width: CANONICAL_W, height: canonicalH, transformOrigin: "top left", transform: `scale(${posterScale})` }}>
+                {selectedStore && reviewUrl ? (
+                  <PosterComponent storeName={selectedStore.name} incentive={displayIncentive} reviewUrl={reviewUrl}/>
+                ) : (
+                  <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", background: "#f9fafb", color: "#9ca3af", fontSize: 14 }}>
+                    店舗を選択してください
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
