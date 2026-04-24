@@ -144,10 +144,12 @@ export default function SettingsPage() {
             <CardContent className="space-y-2 p-3">
               {stores.map((s) => (
                 <button key={s.id} onClick={() => setSelectedStoreId(s.id)}
-                  className={`w-full text-left px-3 py-3 rounded-lg text-sm transition-colors ${
-                    selectedStore?.id === s.id ? "bg-indigo-600 text-white" : "hover:bg-gray-100 text-gray-700"
+                  className={`w-full text-left px-3 py-3 rounded-lg text-sm transition-all ${
+                    selectedStore?.id === s.id
+                      ? "bg-indigo-600 shadow-sm"
+                      : "hover:bg-gray-100 text-gray-700"
                   }`}>
-                  <div className="font-medium truncate">{s.name}</div>
+                  <div className={`font-semibold truncate ${selectedStore?.id === s.id ? "text-white" : "text-gray-800"}`}>{s.name}</div>
                   <div className={`text-xs mt-0.5 ${selectedStore?.id === s.id ? "text-indigo-200" : "text-gray-400"}`}>
                     {s.category ?? "未設定"}
                   </div>
