@@ -1449,8 +1449,14 @@ export default function QrGeneratorPage() {
   const mmH = orientation === "portrait" ? size.ph : size.pw;
   const maxW = orientation === "portrait" ? size.pmaxW : size.lmaxW;
   const aspectRatio = `${mmW}/${mmH}`;
-  const canonicalH = CANONICAL_W * (mmH / mmW);
-  const posterScale = previewPx / CANONICAL_W;
+
+  // ポスターは常に縦長(portrait)でレンダリング。コンテナに収まるようscale計算。
+  const canonicalH = CANONICAL_W * (size.ph / size.pw); // 常に縦長の高さ
+  const containerH = previewPx * (mmH / mmW);           // 実際のコンテナ高さ(px)
+  const posterScale = Math.min(previewPx / CANONICAL_W, containerH / canonicalH);
+  // センタリングオフセット
+  const offsetX = (previewPx - CANONICAL_W * posterScale) / 2;
+  const offsetY = (containerH - canonicalH * posterScale) / 2;
 
   if (loading) {
     return (
@@ -1629,13 +1635,21 @@ export default function QrGeneratorPage() {
             </div>
           </div>
 
-          {/* ポスタープレビュー：常にCANONICAL_Wでレンダリングしscaleで縮小 */}
+          {/* ポスタープレビュー：常にportrait寸法でレンダリングし、縦横両方に収まるようscale+センタリング */}
           <div ref={previewRef} className={`mx-auto ${maxW}`}>
             <div
               className="border border-gray-200 rounded-xl overflow-hidden shadow-lg"
-              style={{ aspectRatio }}
+              style={{ aspectRatio, position: "relative" }}
             >
-              <div ref={posterRef} style={{ position: "relative", width: CANONICAL_W, height: canonicalH, transformOrigin: "top left", transform: `scale(${posterScale})` }}>
+              <div ref={posterRef} style={{
+                position: "absolute",
+                top: offsetY,
+                left: offsetX,
+                width: CANONICAL_W,
+                height: canonicalH,
+                transformOrigin: "top left",
+                transform: `scale(${posterScale})`,
+              }}>
                 {selectedStore && reviewUrl ? (
                   <PosterComponent storeName={selectedStore.name} incentive={displayIncentive} reviewUrl={reviewUrl}/>
                 ) : (

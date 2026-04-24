@@ -144,13 +144,16 @@ export default function SettingsPage() {
             <CardContent className="space-y-2 p-3">
               {stores.map((s) => (
                 <button key={s.id} onClick={() => setSelectedStoreId(s.id)}
-                  className={`w-full text-left px-3 py-3 rounded-lg text-sm transition-all ${
-                    selectedStore?.id === s.id
-                      ? "bg-indigo-600 shadow-sm"
-                      : "hover:bg-gray-100 text-gray-700"
-                  }`}>
-                  <div className={`font-semibold truncate ${selectedStore?.id === s.id ? "text-white" : "text-gray-800"}`}>{s.name}</div>
-                  <div className={`text-xs mt-0.5 ${selectedStore?.id === s.id ? "text-indigo-200" : "text-gray-400"}`}>
+                  className="w-full text-left px-3 py-3 rounded-lg text-sm transition-all"
+                  style={selectedStore?.id === s.id
+                    ? { background: "#4f46e5", boxShadow: "0 1px 3px rgba(0,0,0,.15)" }
+                    : {}
+                  }
+                  onMouseEnter={e => { if (selectedStore?.id !== s.id) (e.currentTarget as HTMLButtonElement).style.background = "#f3f4f6"; }}
+                  onMouseLeave={e => { if (selectedStore?.id !== s.id) (e.currentTarget as HTMLButtonElement).style.background = ""; }}
+                >
+                  <div className="font-semibold truncate" style={{ color: selectedStore?.id === s.id ? "#ffffff" : "#1f2937" }}>{s.name}</div>
+                  <div className="text-xs mt-0.5" style={{ color: selectedStore?.id === s.id ? "#c7d2fe" : "#9ca3af" }}>
                     {s.category ?? "未設定"}
                   </div>
                 </button>
