@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -340,25 +340,30 @@ function PosterWabi({ storeName, incentive, reviewUrl }: PosterProps) {
 /* ═══════════════════════════════════════════════════
    8. HUD  — holographic terminal, hex grid
 ═══════════════════════════════════════════════════ */
+function buildHexPoints(): string[] {
+  const pts: string[] = [];
+  for(let row=0;row<7;row++)for(let col=0;col<7;col++){
+    const x=col*18+(row%2?9:0), y=row*15.6;
+    pts.push(`${x},${y-10} ${x+8.66},${y-5} ${x+8.66},${y+5} ${x},${y+10} ${x-8.66},${y+5} ${x-8.66},${y-5}`);
+  }
+  return pts;
+}
+const HEX_PTS = buildHexPoints();
+
 function PosterHUD({ storeName, incentive, reviewUrl }: PosterProps) {
-  const hw = 18;
-  const hh = 16;
   return (
     <div style={{ width:"100%", height:"100%", background:"#030d1a", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
       {/* hex grid */}
       <svg style={{ position:"absolute", inset:0, width:"100%", height:"100%", opacity:.12 }} viewBox="0 0 100 148" preserveAspectRatio="xMidYMid slice">
-        {Array.from({length:6},(_,row)=>Array.from({length:6},(_,col)=>{
-          const x=col*hw+(row%2?hw/2:0); const y=row*hh*.86;
-          const pts=[0,-10, 8.66,-5, 8.66,5, 0,10, -8.66,5, -8.66,-5].reduce((a,v,i)=>a+(i%2===0?`${x+v},`:`${y+v} `),"");
-          return <polygon key={`${row}-${col}`} points={pts} fill="none" stroke="#00e5ff" strokeWidth="0.4"/>;
-        }))}
+        {HEX_PTS.map((p,i)=><polygon key={i} points={p} fill="none" stroke="#00e5ff" strokeWidth="0.4"/>)}
       </svg>
       {/* glow center */}
       <div style={{ position:"absolute", top:"30%", left:"50%", transform:"translate(-50%,-50%)", width:"60%", height:"50%", background:"radial-gradient(circle,rgba(0,229,255,.15) 0%,transparent 70%)", filter:"blur(15px)" }}/>
       {/* corner brackets */}
-      {[["top:12px","left:12px","borderTop","borderLeft"],["top:12px","right:12px","borderTop","borderRight"],["bottom:12px","left:12px","borderBottom","borderLeft"],["bottom:12px","right:12px","borderBottom","borderRight"]].map(([t,l,b1,b2],i)=>(
-        <div key={i} style={{ position:"absolute", ...(Object.fromEntries([[t.split(":")[0],t.split(":")[1]],[l.split(":")[0],l.split(":")[1]]])), width:16, height:16, [b1]:["borderTop","borderBottom"].includes(b1)?"2px solid #00e5ff":"none", [b2]:["borderLeft","borderRight"].includes(b2)?"2px solid #00e5ff":"none" }}/>
-      ))}
+      <div style={{ position:"absolute", top:12, left:12, width:16, height:16, borderTop:"2px solid #00e5ff", borderLeft:"2px solid #00e5ff" }}/>
+      <div style={{ position:"absolute", top:12, right:12, width:16, height:16, borderTop:"2px solid #00e5ff", borderRight:"2px solid #00e5ff" }}/>
+      <div style={{ position:"absolute", bottom:12, left:12, width:16, height:16, borderBottom:"2px solid #00e5ff", borderLeft:"2px solid #00e5ff" }}/>
+      <div style={{ position:"absolute", bottom:12, right:12, width:16, height:16, borderBottom:"2px solid #00e5ff", borderRight:"2px solid #00e5ff" }}/>
       <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", alignItems:"center", padding:"22px 16px 12px" }}>
         <div style={{ fontSize:8, letterSpacing:"4px", color:"#00e5ff", marginBottom:6, fontFamily:"monospace" }}>[ REVIEW.SYS ]</div>
         <div style={{ width:"100%", height:1, background:"linear-gradient(to right,transparent,#00e5ff,transparent)", marginBottom:14 }}/>
