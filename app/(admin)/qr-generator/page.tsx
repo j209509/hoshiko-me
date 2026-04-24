@@ -12,6 +12,15 @@ import { useStores } from "@/components/providers/store-provider";
 
 const incentiveOptions = ["ドリンク1杯無料", "次回10%割引クーポン", "デザートサービス", "ポイント2倍", "特典なし"];
 
+const SIZES = [
+  { id: "meishi",   label: "名刺",   sub: "91×55mm",   aspect: "91/55",   maxW: "max-w-[220px]" },
+  { id: "hagaki",   label: "はがき", sub: "100×148mm",  aspect: "100/148", maxW: "max-w-xs"       },
+  { id: "l",        label: "L判",    sub: "89×127mm",   aspect: "89/127",  maxW: "max-w-[240px]" },
+  { id: "a5",       label: "A5",     sub: "148×210mm",  aspect: "148/210", maxW: "max-w-sm"       },
+  { id: "a4",       label: "A4",     sub: "210×297mm",  aspect: "210/297", maxW: "max-w-sm"       },
+] as const;
+type SizeId = typeof SIZES[number]["id"];
+
 interface PosterProps { storeName: string; incentive: string; reviewUrl: string; }
 
 const S: React.CSSProperties = { display: "flex", justifyContent: "center", gap: 4 };
@@ -1407,6 +1416,7 @@ export default function QrGeneratorPage() {
   const [customIncentive, setCustomIncentive] = useState("");
   const [templateId, setTemplateId] = useState<TemplateId>("aurora");
   const [templateExpanded, setTemplateExpanded] = useState(false);
+  const [sizeId, setSizeId] = useState<SizeId>("hagaki");
   const posterRef = useRef<HTMLDivElement>(null);
 
   const displayIncentive = incentive === "特典なし" ? "" : (customIncentive || incentive);
@@ -1414,6 +1424,7 @@ export default function QrGeneratorPage() {
   const reviewUrl = selectedStore ? `${appUrl}/review/${selectedStore.id}` : "";
   const template = TEMPLATES.find(t => t.id === templateId) ?? TEMPLATES[0];
   const PosterComponent = template.Component;
+  const size = SIZES.find(s => s.id === sizeId) ?? SIZES[1];
 
   if (loading) {
     return (
@@ -1526,7 +1537,7 @@ export default function QrGeneratorPage() {
               <p className="text-sm text-blue-700 font-medium mb-1">使い方ガイド</p>
               <ol className="text-xs text-blue-600 space-y-1 list-decimal list-inside">
                 <li>店舗・レビューのお礼・デザインを設定</li>
-                <li>はがきサイズで印刷してレジ付近に掲示</li>
+                <li>サイズを選んで印刷してレジ付近に掲示</li>
                 <li>お客様がQRコードをスキャンして評価</li>
                 <li>設定しきい値以上はGoogleレビューへ誘導</li>
                 <li>それ以下は店内フォームで意見収集</li>
@@ -1535,14 +1546,33 @@ export default function QrGeneratorPage() {
           </Card>
         </div>
 
-        {/* Preview — はがきサイズ 100×148mm */}
+        {/* Preview */}
         <div>
           <div className="flex items-center justify-between mb-3">
-            <p className="text-sm font-medium text-gray-600">はがきプレビュー（100×148mm）</p>
+            <p className="text-sm font-medium text-gray-600">プレビュー（{size.sub}）</p>
             <span className="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">{template.name}</span>
           </div>
-          <div className="border border-gray-200 rounded-xl overflow-hidden shadow-lg max-w-xs mx-auto">
-            <div ref={posterRef} className="aspect-[100/148] relative">
+
+          {/* Size selector */}
+          <div className="flex gap-1.5 mb-4 flex-wrap">
+            {SIZES.map(s => (
+              <button
+                key={s.id}
+                onClick={() => setSizeId(s.id)}
+                className={`flex flex-col items-center px-3 py-1.5 rounded-lg border text-xs font-medium transition-all ${
+                  sizeId === s.id
+                    ? "border-indigo-500 bg-indigo-50 text-indigo-700"
+                    : "border-gray-200 bg-white text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                }`}
+              >
+                <span className="font-semibold">{s.label}</span>
+                <span className={`text-[10px] font-normal ${sizeId === s.id ? "text-indigo-400" : "text-gray-400"}`}>{s.sub}</span>
+              </button>
+            ))}
+          </div>
+
+          <div className={`border border-gray-200 rounded-xl overflow-hidden shadow-lg mx-auto ${size.maxW}`}>
+            <div ref={posterRef} className="relative" style={{ aspectRatio: size.aspect }}>
               {selectedStore && reviewUrl ? (
                 <PosterComponent storeName={selectedStore.name} incentive={displayIncentive} reviewUrl={reviewUrl}/>
               ) : (
