@@ -1,0 +1,141 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// --------------------------------------------------------
+// NextAuth.js v5 required models
+// --------------------------------------------------------
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  image         String?
+  emailVerified DateTime?
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  accounts     Account[]
+  sessions     Session[]
+  stores       Store[]
+  subscription Subscription?
+
+  @@map("users")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String  @map("user_id")
+  type              String
+  provider          String
+  providerAccountId String  @map("provider_account_id")
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique @map("session_token")
+  userId       String   @map("user_id")
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+// --------------------------------------------------------
+// hoshiko.me business models
+// --------------------------------------------------------
+
+model Store {
+  id              String   @id @default(cuid())
+  name            String
+  description     String?
+  address         String?
+  phone           String?
+  category        String?
+  googleUrl       String?  @map("google_url")       // レビューURL（共通）
+  googleReviewUrl String?  @map("google_review_url") // Googleレビュー書き込みURL
+  googleMapsUrl   String?  @map("google_maps_url")
+  googleConnected Boolean  @default(false) @map("google_connected")
+  notifyEmail     String?  @map("notify_email")
+  notifyThreshold Int      @default(3) @map("notify_threshold")
+  isActive        Boolean  @default(true) @map("is_active")
+  userId          String   @map("user_id")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reviews Review[]
+
+  @@map("stores")
+}
+
+model Review {
+  id         String   @id @default(cuid())
+  storeId    String   @map("store_id")
+  rating     Int      // 1-5
+  comment    String?  @db.Text
+  category   String?
+  redirected Boolean  @default(false)
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  store Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  @@map("reviews")
+}
+
+model Subscription {
+  id        String             @id @default(cuid())
+  userId    String             @unique @map("user_id")
+  plan      SubscriptionPlan   @default(STARTER)
+  status    SubscriptionStatus @default(ACTIVE)
+  stripeId  String?            @unique @map("stripe_id")
+  startDate DateTime           @map("start_date")
+  endDate   DateTime?          @map("end_date")
+  createdAt DateTime           @default(now()) @map("created_at")
+  updatedAt DateTime           @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("subscriptions")
+}
+
+enum SubscriptionPlan {
+  STARTER
+  STANDARD
+  ENTERPRISE
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  CANCELED
+  PAST_DUE
+  UNPAID
+}
