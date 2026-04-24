@@ -14,6 +14,7 @@ interface Store {
   description?: string;
   address?: string;
   googleReviewUrl?: string;
+  googleRedirectThreshold: number;
 }
 
 const starLabels = ["", "とても不満", "不満", "普通", "満足", "とても満足"];
@@ -61,7 +62,8 @@ export default function ReviewPage() {
 
   const handleRatingSelect = (rating: number) => {
     setSelectedRating(rating);
-    if (rating >= 4) {
+    const threshold = store?.googleRedirectThreshold ?? 4;
+    if (rating >= threshold) {
       // 高評価 → まずAPIに送ってからgoogleステップへ
       submitReview(rating);
     } else {

@@ -84,9 +84,10 @@ model Store {
   googleReviewUrl String?  @map("google_review_url") // Googleレビュー書き込みURL
   googleMapsUrl   String?  @map("google_maps_url")
   googleConnected Boolean  @default(false) @map("google_connected")
-  notifyEmail     String?  @map("notify_email")
-  notifyThreshold Int      @default(3) @map("notify_threshold")
-  isActive        Boolean  @default(true) @map("is_active")
+  notifyEmail             String?  @map("notify_email")
+  notifyThreshold         Int      @default(3) @map("notify_threshold")
+  googleRedirectThreshold Int      @default(4) @map("google_redirect_threshold")
+  isActive                Boolean  @default(true) @map("is_active")
   userId          String   @map("user_id")
   createdAt       DateTime @default(now()) @map("created_at")
   updatedAt       DateTime @updatedAt @map("updated_at")

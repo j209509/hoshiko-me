@@ -26,6 +26,7 @@ interface StoreForm {
   googleMapsUrl: string;
   googleConnected: boolean;
   notifyThreshold: number;
+  googleRedirectThreshold: number;
 }
 
 export default function SettingsPage() {
@@ -51,6 +52,7 @@ export default function SettingsPage() {
         googleMapsUrl: selectedStore.googleMapsUrl ?? "",
         googleConnected: selectedStore.googleConnected,
         notifyThreshold: selectedStore.notifyThreshold,
+        googleRedirectThreshold: selectedStore.googleRedirectThreshold,
       });
     }
   }, [selectedStore?.id]);
@@ -343,10 +345,35 @@ export default function SettingsPage() {
                         disabled={!form.googleReviewUrl}
                       />
                     </div>
-                    <p className="text-sm text-gray-500">
-                      Google誘導を有効にするには「Google連携」タブでGoogleレビューURLを設定してください。
-                      現在の通知しきい値: <strong>★{form.notifyThreshold}以下</strong>で通知
-                    </p>
+
+                    <div className="space-y-2">
+                      <Label>Google誘導するしきい値（この星以上でGoogle誘導）</Label>
+                      <Select
+                        value={String(form.googleRedirectThreshold)}
+                        onValueChange={(v) => v && update("googleRedirectThreshold", Number(v))}
+                      >
+                        <SelectTrigger className="border-gray-200 w-48">
+                          <SelectValue>★{form.googleRedirectThreshold}以上でGoogle誘導</SelectValue>
+                        </SelectTrigger>
+                        <SelectContent>
+                          {[3, 4, 5].map((v) => (
+                            <SelectItem key={v} value={String(v)} label={`★${v}以上`}>
+                              ★{v}以上（{v}〜5★ → Google）
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <p className="text-xs text-gray-400">
+                        例：★4以上に設定すると、4・5★のお客様はGoogleレビューへ、1〜3★は店内フォームで収集します
+                      </p>
+                    </div>
+
+                    {!form.googleReviewUrl && (
+                      <p className="text-sm text-amber-600 bg-amber-50 rounded-lg p-3">
+                        Google誘導を有効にするには「Google連携」タブでGoogleレビューURLを設定してください。
+                      </p>
+                    )}
+
                     <Button onClick={handleSave} disabled={saving} className="bg-indigo-600 hover:bg-indigo-700">
                       {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : saved ? "保存しました ✓" : "変更を保存"}
                     </Button>

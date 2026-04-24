@@ -17,6 +17,7 @@ export async function GET(
         address: true,
         googleReviewUrl: true,
         googleMapsUrl: true,
+        googleRedirectThreshold: true,
         isActive: true,
       },
     });

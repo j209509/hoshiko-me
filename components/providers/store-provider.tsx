@@ -14,6 +14,7 @@ export interface Store {
   googleConnected: boolean;
   notifyEmail: string | null;
   notifyThreshold: number;
+  googleRedirectThreshold: number;
   isActive: boolean;
   _count?: { reviews: number };
 }

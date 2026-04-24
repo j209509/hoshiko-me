@@ -11,13 +11,13 @@ export async function POST(req: NextRequest) {
 
     const store = await prisma.store.findUnique({
       where: { id: storeId },
-      select: { id: true, googleReviewUrl: true, notifyThreshold: true },
+      select: { id: true, googleReviewUrl: true, notifyThreshold: true, googleRedirectThreshold: true },
     });
     if (!store) {
       return NextResponse.json({ error: "Store not found" }, { status: 404 });
     }
 
-    const redirected = rating >= 4 && !!store.googleReviewUrl;
+    const redirected = rating >= store.googleRedirectThreshold && !!store.googleReviewUrl;
 
     const review = await prisma.review.create({
       data: {
