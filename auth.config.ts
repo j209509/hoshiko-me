@@ -4,6 +4,7 @@ import Google from "next-auth/providers/google";
 // Edge Runtime対応（Prismaなし）
 // middlewareはこちらを使う
 export const authConfig: NextAuthConfig = {
+  trustHost: true,
   providers: [
     Google({
       clientId: process.env.AUTH_GOOGLE_ID!,
