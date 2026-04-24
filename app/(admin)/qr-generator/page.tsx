@@ -780,9 +780,10 @@ function PosterCandy({ storeName, incentive, reviewUrl }: PosterProps) {
         <rect width="100" height="20" fill="url(#rb)"/>
       </svg>
       {/* bubbly shapes */}
-      {[{top:"12%",left:"8%",w:20,c:"#fda4af"},{top:"15%",right:"10%",w:14,c:"#93c5fd"},{bottom:"18%",left:"5%",w:16,c:"#86efac"},{bottom:"14%",right:"8%",w:18,c:"#c4b5fd"}].map((s,i)=>(
-        <div key={i} style={{ position:"absolute", ...(s as Record<string,string|number>), width:s.w, height:s.w, borderRadius:"50%", background:s.c, opacity:.45 }}/>
-      ))}
+      <div style={{ position:"absolute", top:"12%", left:"8%", width:20, height:20, borderRadius:"50%", background:"#fda4af", opacity:.45 }}/>
+      <div style={{ position:"absolute", top:"15%", right:"10%", width:14, height:14, borderRadius:"50%", background:"#93c5fd", opacity:.45 }}/>
+      <div style={{ position:"absolute", bottom:"18%", left:"5%", width:16, height:16, borderRadius:"50%", background:"#86efac", opacity:.45 }}/>
+      <div style={{ position:"absolute", bottom:"14%", right:"8%", width:18, height:18, borderRadius:"50%", background:"#c4b5fd", opacity:.45 }}/>
       <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", alignItems:"center", padding:"32px 18px 14px" }}>
         <div style={{ fontSize:9, fontWeight:700, color:"#a78bfa", marginBottom:6 }}>🌈 ご感想をおしえてね！</div>
         <div style={{ fontSize:21, fontWeight:900, color:"#6d28d9", textAlign:"center", lineHeight:1.2, marginBottom:4 }}>{storeName}</div>
