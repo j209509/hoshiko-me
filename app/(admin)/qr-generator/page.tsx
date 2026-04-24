@@ -1406,6 +1406,7 @@ export default function QrGeneratorPage() {
   const [incentive, setIncentive] = useState(incentiveOptions[0]);
   const [customIncentive, setCustomIncentive] = useState("");
   const [templateId, setTemplateId] = useState<TemplateId>("aurora");
+  const [templateExpanded, setTemplateExpanded] = useState(false);
   const posterRef = useRef<HTMLDivElement>(null);
 
   const displayIncentive = incentive === "特典なし" ? "" : (customIncentive || incentive);
@@ -1480,8 +1481,20 @@ export default function QrGeneratorPage() {
 
               {/* Template grid */}
               <div className="space-y-2">
-                <Label className="text-sm font-medium text-gray-700">デザインテンプレート</Label>
-                <div className="grid grid-cols-5 gap-2 max-h-56 overflow-y-auto pr-0.5">
+                <div className="flex items-center justify-between">
+                  <Label className="text-sm font-medium text-gray-700">デザインテンプレート</Label>
+                  <button
+                    onClick={() => setTemplateExpanded(v => !v)}
+                    className="text-xs text-indigo-500 hover:text-indigo-700 font-medium flex items-center gap-1 transition-colors"
+                  >
+                    {templateExpanded ? (
+                      <><svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7"/></svg>折りたたむ</>
+                    ) : (
+                      <><svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7"/></svg>全{TEMPLATES.length}種を表示</>
+                    )}
+                  </button>
+                </div>
+                <div className={`grid gap-2 transition-all duration-300 ${templateExpanded ? "grid-cols-6 max-h-none overflow-visible" : "grid-cols-5 max-h-56 overflow-y-auto"} pr-0.5`}>
                   {TEMPLATES.map(t => (
                     <button key={t.id} onClick={() => setTemplateId(t.id)} title={t.name}
                       className="group flex flex-col items-center gap-1">
