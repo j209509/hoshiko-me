@@ -1465,7 +1465,7 @@ export default function QrGeneratorPage() {
 
               <div className="space-y-2">
                 <Label className="text-sm font-medium text-gray-700 flex items-center gap-1">
-                  <Gift className="w-3.5 h-3.5"/>インセンティブ
+                  <Gift className="w-3.5 h-3.5"/>レビューのお礼
                 </Label>
                 <Select value={incentive} onValueChange={(v) => setIncentive(v ?? incentiveOptions[0])}>
                   <SelectTrigger className="border-gray-200"><SelectValue/></SelectTrigger>
@@ -1525,7 +1525,7 @@ export default function QrGeneratorPage() {
             <CardContent className="p-4">
               <p className="text-sm text-blue-700 font-medium mb-1">使い方ガイド</p>
               <ol className="text-xs text-blue-600 space-y-1 list-decimal list-inside">
-                <li>店舗・インセンティブ・デザインを設定</li>
+                <li>店舗・レビューのお礼・デザインを設定</li>
                 <li>はがきサイズで印刷してレジ付近に掲示</li>
                 <li>お客様がQRコードをスキャンして評価</li>
                 <li>設定しきい値以上はGoogleレビューへ誘導</li>

@@ -74,7 +74,7 @@ export default function Home() {
           {[
             {
               title: "QRポスター自動生成",
-              desc: "店舗情報・インセンティブ・カラーテーマを選ぶだけでA4ポスターが完成。そのまま印刷してレジ横に貼るだけです。",
+              desc: "店舗情報・レビューのお礼特典・デザインを選ぶだけでポスターが完成。そのまま印刷してレジ横に貼るだけです。",
             },
             {
               title: "スマート振り分け",
@@ -102,7 +102,7 @@ export default function Home() {
           <div className="flex items-start gap-6">
             {[
               { step: "01", title: "QRポスターを貼る", desc: "管理画面でポスターを生成して印刷。レジ・テーブル・出口など目立つ場所に貼ります。" },
-              { step: "02", title: "お客様がスキャン", desc: "スマホでQRを読み取り、星で評価。所要時間は30秒ほど。インセンティブで回収率アップ。" },
+              { step: "02", title: "お客様がスキャン", desc: "スマホでQRを読み取り、星で評価。所要時間は30秒ほど。お礼特典でレビュー回収率アップ。" },
               { step: "03", title: "自動で振り分け", desc: "高評価はGoogleへ、低評価は内部フォームへ。翌朝の日次レポートで全件確認できます。" },
             ].map((h, i) => (
               <div key={h.step} className="flex-1 relative">
