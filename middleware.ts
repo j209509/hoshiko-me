@@ -1,5 +1,9 @@
-import { auth } from "@/lib/auth";
+import NextAuth from "next-auth";
+import { authConfig } from "@/auth.config";
 import { NextResponse } from "next/server";
+
+// Edge Runtime対応：PrismaなしのauthConfigを使う
+const { auth } = NextAuth(authConfig);
 
 // 認証不要のパス
 const publicPaths = ["/", "/auth/signin", "/auth/error", "/review"];
