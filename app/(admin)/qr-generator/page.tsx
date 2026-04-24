@@ -77,7 +77,7 @@ export default function QrGeneratorPage() {
                 <Label className="text-sm font-medium text-gray-700">店舗選択</Label>
                 <Select
                   value={selectedStore?.id ?? ""}
-                  onValueChange={(v) => setSelectedStoreId(v)}
+                  onValueChange={(v) => v && setSelectedStoreId(v)}
                 >
                   <SelectTrigger className="border-gray-200"><SelectValue /></SelectTrigger>
                   <SelectContent>

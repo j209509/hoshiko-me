@@ -216,7 +216,7 @@ export default function SettingsPage() {
                       </div>
                       <div className="space-y-2">
                         <Label>業種カテゴリ</Label>
-                        <Select value={form.category} onValueChange={(v) => update("category", v)}>
+                        <Select value={form.category} onValueChange={(v) => v && update("category", v)}>
                           <SelectTrigger className="border-gray-200"><SelectValue /></SelectTrigger>
                           <SelectContent>
                             {categories.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}
