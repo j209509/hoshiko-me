@@ -27,6 +27,45 @@ const CANONICAL_W = 320;
 
 interface PosterProps { storeName: string; incentive: string; reviewUrl: string; }
 
+/* ─── 横向きテーマ定義 ─── */
+interface LT {
+  bg: string; text: string; sub: string; accent: string; lbl: string;
+  pBg: string; pText: string; div: string;
+  qFg: string; qBg: string;
+  iBg: string; iBd: string; iText: string;
+}
+
+/* 横向き共通ポスター */
+function LandscapePoster({ storeName, incentive, reviewUrl, theme: t }: PosterProps & { theme: LT }) {
+  return (
+    <div style={{ width:"100%", height:"100%", background:t.bg, display:"flex", overflow:"hidden" }}>
+      {/* LEFT: ブランディング */}
+      <div style={{ flex:"0 0 57%", display:"flex", flexDirection:"column", justifyContent:"center", padding:"12px 14px 12px 18px" }}>
+        <div style={{ fontSize:6, letterSpacing:"5px", color:t.lbl, marginBottom:6 }}>REVIEW ／ 口コミ</div>
+        <div style={{ fontSize:17, fontWeight:900, color:t.text, lineHeight:1.15, marginBottom:5 }}>{storeName}</div>
+        <Stars5 c={t.accent}/>
+        <div style={{ fontSize:7, color:t.sub, marginTop:6, lineHeight:1.6 }}>ご来店ありがとうございます<br/>本日のご感想をお聞かせください</div>
+        {incentive && (
+          <div style={{ marginTop:9, background:t.iBg, border:`1px solid ${t.iBd}`, borderRadius:7, padding:"5px 9px", display:"inline-block" }}>
+            <div style={{ fontSize:6, color:t.lbl, marginBottom:1 }}>レビューご記入で</div>
+            <div style={{ fontSize:10, fontWeight:700, color:t.iText }}>🎁 {incentive}</div>
+          </div>
+        )}
+      </div>
+      {/* DIVIDER */}
+      <div style={{ width:1, background:t.div, margin:"10px 0" }}/>
+      {/* RIGHT: QRコード */}
+      <div style={{ flex:"0 0 43%", background:t.pBg, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:6, padding:"10px 12px" }}>
+        <div style={{ fontSize:6, letterSpacing:"3px", color:t.pText, opacity:.7 }}>📱 スキャンして下さい</div>
+        <div style={{ background:t.qBg, padding:7, borderRadius:10, boxShadow:"0 2px 12px rgba(0,0,0,.15)" }}>
+          {reviewUrl && <QRCode value={reviewUrl} size={82} level="M" fgColor={t.qFg} bgColor={t.qBg}/>}
+        </div>
+        <div style={{ fontSize:6, color:t.pText, opacity:.5, textAlign:"center" as const, lineHeight:1.5 }}>QRを読み取って<br/>Googleレビューへ</div>
+      </div>
+    </div>
+  );
+}
+
 const S: React.CSSProperties = { display: "flex", justifyContent: "center", gap: 4 };
 function Stars5({ c }: { c: string }) {
   return <div style={S}>{[0,1,2,3,4].map(i=><svg key={i} width="18" height="18" viewBox="0 0 24 24" fill={c}><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>)}</div>;
@@ -1377,36 +1416,66 @@ function PosterKids({ storeName, incentive, reviewUrl }: PosterProps) {
    TEMPLATE REGISTRY
 ═══════════════════════════════════════════════════ */
 const TEMPLATES = [
-  { id:"aurora",        name:"オーロラ",       thumb:"linear-gradient(135deg,#1a0533,#4c0080,#be185d)",  Component:PosterAurora },
-  { id:"hinomaru",      name:"和モダン",       thumb:"linear-gradient(135deg,#faf8f3 60%,#C0392B 60%)",  Component:PosterHinomaru },
-  { id:"vice",          name:"ネオン",         thumb:"linear-gradient(135deg,#06040f,#ff00cc,#00e5ff)",  Component:PosterVice },
-  { id:"bauhaus",       name:"バウハウス",     thumb:"linear-gradient(135deg,#fafafa 55%,#e11d48 55%)",  Component:PosterBauhaus },
-  { id:"deco",          name:"アールデコ",     thumb:"linear-gradient(135deg,#080604,#c9a84c)",          Component:PosterDeco },
-  { id:"constructivist",name:"ポップアート",   thumb:"linear-gradient(135deg,#E63946,#1d3557)",          Component:PosterConstructivist },
-  { id:"wabi",          name:"わびさび",       thumb:"linear-gradient(135deg,#f7f0e6,#8fad88)",          Component:PosterWabi },
-  { id:"hud",           name:"テック",         thumb:"linear-gradient(135deg,#030d1a,#00e5ff)",          Component:PosterHUD },
-  { id:"couture",       name:"クチュール",     thumb:"linear-gradient(135deg,#1a0a1a 30%,#fdf8f5 30%)", Component:PosterCouture },
-  { id:"riot",          name:"ボールド",       thumb:"linear-gradient(135deg,#fff 55%,#111 55%)",        Component:PosterRiot },
-  { id:"clinic",        name:"クリニック",     thumb:"linear-gradient(135deg,#fff,#0369a1)",             Component:PosterClinic },
-  { id:"zen",           name:"ウェルネス",     thumb:"linear-gradient(135deg,#f0fdf4,#34d399)",          Component:PosterZen },
-  { id:"studio",        name:"サロン",         thumb:"linear-gradient(135deg,#111 40%,#fff 40%)",        Component:PosterStudio },
-  { id:"marble",        name:"スパ",           thumb:"linear-gradient(135deg,#faf6f0,#c9a84c)",          Component:PosterMarble },
-  { id:"rush",          name:"スポーツ",       thumb:"linear-gradient(135deg,#0a0a0a,#ef4444,#f97316)",  Component:PosterRush },
-  { id:"ink",           name:"レトロ",         thumb:"linear-gradient(135deg,#f2ead8,#2c3e50)",          Component:PosterInk },
-  { id:"hygge",         name:"北欧",           thumb:"linear-gradient(135deg,#f5f0ea,#8b7355)",          Component:PosterHygge },
-  { id:"candy",         name:"キャンディ",     thumb:"linear-gradient(135deg,#fda4af,#a78bfa,#86efac)",  Component:PosterCandy },
-  { id:"noir",          name:"ノワール",       thumb:"linear-gradient(135deg,#100608,#991b1b)",          Component:PosterNoir },
-  { id:"vitality",      name:"ヴィタリティ",   thumb:"linear-gradient(135deg,#052e16,#34d399)",          Component:PosterVitality },
-  { id:"mesh",          name:"メッシュ",       thumb:"linear-gradient(135deg,#0f0824,#f43f5e,#6366f1,#0ea5e9)", Component:PosterMesh },
-  { id:"forest",        name:"フォレスト",     thumb:"linear-gradient(135deg,#071a0e,#d4af37)",          Component:PosterForest },
-  { id:"sunset",        name:"サンセット",     thumb:"linear-gradient(180deg,#1e3a5f,#f97316,#ec4899)",  Component:PosterSunset },
-  { id:"typo",          name:"タイポ",         thumb:"linear-gradient(135deg,#fffff8 85%,#111 85%)",     Component:PosterTypo },
-  { id:"glitch",        name:"グリッチ",       thumb:"linear-gradient(135deg,#0a0010,#ff0050,#00ffff)",  Component:PosterGlitch },
-  { id:"watercolor",    name:"水彩",           thumb:"linear-gradient(135deg,#fefcfa,#fda4af,#93c5fd)",  Component:PosterWatercolor },
-  { id:"oriental",      name:"オリエンタル",   thumb:"linear-gradient(135deg,#1a0505,#d4af37)",          Component:PosterOriental },
-  { id:"barber",        name:"バーバー",       thumb:"linear-gradient(135deg,#fff 85%,#dc2626 85%)",     Component:PosterBarber },
-  { id:"wave",          name:"サウンドウェーブ",thumb:"linear-gradient(135deg,#0c0920,#6366f1)",          Component:PosterWave },
-  { id:"kids",          name:"キッズ",         thumb:"linear-gradient(160deg,#fffbeb,#fbbf24,#bbf7d0)",  Component:PosterKids },
+  { id:"aurora",        name:"オーロラ",       thumb:"linear-gradient(135deg,#1a0533,#4c0080,#be185d)",  Component:PosterAurora,
+    theme:{ bg:"linear-gradient(135deg,#0d0221,#2e1065,#7c0099)", text:"#fff", sub:"rgba(221,214,254,.65)", accent:"#fbbf24", lbl:"rgba(196,181,253,.6)", pBg:"rgba(255,255,255,.06)", pText:"#ddd6fe", div:"rgba(255,255,255,.15)", qFg:"#1e0040", qBg:"#fff", iBg:"rgba(255,255,255,.08)", iBd:"rgba(255,255,255,.18)", iText:"#c4b5fd" } as LT },
+  { id:"hinomaru",      name:"和モダン",       thumb:"linear-gradient(135deg,#faf8f3 60%,#C0392B 60%)",  Component:PosterHinomaru,
+    theme:{ bg:"#faf8f3", text:"#1a1a1a", sub:"#666", accent:"#C0392B", lbl:"rgba(192,57,43,.55)", pBg:"rgba(192,57,43,.05)", pText:"#1a1a1a", div:"rgba(192,57,43,.18)", qFg:"#1a1a1a", qBg:"#fff", iBg:"rgba(192,57,43,.05)", iBd:"rgba(192,57,43,.2)", iText:"#C0392B" } as LT },
+  { id:"vice",          name:"ネオン",         thumb:"linear-gradient(135deg,#06040f,#ff00cc,#00e5ff)",  Component:PosterVice,
+    theme:{ bg:"#06040f", text:"#fff", sub:"rgba(255,255,255,.45)", accent:"#ff00cc", lbl:"rgba(0,229,255,.55)", pBg:"rgba(0,0,0,.35)", pText:"#00e5ff", div:"rgba(255,0,204,.2)", qFg:"#06040f", qBg:"#fff", iBg:"rgba(255,0,204,.08)", iBd:"rgba(255,0,204,.3)", iText:"#ff00cc" } as LT },
+  { id:"bauhaus",       name:"バウハウス",     thumb:"linear-gradient(135deg,#fafafa 55%,#e11d48 55%)",  Component:PosterBauhaus,
+    theme:{ bg:"#fafafa", text:"#111", sub:"#555", accent:"#e11d48", lbl:"#bbb", pBg:"#f0f0f0", pText:"#333", div:"rgba(0,0,0,.1)", qFg:"#111", qBg:"#fff", iBg:"rgba(225,29,72,.05)", iBd:"rgba(225,29,72,.18)", iText:"#e11d48" } as LT },
+  { id:"deco",          name:"アールデコ",     thumb:"linear-gradient(135deg,#080604,#c9a84c)",          Component:PosterDeco,
+    theme:{ bg:"linear-gradient(135deg,#080604,#1a1408)", text:"#f5e6c8", sub:"rgba(245,230,200,.5)", accent:"#c9a84c", lbl:"rgba(201,168,76,.55)", pBg:"rgba(201,168,76,.06)", pText:"#c9a84c", div:"rgba(201,168,76,.25)", qFg:"#1a1408", qBg:"#f5e6c8", iBg:"rgba(201,168,76,.08)", iBd:"rgba(201,168,76,.28)", iText:"#c9a84c" } as LT },
+  { id:"constructivist",name:"ポップアート",   thumb:"linear-gradient(135deg,#E63946,#1d3557)",          Component:PosterConstructivist,
+    theme:{ bg:"#E63946", text:"#fff", sub:"rgba(255,255,255,.75)", accent:"#fff", lbl:"rgba(255,255,255,.6)", pBg:"#1d3557", pText:"#fff", div:"rgba(255,255,255,.2)", qFg:"#1d3557", qBg:"#fff", iBg:"rgba(255,255,255,.1)", iBd:"rgba(255,255,255,.25)", iText:"#fff" } as LT },
+  { id:"wabi",          name:"わびさび",       thumb:"linear-gradient(135deg,#f7f0e6,#8fad88)",          Component:PosterWabi,
+    theme:{ bg:"#f7f0e6", text:"#2d2a24", sub:"#7a7268", accent:"#8fad88", lbl:"#a09585", pBg:"#ede4d8", pText:"#2d2a24", div:"rgba(143,173,136,.2)", qFg:"#2d2a24", qBg:"#fff", iBg:"rgba(143,173,136,.08)", iBd:"rgba(143,173,136,.28)", iText:"#5a7d52" } as LT },
+  { id:"hud",           name:"テック",         thumb:"linear-gradient(135deg,#030d1a,#00e5ff)",          Component:PosterHUD,
+    theme:{ bg:"#030d1a", text:"#00e5ff", sub:"rgba(0,229,255,.45)", accent:"#00e5ff", lbl:"rgba(0,229,255,.4)", pBg:"rgba(0,229,255,.04)", pText:"#00e5ff", div:"rgba(0,229,255,.2)", qFg:"#030d1a", qBg:"#e0f8ff", iBg:"rgba(0,229,255,.06)", iBd:"rgba(0,229,255,.22)", iText:"#00e5ff" } as LT },
+  { id:"couture",       name:"クチュール",     thumb:"linear-gradient(135deg,#1a0a1a 30%,#fdf8f5 30%)", Component:PosterCouture,
+    theme:{ bg:"#1a0a1a", text:"#fdf8f5", sub:"rgba(253,248,245,.5)", accent:"#c9a84c", lbl:"rgba(201,168,76,.55)", pBg:"#fdf8f5", pText:"#1a0a1a", div:"rgba(201,168,76,.3)", qFg:"#1a0a1a", qBg:"#fff", iBg:"rgba(201,168,76,.08)", iBd:"rgba(201,168,76,.28)", iText:"#c9a84c" } as LT },
+  { id:"riot",          name:"ボールド",       thumb:"linear-gradient(135deg,#fff 55%,#111 55%)",        Component:PosterRiot,
+    theme:{ bg:"#fff", text:"#111", sub:"#555", accent:"#111", lbl:"#aaa", pBg:"#111", pText:"#fff", div:"#111", qFg:"#111", qBg:"#fff", iBg:"#f0f0f0", iBd:"#ddd", iText:"#111" } as LT },
+  { id:"clinic",        name:"クリニック",     thumb:"linear-gradient(135deg,#fff,#0369a1)",             Component:PosterClinic,
+    theme:{ bg:"#fff", text:"#0c4a6e", sub:"#4b7fa0", accent:"#0369a1", lbl:"rgba(3,105,161,.45)", pBg:"#eff6ff", pText:"#0c4a6e", div:"rgba(3,105,161,.15)", qFg:"#0c4a6e", qBg:"#fff", iBg:"rgba(3,105,161,.05)", iBd:"rgba(3,105,161,.18)", iText:"#0369a1" } as LT },
+  { id:"zen",           name:"ウェルネス",     thumb:"linear-gradient(135deg,#f0fdf4,#34d399)",          Component:PosterZen,
+    theme:{ bg:"linear-gradient(135deg,#f0fdf4,#dcfce7)", text:"#064e3b", sub:"#4b7a6a", accent:"#34d399", lbl:"rgba(6,78,59,.4)", pBg:"rgba(52,211,153,.08)", pText:"#064e3b", div:"rgba(52,211,153,.22)", qFg:"#064e3b", qBg:"#fff", iBg:"rgba(52,211,153,.08)", iBd:"rgba(52,211,153,.25)", iText:"#065f46" } as LT },
+  { id:"studio",        name:"サロン",         thumb:"linear-gradient(135deg,#111 40%,#fff 40%)",        Component:PosterStudio,
+    theme:{ bg:"#111", text:"#fff", sub:"rgba(255,255,255,.45)", accent:"#fff", lbl:"rgba(255,255,255,.3)", pBg:"#222", pText:"#fff", div:"rgba(255,255,255,.1)", qFg:"#111", qBg:"#fff", iBg:"rgba(255,255,255,.06)", iBd:"rgba(255,255,255,.14)", iText:"#fff" } as LT },
+  { id:"marble",        name:"スパ",           thumb:"linear-gradient(135deg,#faf6f0,#c9a84c)",          Component:PosterMarble,
+    theme:{ bg:"#faf6f0", text:"#2c2218", sub:"#7a6a58", accent:"#c9a84c", lbl:"rgba(201,168,76,.5)", pBg:"#f5efe6", pText:"#2c2218", div:"rgba(201,168,76,.2)", qFg:"#2c2218", qBg:"#fff", iBg:"rgba(201,168,76,.07)", iBd:"rgba(201,168,76,.22)", iText:"#8a6a1e" } as LT },
+  { id:"rush",          name:"スポーツ",       thumb:"linear-gradient(135deg,#0a0a0a,#ef4444,#f97316)",  Component:PosterRush,
+    theme:{ bg:"#0a0a0a", text:"#fff", sub:"rgba(255,255,255,.45)", accent:"#f97316", lbl:"rgba(249,115,22,.5)", pBg:"rgba(239,68,68,.07)", pText:"#fff", div:"rgba(239,68,68,.2)", qFg:"#0a0a0a", qBg:"#fff", iBg:"rgba(249,115,22,.08)", iBd:"rgba(249,115,22,.28)", iText:"#f97316" } as LT },
+  { id:"ink",           name:"レトロ",         thumb:"linear-gradient(135deg,#f2ead8,#2c3e50)",          Component:PosterInk,
+    theme:{ bg:"#f2ead8", text:"#1a1209", sub:"#5a4a35", accent:"#2c3e50", lbl:"#8a7a65", pBg:"#e8ddc8", pText:"#1a1209", div:"rgba(44,62,80,.15)", qFg:"#1a1209", qBg:"#fff", iBg:"rgba(26,18,9,.05)", iBd:"rgba(26,18,9,.15)", iText:"#1a1209" } as LT },
+  { id:"hygge",         name:"北欧",           thumb:"linear-gradient(135deg,#f5f0ea,#8b7355)",          Component:PosterHygge,
+    theme:{ bg:"#f5f0ea", text:"#2c2018", sub:"#7a6a58", accent:"#8b7355", lbl:"#a09585", pBg:"#ede5dc", pText:"#2c2018", div:"rgba(139,115,85,.15)", qFg:"#2c2018", qBg:"#fff", iBg:"rgba(139,115,85,.07)", iBd:"rgba(139,115,85,.22)", iText:"#6b5535" } as LT },
+  { id:"candy",         name:"キャンディ",     thumb:"linear-gradient(135deg,#fda4af,#a78bfa,#86efac)",  Component:PosterCandy,
+    theme:{ bg:"linear-gradient(135deg,#fff0f5,#f0f0ff,#f0fff8)", text:"#6d28d9", sub:"#a78bfa", accent:"#a78bfa", lbl:"rgba(167,139,250,.55)", pBg:"rgba(167,139,250,.07)", pText:"#6d28d9", div:"rgba(167,139,250,.2)", qFg:"#4c1d95", qBg:"#fff", iBg:"rgba(167,139,250,.07)", iBd:"rgba(167,139,250,.22)", iText:"#7c3aed" } as LT },
+  { id:"noir",          name:"ノワール",       thumb:"linear-gradient(135deg,#100608,#991b1b)",          Component:PosterNoir,
+    theme:{ bg:"#100608", text:"#fce7f3", sub:"rgba(252,231,243,.42)", accent:"#991b1b", lbl:"rgba(220,38,38,.42)", pBg:"rgba(153,27,27,.07)", pText:"#fce7f3", div:"rgba(220,38,38,.2)", qFg:"#fce7f3", qBg:"#1a0408", iBg:"rgba(153,27,27,.08)", iBd:"rgba(153,27,27,.28)", iText:"#fda4af" } as LT },
+  { id:"vitality",      name:"ヴィタリティ",   thumb:"linear-gradient(135deg,#052e16,#34d399)",          Component:PosterVitality,
+    theme:{ bg:"#052e16", text:"#d1fae5", sub:"rgba(209,250,229,.45)", accent:"#34d399", lbl:"rgba(52,211,153,.45)", pBg:"rgba(52,211,153,.06)", pText:"#d1fae5", div:"rgba(52,211,153,.2)", qFg:"#052e16", qBg:"#d1fae5", iBg:"rgba(52,211,153,.08)", iBd:"rgba(52,211,153,.22)", iText:"#34d399" } as LT },
+  { id:"mesh",          name:"メッシュ",       thumb:"linear-gradient(135deg,#0f0824,#f43f5e,#6366f1,#0ea5e9)", Component:PosterMesh,
+    theme:{ bg:"linear-gradient(135deg,#0f0824,#1e0533)", text:"#f8fafc", sub:"rgba(248,250,252,.45)", accent:"#f43f5e", lbl:"rgba(99,102,241,.5)", pBg:"rgba(244,63,94,.06)", pText:"#f8fafc", div:"rgba(99,102,241,.25)", qFg:"#0f0824", qBg:"#f8fafc", iBg:"rgba(244,63,94,.07)", iBd:"rgba(244,63,94,.25)", iText:"#fb7185" } as LT },
+  { id:"forest",        name:"フォレスト",     thumb:"linear-gradient(135deg,#071a0e,#d4af37)",          Component:PosterForest,
+    theme:{ bg:"#071a0e", text:"#d4f5c0", sub:"rgba(212,245,192,.45)", accent:"#d4af37", lbl:"rgba(212,175,55,.45)", pBg:"rgba(212,175,55,.05)", pText:"#d4f5c0", div:"rgba(212,175,55,.2)", qFg:"#071a0e", qBg:"#d4f5c0", iBg:"rgba(212,175,55,.07)", iBd:"rgba(212,175,55,.22)", iText:"#d4af37" } as LT },
+  { id:"sunset",        name:"サンセット",     thumb:"linear-gradient(180deg,#1e3a5f,#f97316,#ec4899)",  Component:PosterSunset,
+    theme:{ bg:"linear-gradient(160deg,#1e3a5f,#7b3f10)", text:"#fff8f0", sub:"rgba(255,248,240,.5)", accent:"#f97316", lbl:"rgba(249,115,22,.45)", pBg:"rgba(249,115,22,.08)", pText:"#fff8f0", div:"rgba(249,115,22,.2)", qFg:"#1e3a5f", qBg:"#fff8f0", iBg:"rgba(249,115,22,.08)", iBd:"rgba(249,115,22,.25)", iText:"#f97316" } as LT },
+  { id:"typo",          name:"タイポ",         thumb:"linear-gradient(135deg,#fffff8 85%,#111 85%)",     Component:PosterTypo,
+    theme:{ bg:"#fffff8", text:"#111", sub:"#555", accent:"#111", lbl:"#aaa", pBg:"#111", pText:"#fff", div:"#111", qFg:"#111", qBg:"#fffff8", iBg:"#f0f0e8", iBd:"#ddd", iText:"#111" } as LT },
+  { id:"glitch",        name:"グリッチ",       thumb:"linear-gradient(135deg,#0a0010,#ff0050,#00ffff)",  Component:PosterGlitch,
+    theme:{ bg:"#0a0010", text:"#fff", sub:"rgba(255,255,255,.45)", accent:"#ff0050", lbl:"rgba(0,255,255,.45)", pBg:"rgba(255,0,80,.05)", pText:"#fff", div:"rgba(0,255,255,.2)", qFg:"#0a0010", qBg:"#fff", iBg:"rgba(255,0,80,.06)", iBd:"rgba(255,0,80,.25)", iText:"#ff0050" } as LT },
+  { id:"watercolor",    name:"水彩",           thumb:"linear-gradient(135deg,#fefcfa,#fda4af,#93c5fd)",  Component:PosterWatercolor,
+    theme:{ bg:"#fefcfa", text:"#4a3728", sub:"#9b7e6e", accent:"#f9a8d4", lbl:"#d4919c", pBg:"rgba(249,168,212,.06)", pText:"#4a3728", div:"rgba(249,168,212,.25)", qFg:"#4a3728", qBg:"#fff", iBg:"rgba(249,168,212,.08)", iBd:"rgba(249,168,212,.25)", iText:"#4a3728" } as LT },
+  { id:"oriental",      name:"オリエンタル",   thumb:"linear-gradient(135deg,#1a0505,#d4af37)",          Component:PosterOriental,
+    theme:{ bg:"#1a0505", text:"#fff9f0", sub:"rgba(255,249,240,.45)", accent:"#d4af37", lbl:"rgba(212,175,55,.45)", pBg:"rgba(212,175,55,.05)", pText:"#fff9f0", div:"rgba(212,175,55,.25)", qFg:"#1a0505", qBg:"#fff9f0", iBg:"rgba(127,29,29,.2)", iBd:"rgba(212,175,55,.28)", iText:"#d4af37" } as LT },
+  { id:"barber",        name:"バーバー",       thumb:"linear-gradient(135deg,#fff 85%,#dc2626 85%)",     Component:PosterBarber,
+    theme:{ bg:"#fff", text:"#111", sub:"#555", accent:"#dc2626", lbl:"#aaa", pBg:"#111", pText:"#fff", div:"#111", qFg:"#111", qBg:"#fff", iBg:"#111", iBd:"#333", iText:"#fff" } as LT },
+  { id:"wave",          name:"サウンドウェーブ",thumb:"linear-gradient(135deg,#0c0920,#6366f1)",          Component:PosterWave,
+    theme:{ bg:"#0c0920", text:"#e0e7ff", sub:"rgba(224,231,255,.45)", accent:"#6366f1", lbl:"rgba(99,102,241,.45)", pBg:"rgba(99,102,241,.07)", pText:"#e0e7ff", div:"rgba(99,102,241,.25)", qFg:"#0c0920", qBg:"#e0e7ff", iBg:"rgba(99,102,241,.08)", iBd:"rgba(99,102,241,.28)", iText:"#818cf8" } as LT },
+  { id:"kids",          name:"キッズ",         thumb:"linear-gradient(160deg,#fffbeb,#fbbf24,#bbf7d0)",  Component:PosterKids,
+    theme:{ bg:"linear-gradient(135deg,#fffbeb,#fef9c3)", text:"#78350f", sub:"#b45309", accent:"#fbbf24", lbl:"#d97706", pBg:"rgba(251,191,36,.1)", pText:"#78350f", div:"rgba(251,191,36,.3)", qFg:"#78350f", qBg:"#fff", iBg:"rgba(251,191,36,.12)", iBd:"rgba(251,191,36,.35)", iText:"#78350f" } as LT },
 ] as const;
 
 type TemplateId = typeof TEMPLATES[number]["id"];
@@ -1450,13 +1519,13 @@ export default function QrGeneratorPage() {
   const maxW = orientation === "portrait" ? size.pmaxW : size.lmaxW;
   const aspectRatio = `${mmW}/${mmH}`;
 
-  // ポスターは常に縦長(portrait)でレンダリング。コンテナに収まるようscale計算。
-  const canonicalH = CANONICAL_W * (size.ph / size.pw); // 常に縦長の高さ
-  const containerH = previewPx * (mmH / mmW);           // 実際のコンテナ高さ(px)
-  const posterScale = Math.min(previewPx / CANONICAL_W, containerH / canonicalH);
-  // センタリングオフセット
-  const offsetX = (previewPx - CANONICAL_W * posterScale) / 2;
-  const offsetY = (containerH - canonicalH * posterScale) / 2;
+  // 縦: portrait高さ / 横: landscape専用レイアウトなのでlandscape高さそのまま使用
+  const canonicalH = orientation === "portrait"
+    ? CANONICAL_W * (size.ph / size.pw)  // portrait: 縦長canvas
+    : CANONICAL_W * (mmH / mmW);          // landscape: 横長canvas (専用レイアウト)
+  const posterScale = previewPx / CANONICAL_W;
+  const offsetX = 0;
+  const offsetY = 0;
 
   if (loading) {
     return (
@@ -1651,7 +1720,9 @@ export default function QrGeneratorPage() {
                 transform: `scale(${posterScale})`,
               }}>
                 {selectedStore && reviewUrl ? (
-                  <PosterComponent storeName={selectedStore.name} incentive={displayIncentive} reviewUrl={reviewUrl}/>
+                  orientation === "portrait"
+                    ? <PosterComponent storeName={selectedStore.name} incentive={displayIncentive} reviewUrl={reviewUrl}/>
+                    : <LandscapePoster storeName={selectedStore.name} incentive={displayIncentive} reviewUrl={reviewUrl} theme={template.theme as LT}/>
                 ) : (
                   <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", background: "#f9fafb", color: "#9ca3af", fontSize: 14 }}>
                     店舗を選択してください
