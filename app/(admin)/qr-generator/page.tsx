@@ -13,14 +13,17 @@ import { useStores } from "@/components/providers/store-provider";
 const incentiveOptions = ["ドリンク1杯無料", "次回10%割引クーポン", "デザートサービス", "ポイント2倍", "特典なし"];
 
 // pw/ph = portrait width/height (mm). landscape swaps them.
+// pxW = preview container width (px)。これを基準にscaleを計算する。
 const SIZES = [
-  { id: "meishi",   label: "名刺",   pw: 55,  ph: 91,  pmaxW: "max-w-[180px]", lmaxW: "max-w-[300px]" },
-  { id: "hagaki",   label: "はがき", pw: 100, ph: 148, pmaxW: "max-w-xs",       lmaxW: "max-w-sm"       },
-  { id: "l",        label: "L判",    pw: 89,  ph: 127, pmaxW: "max-w-[240px]",  lmaxW: "max-w-sm"       },
-  { id: "a5",       label: "A5",     pw: 148, ph: 210, pmaxW: "max-w-sm",       lmaxW: "max-w-md"       },
-  { id: "a4",       label: "A4",     pw: 210, ph: 297, pmaxW: "max-w-sm",       lmaxW: "max-w-lg"       },
+  { id: "meishi",   label: "名刺",   pw: 55,  ph: 91,  pmaxW: "max-w-[180px]", lmaxW: "max-w-[300px]", pxW: 180, lxW: 300 },
+  { id: "hagaki",   label: "はがき", pw: 100, ph: 148, pmaxW: "max-w-xs",       lmaxW: "max-w-sm",       pxW: 288, lxW: 384 },
+  { id: "l",        label: "L判",    pw: 89,  ph: 127, pmaxW: "max-w-[240px]",  lmaxW: "max-w-sm",       pxW: 240, lxW: 384 },
+  { id: "a5",       label: "A5",     pw: 148, ph: 210, pmaxW: "max-w-sm",       lmaxW: "max-w-md",       pxW: 384, lxW: 448 },
+  { id: "a4",       label: "A4",     pw: 210, ph: 297, pmaxW: "max-w-sm",       lmaxW: "max-w-lg",       pxW: 384, lxW: 512 },
 ] as const;
 type SizeId = typeof SIZES[number]["id"];
+// テンプレートはこの幅を基準にデザインされている
+const BASE_PX = 288;
 
 
 interface PosterProps { storeName: string; incentive: string; reviewUrl: string; }
@@ -1320,17 +1323,22 @@ export default function QrGeneratorPage() {
   const posterRef = useRef<HTMLDivElement>(null);
 
   const displayIncentive = incentive === "特典なし" ? "" : (customIncentive || incentive);
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://review-guard-demo.vercel.app";
+  // window.location.originを使い、どのドメインにデプロイされていても正しいURLを生成する
+  const appUrl = typeof window !== "undefined" ? window.location.origin : (process.env.NEXT_PUBLIC_APP_URL ?? "");
   const reviewUrl = selectedStore ? `${appUrl}/review/${selectedStore.id}` : "";
   const template = TEMPLATES.find(t => t.id === templateId) ?? TEMPLATES[0];
   const PosterComponent = template.Component;
   const size = SIZES.find(s => s.id === sizeId) ?? SIZES[1];
 
-  // 縦横に応じてmm寸法・アスペクト比・maxWを決定
+  // 縦横に応じてmm寸法・アスペクト比・maxW・スケールを決定
   const mmW = orientation === "portrait" ? size.pw : size.ph;
   const mmH = orientation === "portrait" ? size.ph : size.pw;
   const maxW = orientation === "portrait" ? size.pmaxW : size.lmaxW;
   const aspectRatio = `${mmW}/${mmH}`;
+  // コンテナpx幅に対するスケール（はがき288px基準）
+  const containerPx = orientation === "portrait" ? size.pxW : size.lxW;
+  const previewScale = containerPx / BASE_PX;
+  const invPct = `${(100 / previewScale).toFixed(3)}%`;
 
   if (loading) {
     return (
@@ -1509,21 +1517,29 @@ export default function QrGeneratorPage() {
             </div>
           </div>
 
-          {/* ポスタープレビュー */}
+          {/* ポスタープレビュー（scale変換でどのサイズでも崩れない） */}
           <div className={`mx-auto ${maxW}`}>
             <div ref={posterRef}
               className="border border-gray-200 rounded-xl overflow-hidden shadow-lg"
-              style={{ aspectRatio }}
+              style={{ aspectRatio, position: "relative" }}
             >
-              {selectedStore && reviewUrl ? (
-                orientation === "portrait"
-                  ? <PosterComponent storeName={selectedStore.name} incentive={displayIncentive} reviewUrl={reviewUrl}/>
-                  : <LandscapePoster storeName={selectedStore.name} incentive={displayIncentive} reviewUrl={reviewUrl} theme={template.theme as LT}/>
-              ) : (
-                <div className="w-full h-full flex items-center justify-center bg-gray-50 text-gray-400 text-sm">
-                  店舗を選択してください
-                </div>
-              )}
+              {/* スケールラッパー: BASE_PX=288基準でコンテナに合わせて縮拡 */}
+              <div style={{
+                position: "absolute", top: 0, left: 0,
+                width: invPct, height: invPct,
+                transformOrigin: "top left",
+                transform: `scale(${previewScale})`,
+              }}>
+                {selectedStore && reviewUrl ? (
+                  orientation === "portrait"
+                    ? <PosterComponent storeName={selectedStore.name} incentive={displayIncentive} reviewUrl={reviewUrl}/>
+                    : <LandscapePoster storeName={selectedStore.name} incentive={displayIncentive} reviewUrl={reviewUrl} theme={template.theme as LT}/>
+                ) : (
+                  <div style={{ width:"100%", height:"100%", display:"flex", alignItems:"center", justifyContent:"center", background:"#f9fafb", color:"#9ca3af", fontSize:14 }}>
+                    店舗を選択してください
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
