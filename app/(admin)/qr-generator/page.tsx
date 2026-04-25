@@ -69,48 +69,41 @@ function Stars5({ c }: { c: string }) {
   return <div style={S}>{[0,1,2,3,4].map(i=><svg key={i} width="18" height="18" viewBox="0 0 24 24" fill={c}><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>)}</div>;
 }
 
+
 /* ═══════════════════════════════════════════════════
-   1. AURORA  — glassmorphism + violet mesh gradient
+   1. AURORA  — deep cosmos, store name as glowing anchor
 ═══════════════════════════════════════════════════ */
 function PosterAurora({ storeName, incentive, reviewUrl }: PosterProps) {
   return (
-    <div style={{ width:"100%", height:"100%", background:"linear-gradient(145deg,#0d0221 0%,#1a0533 25%,#2e1065 55%,#4c0080 75%,#7c0099 100%)", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
-      {/* mesh blobs */}
-      <div style={{ position:"absolute", top:"-20%", left:"-10%", width:"70%", height:"60%", borderRadius:"50%", background:"radial-gradient(circle,rgba(124,58,237,.55) 0%,transparent 70%)", filter:"blur(30px)" }}/>
-      <div style={{ position:"absolute", bottom:"-10%", right:"-10%", width:"60%", height:"55%", borderRadius:"50%", background:"radial-gradient(circle,rgba(236,72,153,.45) 0%,transparent 70%)", filter:"blur(30px)" }}/>
-      <div style={{ position:"absolute", top:"40%", left:"20%", width:"40%", height:"40%", borderRadius:"50%", background:"radial-gradient(circle,rgba(99,102,241,.4) 0%,transparent 70%)", filter:"blur(20px)" }}/>
-      {/* ghost letters */}
-      <div style={{ position:"absolute", inset:0, display:"flex", alignItems:"center", justifyContent:"center", pointerEvents:"none", overflow:"hidden" }}>
-        <span style={{ fontSize:"clamp(48px,13vw,90px)", fontWeight:900, color:"rgba(255,255,255,.05)", letterSpacing:"-2px", whiteSpace:"nowrap" }}>{storeName}</span>
+    <div style={{ width:"100%", height:"100%", background:"linear-gradient(160deg,#030010 0%,#0d0030 30%,#1a0050 60%,#2d0070 100%)", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
+      <div style={{ position:"absolute", top:"-15%", left:"-20%", width:"80%", height:"70%", borderRadius:"50%", background:"radial-gradient(ellipse,rgba(139,92,246,.6) 0%,transparent 65%)", filter:"blur(40px)", pointerEvents:"none" }}/>
+      <div style={{ position:"absolute", bottom:"-20%", right:"-15%", width:"75%", height:"65%", borderRadius:"50%", background:"radial-gradient(ellipse,rgba(236,72,153,.5) 0%,transparent 65%)", filter:"blur(45px)", pointerEvents:"none" }}/>
+      <div style={{ position:"absolute", top:"35%", left:"30%", width:"50%", height:"45%", borderRadius:"50%", background:"radial-gradient(ellipse,rgba(79,70,229,.45) 0%,transparent 65%)", filter:"blur(30px)", pointerEvents:"none" }}/>
+      {[["8%","12%"],["22%","5%"],["45%","8%"],["70%","14%"],["88%","6%"],["15%","88%"],["55%","92%"],["80%","85%"],["5%","55%"],["92%","45%"]].map(([l,t],i)=>(
+        <div key={i} style={{ position:"absolute", left:l, top:t, width:2, height:2, borderRadius:"50%", background:"rgba(255,255,255,0.6)", pointerEvents:"none" }}/>
+      ))}
+      <div style={{ position:"relative", zIndex:1, paddingTop:22, paddingLeft:20, paddingRight:20 }}>
+        <div style={{ fontSize:8, letterSpacing:"6px", color:"rgba(196,181,253,.6)", textTransform:"uppercase" as React.CSSProperties["textTransform"] }}>✦  G O O G L E  R E V I E W  ✦</div>
       </div>
-      {/* content */}
-      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", alignItems:"center", padding:"20px 16px 12px" }}>
-        <div style={{ fontSize:9, letterSpacing:"4px", color:"rgba(196,181,253,.75)", textTransform:"uppercase", marginBottom:4 }}>ご来店ありがとうございます</div>
-        <div style={{ fontSize:22, fontWeight:900, color:"#fff", textAlign:"center", textShadow:"0 0 30px rgba(167,139,250,.6)", marginBottom:12, lineHeight:1.2 }}>{storeName}</div>
-        <Stars5 c="#fbbf24"/>
-        <div style={{ fontSize:10, color:"rgba(221,214,254,.7)", margin:"10px 0 14px", textAlign:"center" }}>本日のご感想をお聞かせください</div>
-        {/* glass card */}
-        <div style={{ background:"rgba(255,255,255,.1)", backdropFilter:"blur(16px)", WebkitBackdropFilter:"blur(16px)", border:"1px solid rgba(255,255,255,.2)", borderRadius:20, padding:"14px 14px 10px", display:"flex", flexDirection:"column", alignItems:"center", gap:8, marginBottom:12 }}>
-          <div style={{ background:"#fff", borderRadius:12, padding:8 }}>
-            {reviewUrl && <QRCode value={reviewUrl} size={118} level="M" fgColor="#1e0040"/>}
+      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", padding:"0 20px" }}>
+        <div style={{ fontSize:38, fontWeight:900, color:"#fff", textAlign:"center", lineHeight:1.05, letterSpacing:"-1px", textShadow:"0 0 40px rgba(167,139,250,.9), 0 0 80px rgba(167,139,250,.4)", marginBottom:10 }}>{storeName}</div>
+        <Stars5 c="#c4b5fd"/>
+        <div style={{ fontSize:10, color:"rgba(221,214,254,.65)", marginTop:10, textAlign:"center" }}>本日のご感想をお聞かせください</div>
+      </div>
+      <div style={{ position:"relative", zIndex:1, padding:"0 20px 20px" }}>
+        <div style={{ background:"rgba(255,255,255,.08)", backdropFilter:"blur(20px)", WebkitBackdropFilter:"blur(20px)", border:"1px solid rgba(255,255,255,.18)", borderRadius:24, padding:"16px 16px 12px", display:"flex", alignItems:"center", gap:14 }}>
+          <div style={{ background:"#fff", borderRadius:14, padding:8, flexShrink:0 }}>
+            {reviewUrl && <QRCode value={reviewUrl} size={120} level="M" fgColor="#0d0030"/>}
           </div>
-          <div style={{ fontSize:9, color:"rgba(221,214,254,.75)", letterSpacing:"2px" }}>📱 QRコードをスキャン</div>
-        </div>
-        {incentive && (
-          <div style={{ width:"100%", background:"rgba(255,255,255,.08)", border:"1px solid rgba(255,255,255,.15)", borderRadius:14, padding:"10px 12px", textAlign:"center", marginBottom:12 }}>
-            <div style={{ fontSize:9, color:"rgba(196,181,253,.65)" }}>レビューご記入で</div>
-            <div style={{ fontSize:13, fontWeight:700, color:"#fff", margin:"3px 0" }}>🎁 {incentive}</div>
-            <div style={{ fontSize:8, color:"rgba(196,181,253,.5)" }}>スタッフにお声がけください</div>
+          <div style={{ flex:1 }}>
+            <div style={{ fontSize:9, color:"rgba(196,181,253,.55)", letterSpacing:"3px", marginBottom:6 }}>SCAN TO REVIEW</div>
+            {incentive && (
+              <div style={{ background:"rgba(139,92,246,.25)", border:"1px solid rgba(139,92,246,.4)", borderRadius:10, padding:"7px 10px" }}>
+                <div style={{ fontSize:8, color:"rgba(196,181,253,.7)", marginBottom:2 }}>レビューご記入で</div>
+                <div style={{ fontSize:12, fontWeight:700, color:"#e9d5ff" }}>{incentive}</div>
+              </div>
+            )}
           </div>
-        )}
-        <div style={{ display:"flex", gap:14, marginTop:"auto" }}>
-          {["スキャン","評価","完了"].map((s,i)=>(
-            <div key={s} style={{ display:"flex", alignItems:"center", gap:4 }}>
-              <div style={{ width:16, height:16, borderRadius:"50%", background:"rgba(167,139,250,.5)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:8, fontWeight:700, color:"#fff" }}>{i+1}</div>
-              <span style={{ fontSize:9, color:"rgba(221,214,254,.65)" }}>{s}</span>
-              {i<2&&<span style={{ color:"rgba(167,139,250,.4)", fontSize:10 }}>›</span>}
-            </div>
-          ))}
         </div>
       </div>
     </div>
@@ -118,87 +111,72 @@ function PosterAurora({ storeName, incentive, reviewUrl }: PosterProps) {
 }
 
 /* ═══════════════════════════════════════════════════
-   2. HINOMARU  — Japanese minimal, red sun disc
+   2. HINOMARU  — Japanese modern, asymmetric layout
 ═══════════════════════════════════════════════════ */
 function PosterHinomaru({ storeName, incentive, reviewUrl }: PosterProps) {
   return (
-    <div style={{ width:"100%", height:"100%", background:"#faf8f3", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
-      {/* red sun — large, centered-high */}
-      <div style={{ position:"absolute", top:"-5%", left:"50%", transform:"translateX(-50%)", width:"80%", paddingTop:"80%", borderRadius:"50%", background:"#C0392B", opacity:.12 }}/>
-      {/* top/bottom rules */}
-      <div style={{ position:"absolute", top:0, left:0, right:0, height:5, background:"#C0392B" }}/>
-      <div style={{ position:"absolute", bottom:0, left:0, right:0, height:5, background:"#C0392B" }}/>
-      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", alignItems:"center", padding:"18px 20px 14px" }}>
-        <div style={{ fontSize:9, letterSpacing:"6px", color:"#C0392B", marginBottom:6 }}>口 コ ミ</div>
-        <div style={{ width:24, height:2, background:"#C0392B", marginBottom:14 }}/>
-        <div style={{ fontSize:24, fontWeight:900, color:"#1a0a00", textAlign:"center", lineHeight:1.2, marginBottom:4 }}>{storeName}</div>
-        <div style={{ fontSize:9, color:"#8b6f5e", marginBottom:14, letterSpacing:"2px" }}>ご来店ありがとうございます</div>
+    <div style={{ width:"100%", height:"100%", background:"#faf8f0", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
+      <div style={{ position:"absolute", top:"5%", left:"50%", transform:"translateX(-50%)", width:"90%", paddingTop:"90%", borderRadius:"50%", background:"#C0392B", opacity:.06, pointerEvents:"none" }}/>
+      <div style={{ position:"absolute", top:0, left:0, bottom:0, width:6, background:"#C0392B" }}/>
+      <div style={{ position:"absolute", top:0, left:0, right:0, height:3, background:"#C0392B" }}/>
+      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", paddingLeft:20, paddingRight:18, paddingTop:24, paddingBottom:18 }}>
+        <div style={{ fontSize:8, letterSpacing:"7px", color:"rgba(192,57,43,.55)", marginBottom:18 }}>口 コ ミ  ・  REVIEW</div>
+        <div style={{ fontSize:42, fontWeight:900, color:"#1a0400", lineHeight:.92, letterSpacing:"-2px", marginBottom:16 }}>{storeName}</div>
+        <div style={{ width:40, height:3, background:"#C0392B", marginBottom:16 }}/>
+        <div style={{ fontSize:10, color:"#5c3317", marginBottom:12 }}>本日のご感想をお聞かせください</div>
         <Stars5 c="#C0392B"/>
-        <div style={{ fontSize:10, color:"#5c3317", margin:"10px 0 14px", textAlign:"center" }}>本日のご感想をお聞かせください</div>
-        {/* QR in red-bordered frame */}
-        <div style={{ border:"3px solid #C0392B", padding:"10px", background:"#fff", marginBottom:10 }}>
-          {reviewUrl && <QRCode value={reviewUrl} size={118} level="M" fgColor="#1a0a00"/>}
-        </div>
-        <div style={{ fontSize:9, color:"#C0392B", marginBottom:12, letterSpacing:"2px" }}>QRコードをスキャン</div>
-        {incentive && (
-          <div style={{ width:"100%", border:"1px solid #C0392B", padding:"10px 12px", textAlign:"center", marginBottom:10 }}>
-            <div style={{ fontSize:9, color:"#8b6f5e" }}>レビューご記入で</div>
-            <div style={{ fontSize:13, fontWeight:700, color:"#C0392B", margin:"3px 0" }}>🎁 {incentive}</div>
-            <div style={{ fontSize:8, color:"#a0856a" }}>スタッフにお声がけください</div>
+        <div style={{ flex:1, display:"flex", alignItems:"flex-end", justifyContent:"flex-end", paddingBottom:4 }}>
+          <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:8 }}>
+            {incentive && (
+              <div style={{ border:"1px solid #C0392B", padding:"8px 12px", textAlign:"center" as React.CSSProperties["textAlign"], maxWidth:140 }}>
+                <div style={{ fontSize:8, color:"rgba(192,57,43,.6)", marginBottom:2 }}>レビューご記入で</div>
+                <div style={{ fontSize:11, fontWeight:700, color:"#C0392B" }}>{incentive}</div>
+              </div>
+            )}
+            <div style={{ border:"3px solid #1a0400", padding:8, background:"#fff" }}>
+              {reviewUrl && <QRCode value={reviewUrl} size={128} level="M" fgColor="#1a0400"/>}
+            </div>
+            <div style={{ fontSize:8, letterSpacing:"3px", color:"rgba(192,57,43,.7)" }}>QRをスキャン</div>
           </div>
-        )}
-        <div style={{ fontSize:8, color:"#c4a882", letterSpacing:"3px", marginTop:"auto" }}>またのお越しをお待ちしております</div>
+        </div>
       </div>
     </div>
   );
 }
 
 /* ═══════════════════════════════════════════════════
-   3. VICE  — neon pink+cyan split, dark
+   3. VICE  — neon sign aesthetic, pure black
 ═══════════════════════════════════════════════════ */
 function PosterVice({ storeName, incentive, reviewUrl }: PosterProps) {
   return (
-    <div style={{ width:"100%", height:"100%", background:"#06040f", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
-      {/* dual glow pools */}
-      <div style={{ position:"absolute", top:"10%", left:"-5%", width:"55%", height:"55%", background:"radial-gradient(circle,rgba(255,0,180,.25) 0%,transparent 70%)", filter:"blur(25px)" }}/>
-      <div style={{ position:"absolute", top:"10%", right:"-5%", width:"55%", height:"55%", background:"radial-gradient(circle,rgba(0,230,255,.2) 0%,transparent 70%)", filter:"blur(25px)" }}/>
-      {/* diagonal divider */}
-      <svg style={{ position:"absolute", inset:0, width:"100%", height:"100%", opacity:.06 }} viewBox="0 0 100 148" preserveAspectRatio="none">
-        <line x1="0" y1="148" x2="100" y2="0" stroke="#fff" strokeWidth="0.5"/>
-      </svg>
-      {/* scanlines */}
-      <div style={{ position:"absolute", inset:0, backgroundImage:"repeating-linear-gradient(0deg,rgba(255,255,255,.015) 0px,transparent 1px,transparent 3px)", pointerEvents:"none" }}/>
-      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", alignItems:"center", padding:"20px 16px 12px" }}>
-        <div style={{ fontSize:9, letterSpacing:"5px", background:"linear-gradient(90deg,#ff00cc,#00e5ff)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", marginBottom:8 }}>REVIEW</div>
-        {/* chrome store name */}
-        <div style={{ fontSize:21, fontWeight:900, textAlign:"center", lineHeight:1.15, marginBottom:4, background:"linear-gradient(180deg,#fff 40%,rgba(255,255,255,.5) 100%)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent" }}>{storeName}</div>
-        <div style={{ fontSize:9, color:"rgba(255,255,255,.35)", marginBottom:12 }}>ご来店ありがとうございます</div>
-        <Stars5 c="#ff00cc"/>
-        <div style={{ fontSize:10, color:"rgba(255,255,255,.5)", margin:"10px 0 14px" }}>本日のご感想をお聞かせください</div>
-        {/* neon frame QR */}
-        <div style={{ position:"relative", padding:2, borderRadius:12, background:"linear-gradient(135deg,#ff00cc,#00e5ff)", marginBottom:10 }}>
-          <div style={{ background:"#06040f", borderRadius:10, padding:"10px 10px 8px", display:"flex", flexDirection:"column", alignItems:"center", gap:6 }}>
-            <div style={{ background:"#fff", padding:6, borderRadius:6 }}>
-              {reviewUrl && <QRCode value={reviewUrl} size={116} level="M" fgColor="#06040f"/>}
-            </div>
-            <div style={{ fontSize:8, letterSpacing:"3px", background:"linear-gradient(90deg,#ff00cc,#00e5ff)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent" }}>SCAN → REVIEW</div>
+    <div style={{ width:"100%", height:"100%", background:"#000", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
+      <div style={{ position:"absolute", top:"20%", left:"-20%", width:"80%", height:"60%", background:"radial-gradient(ellipse,rgba(255,0,180,.3) 0%,transparent 65%)", filter:"blur(35px)", pointerEvents:"none" }}/>
+      <div style={{ position:"absolute", top:"20%", right:"-20%", width:"80%", height:"60%", background:"radial-gradient(ellipse,rgba(0,230,255,.25) 0%,transparent 65%)", filter:"blur(35px)", pointerEvents:"none" }}/>
+      <div style={{ position:"absolute", inset:0, backgroundImage:"repeating-linear-gradient(0deg,rgba(255,255,255,.012) 0px,transparent 1px,transparent 3px)", pointerEvents:"none" }}/>
+      <div style={{ position:"absolute", inset:10, border:"1px solid rgba(255,0,204,.3)", boxShadow:"inset 0 0 30px rgba(255,0,204,.05)", pointerEvents:"none" }}/>
+      <div style={{ position:"relative", zIndex:1, paddingTop:28, paddingLeft:20, paddingRight:20, display:"flex", flexDirection:"column", alignItems:"center" }}>
+        <div style={{ fontSize:9, letterSpacing:"6px", background:"linear-gradient(90deg,#ff00cc,#00e5ff)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent" }}>NEON  REVIEW</div>
+        <div style={{ width:"80%", height:1, background:"linear-gradient(to right,transparent,rgba(255,0,204,.5),rgba(0,229,255,.5),transparent)", marginTop:10 }}/>
+      </div>
+      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", padding:"0 16px" }}>
+        <div style={{ fontSize:36, fontWeight:900, textAlign:"center", lineHeight:1.05, letterSpacing:"-1px", background:"linear-gradient(180deg,#ff00cc 0%,#ff66dd 50%,#fff 100%)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", filter:"drop-shadow(0 0 12px rgba(255,0,204,.8))" }}>{storeName}</div>
+        <div style={{ marginTop:10, marginBottom:10 }}><Stars5 c="#ff00cc"/></div>
+        <div style={{ fontSize:9, color:"rgba(0,229,255,.65)", letterSpacing:"2px" }}>本日のご感想をお聞かせください</div>
+      </div>
+      <div style={{ position:"relative", zIndex:1, padding:"0 20px 22px" }}>
+        <div style={{ border:"2px solid rgba(0,229,255,.6)", boxShadow:"0 0 20px rgba(0,229,255,.2)", padding:12, display:"flex", alignItems:"center", gap:12 }}>
+          <div style={{ background:"#000", border:"1px solid rgba(0,229,255,.3)", padding:6, flexShrink:0 }}>
+            {reviewUrl && <QRCode value={reviewUrl} size={120} level="M" fgColor="#00e5ff" bgColor="#000"/>}
           </div>
-        </div>
-        {incentive && (
-          <div style={{ width:"100%", border:"1px solid rgba(255,0,204,.3)", background:"rgba(255,0,204,.06)", borderRadius:10, padding:"10px 12px", textAlign:"center", marginBottom:10 }}>
-            <div style={{ fontSize:9, color:"rgba(255,255,255,.35)" }}>レビューご記入で</div>
-            <div style={{ fontSize:13, fontWeight:700, color:"#ff00cc", margin:"3px 0" }}>🎁 {incentive}</div>
-            <div style={{ fontSize:8, color:"rgba(255,255,255,.25)" }}>スタッフにお声がけください</div>
+          <div style={{ flex:1 }}>
+            <div style={{ fontSize:8, letterSpacing:"3px", background:"linear-gradient(90deg,#ff00cc,#00e5ff)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", marginBottom:8 }}>SCAN → REVIEW</div>
+            {incentive && (
+              <div style={{ border:"1px solid rgba(255,0,204,.35)", background:"rgba(255,0,204,.06)", padding:"7px 10px" }}>
+                <div style={{ fontSize:8, color:"rgba(255,255,255,.4)", marginBottom:2 }}>レビューご記入で</div>
+                <div style={{ fontSize:11, fontWeight:700, color:"#ff00cc" }}>{incentive}</div>
+              </div>
+            )}
           </div>
-        )}
-        <div style={{ display:"flex", gap:14, marginTop:"auto" }}>
-          {["SCAN","RATE","DONE"].map((s,i)=>(
-            <div key={s} style={{ display:"flex", alignItems:"center", gap:4 }}>
-              <div style={{ width:16, height:16, borderRadius:4, background:i%2===0?"rgba(255,0,204,.4)":"rgba(0,229,255,.3)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:8, fontWeight:700, color:"#fff" }}>{i+1}</div>
-              <span style={{ fontSize:9, color:"rgba(255,255,255,.4)" }}>{s}</span>
-              {i<2&&<span style={{ color:"rgba(255,255,255,.2)" }}>›</span>}
-            </div>
-          ))}
         </div>
       </div>
     </div>
@@ -206,99 +184,400 @@ function PosterVice({ storeName, incentive, reviewUrl }: PosterProps) {
 }
 
 /* ═══════════════════════════════════════════════════
-   4. BAUHAUS  — Swiss International Style
+   4. BAUHAUS  — Swiss International Style, extreme typography
 ═══════════════════════════════════════════════════ */
 function PosterBauhaus({ storeName, incentive, reviewUrl }: PosterProps) {
   return (
-    <div style={{ width:"100%", height:"100%", background:"#fafafa", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
-      {/* giant background text */}
-      <div style={{ position:"absolute", bottom:"20%", left:"-2%", fontSize:"clamp(50px,14vw,100px)", fontWeight:900, color:"rgba(0,0,0,.04)", letterSpacing:"-4px", lineHeight:1, whiteSpace:"nowrap", pointerEvents:"none" }}>REVIEW</div>
-      {/* red stripe */}
-      <div style={{ position:"absolute", top:"30%", left:0, right:0, height:6, background:"#e11d48" }}/>
-      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column" }}>
-        {/* top block */}
-        <div style={{ padding:"22px 20px 0", flex:"0 0 auto" }}>
-          <div style={{ fontSize:8, letterSpacing:"5px", color:"#999", marginBottom:6 }}>CUSTOMER REVIEW</div>
-          <div style={{ fontSize:28, fontWeight:900, color:"#0a0a0a", lineHeight:.95, letterSpacing:"-1px" }}>{storeName}</div>
-        </div>
-        {/* center QR */}
-        <div style={{ flex:1, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", padding:"0 20px", gap:10 }}>
-          <div style={{ fontSize:10, color:"#555", textAlign:"center" }}>本日のご感想をお聞かせください</div>
+    <div style={{ width:"100%", height:"100%", background:"#f8f8f8", position:"relative", overflow:"hidden", display:"flex" }}>
+      {/* thick left red bar */}
+      <div style={{ width:12, background:"#e11d48", flexShrink:0 }}/>
+      {/* main content */}
+      <div style={{ flex:1, display:"flex", flexDirection:"column", padding:"20px 18px 18px 16px" }}>
+        {/* top: extreme typography */}
+        <div style={{ flex:1, display:"flex", flexDirection:"column", justifyContent:"center" }}>
+          <div style={{ fontSize:8, letterSpacing:"5px", color:"#999", marginBottom:8 }}>CUSTOMER REVIEW</div>
+          <div style={{ fontSize:44, fontWeight:900, color:"#0a0a0a", lineHeight:.88, letterSpacing:"-3px", marginBottom:16 }}>{storeName}</div>
+          <div style={{ width:50, height:5, background:"#e11d48", marginBottom:16 }}/>
+          <div style={{ fontSize:10, color:"#444", marginBottom:12, fontWeight:300, lineHeight:1.5 }}>本日のご感想を<br/>お聞かせください</div>
           <Stars5 c="#e11d48"/>
-          <div style={{ border:"3px solid #0a0a0a", padding:10, background:"#fff" }}>
-            {reviewUrl && <QRCode value={reviewUrl} size={118} level="M" fgColor="#0a0a0a"/>}
-          </div>
-          <div style={{ display:"flex", alignItems:"center", gap:8 }}>
-            <div style={{ width:24, height:1, background:"#ccc" }}/>
-            <span style={{ fontSize:8, letterSpacing:"3px", color:"#aaa" }}>QRコードをスキャン</span>
-            <div style={{ width:24, height:1, background:"#ccc" }}/>
+        </div>
+        {/* bottom: QR right-aligned */}
+        <div style={{ display:"flex", justifyContent:"flex-end", alignItems:"flex-end", gap:14 }}>
+          {incentive && (
+            <div style={{ background:"#0a0a0a", padding:"10px 12px", flex:1 }}>
+              <div style={{ fontSize:8, color:"#666", marginBottom:2 }}>レビューご記入で</div>
+              <div style={{ fontSize:11, fontWeight:900, color:"#fff" }}>{incentive}</div>
+            </div>
+          )}
+          <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:6 }}>
+            <div style={{ border:"4px solid #0a0a0a", padding:6, background:"#fff" }}>
+              {reviewUrl && <QRCode value={reviewUrl} size={128} level="M" fgColor="#0a0a0a"/>}
+            </div>
+            <div style={{ fontSize:7, letterSpacing:"3px", color:"#aaa" }}>QRコードをスキャン</div>
           </div>
         </div>
-        {/* bottom */}
-        {incentive && (
-          <div style={{ background:"#0a0a0a", padding:"12px 20px", textAlign:"center" }}>
-            <div style={{ fontSize:8, color:"#666", marginBottom:2 }}>レビューご記入で</div>
-            <div style={{ fontSize:13, fontWeight:700, color:"#fff" }}>🎁 {incentive}</div>
-            <div style={{ fontSize:8, color:"#555", marginTop:2 }}>スタッフにお声がけください</div>
-          </div>
-        )}
-        {!incentive && (
-          <div style={{ padding:"10px 20px", display:"flex", justifyContent:"center", gap:16 }}>
-            {["スキャン","評価","完了"].map((s,i)=>(
-              <div key={s} style={{ display:"flex", alignItems:"center", gap:4 }}>
-                <div style={{ width:16, height:16, borderRadius:"50%", background:"#e11d48", display:"flex", alignItems:"center", justifyContent:"center", fontSize:8, fontWeight:700, color:"#fff" }}>{i+1}</div>
-                <span style={{ fontSize:9, color:"#888" }}>{s}</span>
-                {i<2&&<span style={{ color:"#ccc" }}>›</span>}
-              </div>
-            ))}
-          </div>
-        )}
       </div>
     </div>
   );
 }
 
 /* ═══════════════════════════════════════════════════
-   5. DECO  — Art Deco noir + gold sunburst
+   5. DECO  — Art Deco noir, gold sunburst, center layout
 ═══════════════════════════════════════════════════ */
 function PosterDeco({ storeName, incentive, reviewUrl }: PosterProps) {
   return (
-    <div style={{ width:"100%", height:"100%", background:"#080604", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
-      {/* sunburst SVG */}
-      <svg style={{ position:"absolute", top:"8%", left:"50%", transform:"translateX(-50%)", width:"90%", opacity:.15 }} viewBox="0 0 200 200">
+    <div style={{ width:"100%", height:"100%", background:"#07060a", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
+      <svg style={{ position:"absolute", top:"18%", left:"50%", transform:"translateX(-50%)", width:"85%", opacity:.18 }} viewBox="0 0 200 200">
         {Array.from({length:24},(_,i)=>{
           const a=i*(360/24)*Math.PI/180;
           return <line key={i} x1={100} y1={100} x2={100+95*Math.cos(a)} y2={100+95*Math.sin(a)} stroke="#c9a84c" strokeWidth="0.8"/>;
         })}
-        <circle cx="100" cy="100" r="30" fill="none" stroke="#c9a84c" strokeWidth="1"/>
-        <circle cx="100" cy="100" r="20" fill="none" stroke="#c9a84c" strokeWidth="0.5"/>
-        <circle cx="100" cy="100" r="90" fill="none" stroke="#c9a84c" strokeWidth="0.5"/>
+        <circle cx="100" cy="100" r="35" fill="none" stroke="#c9a84c" strokeWidth="1.5"/>
+        <circle cx="100" cy="100" r="22" fill="none" stroke="#c9a84c" strokeWidth="0.6"/>
       </svg>
-      {/* double border */}
-      <div style={{ position:"absolute", inset:8, border:"1px solid rgba(201,168,76,.35)", pointerEvents:"none" }}/>
-      <div style={{ position:"absolute", inset:12, border:"1px solid rgba(201,168,76,.15)", pointerEvents:"none" }}/>
-      {/* corner diamonds */}
-      {[[14,14],[14,"calc(100% - 14px)"],["calc(100% - 14px)",14],["calc(100% - 14px)","calc(100% - 14px)"]].map(([t,l],i)=>(
-        <div key={i} style={{ position:"absolute", top:t as string|number, left:l as string|number, width:6, height:6, background:"#c9a84c", transform:"rotate(45deg)", opacity:.6 }}/>
+      {/* corner ornaments */}
+      <div style={{ position:"absolute", inset:10, border:"1px solid rgba(201,168,76,.4)", pointerEvents:"none" }}/>
+      <div style={{ position:"absolute", inset:14, border:"1px solid rgba(201,168,76,.15)", pointerEvents:"none" }}/>
+      {[{top:16,left:16},{top:16,right:16},{bottom:16,left:16},{bottom:16,right:16}].map((pos,i)=>(
+        <div key={i} style={{ position:"absolute", ...pos, width:10, height:10, background:"#c9a84c", transform:"rotate(45deg)", opacity:.7 }}/>
       ))}
-      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", alignItems:"center", padding:"22px 20px 14px" }}>
-        <div style={{ fontSize:8, letterSpacing:"6px", color:"#c9a84c", marginBottom:4 }}>✦  PRESTIGE  ✦</div>
-        <div style={{ width:40, height:1, background:"linear-gradient(to right,transparent,#c9a84c,transparent)", marginBottom:14 }}/>
-        <div style={{ fontSize:20, fontWeight:900, color:"#f5e6c8", textAlign:"center", lineHeight:1.2, marginBottom:4 }}>{storeName}</div>
-        <div style={{ fontSize:8, color:"rgba(201,168,76,.6)", letterSpacing:"3px", marginBottom:14 }}>ご来店賜り誠にありがとうございます</div>
+      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", alignItems:"center", padding:"26px 22px 18px" }}>
+        <div style={{ fontSize:8, letterSpacing:"8px", color:"#c9a84c", marginBottom:6 }}>✦  PRESTIGE REVIEW  ✦</div>
+        <div style={{ width:60, height:1, background:"linear-gradient(to right,transparent,#c9a84c,transparent)", marginBottom:20 }}/>
+        <div style={{ fontSize:32, fontWeight:900, color:"#f5e6c8", textAlign:"center", lineHeight:1.1, letterSpacing:"2px", marginBottom:8 }}>{storeName}</div>
         <Stars5 c="#c9a84c"/>
-        <div style={{ fontSize:10, color:"rgba(245,230,200,.6)", margin:"10px 0 14px", textAlign:"center" }}>本日のご感想をお聞かせいただけますでしょうか</div>
-        <div style={{ border:"1px solid #c9a84c", padding:2, marginBottom:10 }}>
-          <div style={{ border:"1px solid rgba(201,168,76,.3)", padding:10, background:"#0f0b07" }}>
-            {reviewUrl && <QRCode value={reviewUrl} size={114} level="M" fgColor="#f5e6c8" bgColor="#0f0b07"/>}
+        <div style={{ fontSize:9, color:"rgba(201,168,76,.6)", margin:"12px 0 18px", letterSpacing:"1px", textAlign:"center" }}>ご来店賜り誠にありがとうございます</div>
+        <div style={{ border:"1px solid #c9a84c", padding:2 }}>
+          <div style={{ border:"1px solid rgba(201,168,76,.3)", padding:12, background:"#0f0b07", display:"flex", flexDirection:"column", alignItems:"center", gap:8 }}>
+            {reviewUrl && <QRCode value={reviewUrl} size={128} level="M" fgColor="#f5e6c8" bgColor="#0f0b07"/>}
+            <div style={{ fontSize:8, color:"rgba(201,168,76,.7)", letterSpacing:"3px" }}>QRコードをスキャン</div>
           </div>
         </div>
-        <div style={{ fontSize:8, color:"rgba(201,168,76,.55)", letterSpacing:"2px", marginBottom:12 }}>QRコードをスキャンしてください</div>
         {incentive && (
-          <div style={{ width:"100%", border:"1px solid rgba(201,168,76,.25)", background:"rgba(201,168,76,.06)", padding:"10px 12px", textAlign:"center", marginBottom:8 }}>
-            <div style={{ fontSize:8, color:"rgba(201,168,76,.5)" }}>レビューご記入で</div>
-            <div style={{ fontSize:12, fontWeight:600, color:"#c9a84c", margin:"4px 0" }}>✦ {incentive} ✦</div>
-            <div style={{ fontSize:8, color:"rgba(201,168,76,.35)" }}>スタッフへお申し付けください</div>
+          <div style={{ width:"100%", marginTop:14, border:"1px solid rgba(201,168,76,.3)", background:"rgba(201,168,76,.06)", padding:"10px 14px", textAlign:"center" as React.CSSProperties["textAlign"] }}>
+            <div style={{ fontSize:9, color:"rgba(201,168,76,.55)", marginBottom:2 }}>レビューご記入で</div>
+            <div style={{ fontSize:13, fontWeight:700, color:"#c9a84c" }}>✦ {incentive} ✦</div>
+          </div>
+        )}
+        <div style={{ marginTop:"auto", width:60, height:1, background:"linear-gradient(to right,transparent,#c9a84c,transparent)" }}/>
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════
+   6. CONSTRUCTIVIST  — Bold red, diagonal navy block
+═══════════════════════════════════════════════════ */
+function PosterConstructivist({ storeName, incentive, reviewUrl }: PosterProps) {
+  return (
+    <div style={{ width:"100%", height:"100%", background:"#D62828", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
+      {/* diagonal navy block */}
+      <svg style={{ position:"absolute", inset:0, width:"100%", height:"100%" }} viewBox="0 0 100 148" preserveAspectRatio="none">
+        <polygon points="55,0 100,0 100,148 10,148" fill="#1d2d50"/>
+      </svg>
+      {/* yellow circle accent */}
+      <div style={{ position:"absolute", top:"-8%", left:"-8%", width:"38%", paddingTop:"38%", borderRadius:"50%", background:"#F7B731", opacity:.9 }}/>
+      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", padding:"22px 18px 18px" }}>
+        <div style={{ fontSize:8, letterSpacing:"6px", color:"rgba(255,255,255,.6)", marginBottom:14 }}>REVIEW</div>
+        <div style={{ fontSize:40, fontWeight:900, color:"#f1faee", lineHeight:.9, letterSpacing:"-2px", marginBottom:12, textShadow:"3px 3px 0 rgba(0,0,0,.25)" }}>{storeName}</div>
+        <Stars5 c="#F7B731"/>
+        <div style={{ fontSize:10, color:"rgba(241,250,238,.75)", margin:"12px 0 0", lineHeight:1.5 }}>本日のご感想を<br/>お聞かせください</div>
+        <div style={{ flex:1, display:"flex", alignItems:"flex-end", justifyContent:"flex-end" }}>
+          <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:8 }}>
+            {incentive && (
+              <div style={{ background:"#f1faee", padding:"8px 12px", textAlign:"center" as React.CSSProperties["textAlign"] }}>
+                <div style={{ fontSize:8, color:"#1d2d50", marginBottom:2 }}>レビューご記入で</div>
+                <div style={{ fontSize:11, fontWeight:900, color:"#D62828" }}>{incentive}</div>
+              </div>
+            )}
+            <div style={{ background:"#f1faee", padding:10 }}>
+              {reviewUrl && <QRCode value={reviewUrl} size={128} level="M" fgColor="#1d2d50"/>}
+            </div>
+            <div style={{ fontSize:8, color:"rgba(241,250,238,.65)", letterSpacing:"2px" }}>QRコードをスキャン</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════
+   7. WABI  — wabi-sabi, brushstroke circle, minimal
+═══════════════════════════════════════════════════ */
+function PosterWabi({ storeName, incentive, reviewUrl }: PosterProps) {
+  return (
+    <div style={{ width:"100%", height:"100%", background:"#f5ede0", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
+      {/* brushstroke circle */}
+      <svg style={{ position:"absolute", top:"12%", left:"50%", transform:"translateX(-50%)", width:"75%", opacity:.15 }} viewBox="0 0 200 200">
+        <path d="M100,15 C150,15 185,50 185,100 C185,150 150,185 100,185 C50,185 15,150 15,100 C15,50 50,15 100,15" fill="none" stroke="#4a3728" strokeWidth="6" strokeLinecap="round" strokeDasharray="8 4"/>
+      </svg>
+      {/* minimal top rule */}
+      <div style={{ position:"absolute", top:0, left:0, right:0, height:2, background:"#4a3728", opacity:.35 }}/>
+      <div style={{ position:"absolute", bottom:0, left:0, right:0, height:2, background:"#4a3728", opacity:.35 }}/>
+      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", alignItems:"center", padding:"28px 24px 22px" }}>
+        <div style={{ fontSize:7, letterSpacing:"8px", color:"rgba(74,55,40,.5)", marginBottom:24 }}>わ び さ び</div>
+        <div style={{ fontSize:34, fontWeight:300, color:"#2d1f14", textAlign:"center", lineHeight:1.15, letterSpacing:"6px", marginBottom:20 }}>{storeName}</div>
+        <div style={{ width:24, height:1, background:"#c4956a", marginBottom:20 }}/>
+        <Stars5 c="#c4956a"/>
+        <div style={{ fontSize:10, fontWeight:300, color:"#6b5040", margin:"16px 0 24px", textAlign:"center", letterSpacing:"1px", lineHeight:1.7 }}>本日のご感想を<br/>お聞かせください</div>
+        {/* and QR in fine and frame */}
+        <div style={{ border:"1px solid rgba(196,149,106,.5)", padding:2, background:"#fffcf5" }}>
+          <div style={{ border:"1px solid rgba(196,149,106,.2)", padding:10 }}>
+            {reviewUrl && <QRCode value={reviewUrl} size={130} level="M" fgColor="#2d1f14"/>}
+          </div>
+        </div>
+        <div style={{ fontSize:8, letterSpacing:"4px", color:"rgba(196,149,106,.7)", marginTop:10 }}>QRをスキャン</div>
+        {incentive && (
+          <div style={{ marginTop:14, width:"100%", border:"1px dashed rgba(196,149,106,.5)", padding:"10px 14px", textAlign:"center" as React.CSSProperties["textAlign"] }}>
+            <div style={{ fontSize:8, color:"rgba(107,80,64,.6)", marginBottom:2 }}>レビューご記入で</div>
+            <div style={{ fontSize:12, fontWeight:700, color:"#2d1f14" }}>{incentive}</div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════
+   8. HUD  — holographic terminal, corner brackets
+═══════════════════════════════════════════════════ */
+function PosterHUD({ storeName, incentive, reviewUrl }: PosterProps) {
+  return (
+    <div style={{ width:"100%", height:"100%", background:"#020b14", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
+      {/* scanlines */}
+      <div style={{ position:"absolute", inset:0, backgroundImage:"repeating-linear-gradient(0deg,rgba(0,229,255,.03) 0px,transparent 1px,transparent 3px)", pointerEvents:"none" }}/>
+      {/* glow */}
+      <div style={{ position:"absolute", top:"30%", left:"50%", transform:"translate(-50%,-50%)", width:"70%", height:"60%", background:"radial-gradient(circle,rgba(0,229,255,.12) 0%,transparent 70%)", filter:"blur(20px)", pointerEvents:"none" }}/>
+      {/* corner brackets */}
+      <div style={{ position:"absolute", top:14, left:14, width:20, height:20, borderTop:"2px solid #00e5ff", borderLeft:"2px solid #00e5ff" }}/>
+      <div style={{ position:"absolute", top:14, right:14, width:20, height:20, borderTop:"2px solid #00e5ff", borderRight:"2px solid #00e5ff" }}/>
+      <div style={{ position:"absolute", bottom:14, left:14, width:20, height:20, borderBottom:"2px solid #00e5ff", borderLeft:"2px solid #00e5ff" }}/>
+      <div style={{ position:"absolute", bottom:14, right:14, width:20, height:20, borderBottom:"2px solid #00e5ff", borderRight:"2px solid #00e5ff" }}/>
+      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", padding:"28px 24px 22px" }}>
+        <div style={{ fontSize:8, letterSpacing:"5px", color:"#00e5ff", fontFamily:"monospace", marginBottom:8 }}>[ REVIEW.SYS ]</div>
+        <div style={{ width:"100%", height:1, background:"linear-gradient(to right,#00e5ff,transparent)", marginBottom:16, opacity:.5 }}/>
+        <div style={{ fontSize:32, fontWeight:900, color:"#e0f8ff", lineHeight:1.0, textShadow:"0 0 24px rgba(0,229,255,.7)", marginBottom:6 }}>{storeName}</div>
+        <div style={{ fontSize:8, color:"rgba(0,229,255,.5)", fontFamily:"monospace", marginBottom:16 }}>&gt;&gt; THANK_YOU_FOR_VISITING</div>
+        <Stars5 c="#00e5ff"/>
+        <div style={{ flex:1, display:"flex", alignItems:"center", justifyContent:"flex-end", paddingTop:14 }}>
+          <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:8 }}>
+            <div style={{ border:"1px solid #00e5ff", background:"rgba(0,229,255,.05)", padding:10, boxShadow:"0 0 20px rgba(0,229,255,.15)" }}>
+              <div style={{ background:"#e0f8ff", padding:6 }}>
+                {reviewUrl && <QRCode value={reviewUrl} size={130} level="M" fgColor="#020b14"/>}
+              </div>
+            </div>
+            <div style={{ fontSize:8, letterSpacing:"3px", color:"rgba(0,229,255,.7)", fontFamily:"monospace" }}>SCAN TO EXECUTE</div>
+          </div>
+        </div>
+        {incentive && (
+          <div style={{ border:"1px solid rgba(0,229,255,.25)", background:"rgba(0,229,255,.04)", padding:"10px 14px", fontFamily:"monospace", marginTop:10 }}>
+            <div style={{ fontSize:8, color:"rgba(0,229,255,.5)", marginBottom:2 }}>REWARD_ON_COMPLETE:</div>
+            <div style={{ fontSize:12, fontWeight:700, color:"#00e5ff" }}>{incentive}</div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════
+   9. COUTURE  — vertical split, editorial fashion
+═══════════════════════════════════════════════════ */
+function PosterCouture({ storeName, incentive, reviewUrl }: PosterProps) {
+  return (
+    <div style={{ width:"100%", height:"100%", position:"relative", overflow:"hidden", display:"flex" }}>
+      {/* left dark panel */}
+      <div style={{ width:"45%", background:"#141010", display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center", padding:"18px 12px", position:"relative" }}>
+        {/* vertical rotated store name */}
+        <div style={{ writingMode:"vertical-rl" as React.CSSProperties["writingMode"], textOrientation:"mixed" as React.CSSProperties["textOrientation"], transform:"rotate(180deg)", fontSize:22, fontWeight:900, color:"#faf5ec", letterSpacing:4, lineHeight:1, textAlign:"center" as React.CSSProperties["textAlign"] }}>{storeName}</div>
+        <div style={{ marginTop:12, writingMode:"vertical-rl" as React.CSSProperties["writingMode"], transform:"rotate(180deg)", fontSize:7, color:"rgba(255,255,255,.3)", letterSpacing:4 }}>REVIEW</div>
+      </div>
+      {/* gold divider */}
+      <div style={{ width:2, background:"linear-gradient(to bottom,transparent,#b8860b,#b8860b,transparent)", flexShrink:0 }}/>
+      {/* right cream panel */}
+      <div style={{ flex:1, background:"#faf5ec", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", padding:"18px 14px 14px" }}>
+        <div style={{ fontSize:8, letterSpacing:"4px", color:"#b8860b", marginBottom:14 }}>✦ AVIS ✦</div>
+        <Stars5 c="#b8860b"/>
+        <div style={{ fontSize:9, color:"#4a3728", margin:"12px 0 16px", textAlign:"center" as React.CSSProperties["textAlign"], lineHeight:1.6 }}>ご感想を<br/>お聞かせください</div>
+        <div style={{ border:"2px solid #141010", padding:8 }}>
+          {reviewUrl && <QRCode value={reviewUrl} size={120} level="M" fgColor="#141010"/>}
+        </div>
+        <div style={{ fontSize:7, color:"rgba(0,0,0,.35)", letterSpacing:"3px", marginTop:8 }}>SCAN ME</div>
+        {incentive && (
+          <div style={{ width:"100%", background:"#141010", padding:"8px 10px", textAlign:"center" as React.CSSProperties["textAlign"], marginTop:14 }}>
+            <div style={{ fontSize:8, color:"rgba(255,255,255,.4)", marginBottom:2 }}>ご記入で</div>
+            <div style={{ fontSize:11, fontWeight:700, color:"#faf5ec" }}>{incentive}</div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════
+   10. RIOT  — brutalist B&W, top 1/3 black
+═══════════════════════════════════════════════════ */
+function PosterRiot({ storeName, incentive, reviewUrl }: PosterProps) {
+  return (
+    <div style={{ width:"100%", height:"100%", background:"#fff", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
+      {/* top black block */}
+      <div style={{ background:"#111", padding:"22px 20px 18px", flexShrink:0 }}>
+        <div style={{ fontSize:8, letterSpacing:"7px", color:"rgba(255,255,255,.35)", marginBottom:8 }}>YOUR VOICE MATTERS</div>
+        <div style={{ fontSize:44, fontWeight:900, color:"#fff", lineHeight:.88, letterSpacing:"-2px" }}>{storeName}</div>
+        <div style={{ width:32, height:4, background:"#fff", marginTop:12 }}/>
+      </div>
+      {/* white content block */}
+      <div style={{ flex:1, display:"flex", flexDirection:"column", alignItems:"center", padding:"20px 20px 16px" }}>
+        <Stars5 c="#111"/>
+        <div style={{ fontSize:10, color:"#444", margin:"12px 0 16px", textAlign:"center" as React.CSSProperties["textAlign"] }}>本日のご感想をお聞かせください</div>
+        <div style={{ border:"4px solid #111", padding:10 }}>
+          {reviewUrl && <QRCode value={reviewUrl} size={130} level="M" fgColor="#111"/>}
+        </div>
+        <div style={{ fontSize:8, letterSpacing:"4px", color:"#bbb", marginTop:10 }}>QRコードをスキャン</div>
+        {incentive && (
+          <div style={{ width:"100%", marginTop:"auto", background:"#111", padding:"12px 18px", textAlign:"center" as React.CSSProperties["textAlign"] }}>
+            <div style={{ fontSize:8, color:"rgba(255,255,255,.45)", marginBottom:3 }}>レビューご記入で</div>
+            <div style={{ fontSize:14, fontWeight:900, color:"#fff" }}>{incentive}</div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════
+   11. CLINIC  — medical precision, grid layout
+═══════════════════════════════════════════════════ */
+function PosterClinic({ storeName, incentive, reviewUrl }: PosterProps) {
+  return (
+    <div style={{ width:"100%", height:"100%", background:"#fff", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
+      {/* top blue banner with cross */}
+      <div style={{ background:"linear-gradient(90deg,#0369a1,#0ea5e9)", padding:"16px 18px 14px", display:"flex", alignItems:"center", gap:12, flexShrink:0 }}>
+        <div style={{ position:"relative", width:28, height:28, flexShrink:0 }}>
+          <div style={{ position:"absolute", top:"50%", left:0, right:0, height:9, background:"rgba(255,255,255,.9)", transform:"translateY(-50%)", borderRadius:2 }}/>
+          <div style={{ position:"absolute", left:"50%", top:0, bottom:0, width:9, background:"rgba(255,255,255,.9)", transform:"translateX(-50%)", borderRadius:2 }}/>
+        </div>
+        <div>
+          <div style={{ fontSize:7, color:"rgba(255,255,255,.65)", letterSpacing:"4px" }}>REVIEW</div>
+          <div style={{ fontSize:28, fontWeight:900, color:"#fff", lineHeight:1.0 }}>{storeName}</div>
+        </div>
+      </div>
+      <div style={{ flex:1, display:"flex", flexDirection:"column", padding:"18px 18px 14px" }}>
+        <div style={{ fontSize:10, fontWeight:700, color:"#0369a1", marginBottom:12, textAlign:"center" as React.CSSProperties["textAlign"] }}>本日の対応はいかがでしたか？</div>
+        <Stars5 c="#0ea5e9"/>
+        <div style={{ flex:1, display:"flex", alignItems:"center", justifyContent:"center", padding:"14px 0" }}>
+          <div style={{ background:"#f0f9ff", border:"2px solid #bae6fd", borderRadius:16, padding:"14px 14px 10px", display:"flex", flexDirection:"column", alignItems:"center", gap:8 }}>
+            {reviewUrl && <QRCode value={reviewUrl} size={130} level="M" fgColor="#0369a1"/>}
+            <div style={{ fontSize:8, color:"#0ea5e9", letterSpacing:"2px" }}>QRコードをスキャン</div>
+          </div>
+        </div>
+        {incentive && (
+          <div style={{ border:"1px solid #bae6fd", background:"#f0f9ff", borderRadius:10, padding:"10px 14px", textAlign:"center" as React.CSSProperties["textAlign"] }}>
+            <div style={{ fontSize:9, color:"#0ea5e9", marginBottom:2 }}>アンケートご回答で</div>
+            <div style={{ fontSize:14, fontWeight:700, color:"#0369a1" }}>{incentive}</div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════
+   12. ZEN  — wellness, concentric circles, round QR
+═══════════════════════════════════════════════════ */
+function PosterZen({ storeName, incentive, reviewUrl }: PosterProps) {
+  return (
+    <div style={{ width:"100%", height:"100%", background:"linear-gradient(160deg,#f0fdf4 0%,#dcfce7 50%,#bbf7d0 100%)", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
+      {/* concentric circles */}
+      <svg style={{ position:"absolute", top:"40%", left:"50%", transform:"translate(-50%,-50%)", width:"130%", opacity:.1 }} viewBox="0 0 200 200">
+        {[95,78,61,44,27].map((r,i)=><circle key={i} cx="100" cy="100" r={r} fill="none" stroke="#059669" strokeWidth="1"/>)}
+      </svg>
+      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", alignItems:"center", padding:"26px 20px 20px" }}>
+        <div style={{ fontSize:8, letterSpacing:"6px", color:"#059669", marginBottom:6 }}>WELLNESS</div>
+        <div style={{ width:24, height:1, background:"#a7f3d0", marginBottom:18 }}/>
+        <div style={{ fontSize:32, fontWeight:900, color:"#064e3b", textAlign:"center", lineHeight:1.1, marginBottom:6 }}>{storeName}</div>
+        <div style={{ fontSize:9, fontWeight:300, color:"#10b981", marginBottom:18, letterSpacing:"2px" }}>ご来院ありがとうございます</div>
+        <Stars5 c="#34d399"/>
+        <div style={{ fontSize:10, color:"#065f46", margin:"14px 0 16px", textAlign:"center", lineHeight:1.6 }}>本日の施術は<br/>いかがでしたか？</div>
+        {/* round QR frame */}
+        <div style={{ background:"rgba(255,255,255,.8)", backdropFilter:"blur(8px)", border:"2px solid #a7f3d0", borderRadius:24, padding:"14px 14px 10px", display:"flex", flexDirection:"column", alignItems:"center", gap:8 }}>
+          {reviewUrl && <QRCode value={reviewUrl} size={130} level="M" fgColor="#064e3b"/>}
+          <div style={{ fontSize:8, color:"#10b981", letterSpacing:"2px" }}>QRをスキャン</div>
+        </div>
+        {incentive && (
+          <div style={{ width:"100%", marginTop:14, background:"rgba(52,211,153,.15)", border:"1.5px solid #a7f3d0", borderRadius:12, padding:"10px 14px", textAlign:"center" as React.CSSProperties["textAlign"] }}>
+            <div style={{ fontSize:9, color:"#059669", marginBottom:2 }}>ご記入で</div>
+            <div style={{ fontSize:13, fontWeight:700, color:"#064e3b" }}>{incentive}</div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════
+   13. STUDIO  — top half black / bottom half white
+═══════════════════════════════════════════════════ */
+function PosterStudio({ storeName, incentive, reviewUrl }: PosterProps) {
+  return (
+    <div style={{ width:"100%", height:"100%", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
+      {/* top: black with QR */}
+      <div style={{ background:"#111", flex:"0 0 55%", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", padding:"18px 18px 14px" }}>
+        <div style={{ fontSize:7, letterSpacing:"7px", color:"rgba(255,255,255,.35)", marginBottom:12 }}>HAIR & BEAUTY SALON</div>
+        <div style={{ border:"2px solid rgba(255,255,255,.6)", padding:8, background:"rgba(255,255,255,.05)" }}>
+          {reviewUrl && <QRCode value={reviewUrl} size={128} level="M" fgColor="#fff" bgColor="#111"/>}
+        </div>
+        <div style={{ fontSize:8, letterSpacing:"3px", color:"rgba(255,255,255,.5)", marginTop:10 }}>SCAN TO REVIEW</div>
+      </div>
+      {/* gold divider */}
+      <div style={{ height:3, background:"linear-gradient(to right,transparent,#c9a84c,transparent)", flexShrink:0 }}/>
+      {/* bottom: white with store name */}
+      <div style={{ background:"#fff", flex:1, display:"flex", flexDirection:"column", justifyContent:"center", padding:"16px 20px 14px" }}>
+        <div style={{ fontSize:8, letterSpacing:"5px", color:"#aaa", marginBottom:8 }}>REVIEW</div>
+        <div style={{ fontSize:36, fontWeight:900, color:"#111", lineHeight:.9, letterSpacing:"-2px", marginBottom:12 }}>{storeName}</div>
+        <Stars5 c="#111"/>
+        {incentive && (
+          <div style={{ marginTop:14, border:"2px solid #111", padding:"8px 14px" }}>
+            <div style={{ fontSize:8, color:"#888", marginBottom:2 }}>レビューご記入で</div>
+            <div style={{ fontSize:13, fontWeight:700, color:"#111" }}>{incentive}</div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════
+   14. MARBLE  — marble veins SVG, gold double frame
+═══════════════════════════════════════════════════ */
+function PosterMarble({ storeName, incentive, reviewUrl }: PosterProps) {
+  return (
+    <div style={{ width:"100%", height:"100%", background:"#faf6f0", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
+      <svg style={{ position:"absolute", inset:0, width:"100%", height:"100%", opacity:.25 }} viewBox="0 0 100 148" preserveAspectRatio="none">
+        <path d="M20,0 Q35,30 15,60 Q5,90 25,148" stroke="#c4a882" strokeWidth="3" fill="none"/>
+        <path d="M60,0 Q75,40 55,80 Q45,110 70,148" stroke="#d4b896" strokeWidth="2" fill="none"/>
+        <path d="M88,12 Q95,55 78,95 Q68,125 88,148" stroke="#c4a882" strokeWidth="1.2" fill="none"/>
+        <path d="M0,38 Q30,45 50,33 Q70,22 100,28" stroke="#d4b896" strokeWidth="0.9" fill="none"/>
+        <path d="M0,102 Q22,96 42,112 Q62,124 100,106" stroke="#c4a882" strokeWidth="0.9" fill="none"/>
+        <path d="M10,65 Q35,58 55,70 Q75,82 100,72" stroke="#c4a882" strokeWidth="0.6" fill="none"/>
+      </svg>
+      {/* double gold frame */}
+      <div style={{ position:"absolute", inset:10, border:"1.5px solid rgba(201,168,76,.5)", pointerEvents:"none" }}/>
+      <div style={{ position:"absolute", inset:14, border:"1px solid rgba(201,168,76,.2)", pointerEvents:"none" }}/>
+      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", alignItems:"center", padding:"24px 22px 18px" }}>
+        <div style={{ fontSize:8, letterSpacing:"7px", color:"#c9a84c", marginBottom:6 }}>S  P  A</div>
+        <div style={{ width:40, height:1, background:"linear-gradient(to right,transparent,#c9a84c,transparent)", marginBottom:18 }}/>
+        <div style={{ fontSize:34, fontWeight:900, color:"#3d2b1f", textAlign:"center", lineHeight:1.05, marginBottom:8 }}>{storeName}</div>
+        <Stars5 c="#c9a84c"/>
+        <div style={{ fontSize:9, color:"#8a6040", margin:"12px 0 16px", textAlign:"center", lineHeight:1.6 }}>癒しのひとときを<br/>ご提供できましたか</div>
+        <div style={{ background:"rgba(255,255,255,.85)", border:"1.5px solid #dfc090", padding:"12px 12px 8px", display:"flex", flexDirection:"column", alignItems:"center", gap:8 }}>
+          {reviewUrl && <QRCode value={reviewUrl} size={130} level="M" fgColor="#3d2b1f"/>}
+          <div style={{ fontSize:8, color:"#b8966a", letterSpacing:"2px" }}>QRコードをスキャン</div>
+        </div>
+        {incentive && (
+          <div style={{ width:"100%", marginTop:14, border:"1px solid #dfc090", background:"rgba(201,168,76,.06)", padding:"10px 14px", textAlign:"center" as React.CSSProperties["textAlign"] }}>
+            <div style={{ fontSize:9, color:"#b8966a", marginBottom:2 }}>レビューご記入で</div>
+            <div style={{ fontSize:13, fontWeight:700, color:"#3d2b1f" }}>{incentive}</div>
           </div>
         )}
         <div style={{ marginTop:"auto", width:40, height:1, background:"linear-gradient(to right,transparent,#c9a84c,transparent)" }}/>
@@ -308,431 +587,43 @@ function PosterDeco({ storeName, incentive, reviewUrl }: PosterProps) {
 }
 
 /* ═══════════════════════════════════════════════════
-   6. CONSTRUCTIVIST  — Bold primary, geometric
-═══════════════════════════════════════════════════ */
-function PosterConstructivist({ storeName, incentive, reviewUrl }: PosterProps) {
-  return (
-    <div style={{ width:"100%", height:"100%", background:"#E63946", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
-      {/* geometric shapes */}
-      <div style={{ position:"absolute", top:"-10%", right:"-10%", width:"55%", paddingTop:"55%", borderRadius:"50%", background:"#1d3557" }}/>
-      <div style={{ position:"absolute", bottom:"-5%", left:"-8%", width:"45%", paddingTop:"45%", background:"#f1faee" }}/>
-      <div style={{ position:"absolute", top:"38%", left:"10%", width:"80%", height:5, background:"#f1faee", opacity:.3 }}/>
-      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", alignItems:"center", padding:"20px 18px 12px" }}>
-        <div style={{ fontSize:8, letterSpacing:"6px", color:"rgba(241,250,238,.7)", marginBottom:6 }}>REVIEW</div>
-        <div style={{ fontSize:24, fontWeight:900, color:"#f1faee", textAlign:"center", lineHeight:1.1, marginBottom:6, textShadow:"3px 3px 0 rgba(0,0,0,.3)" }}>{storeName}</div>
-        <Stars5 c="#ffd166"/>
-        <div style={{ fontSize:10, color:"rgba(241,250,238,.8)", margin:"10px 0 14px", textAlign:"center" }}>本日のご感想をお聞かせください</div>
-        <div style={{ background:"#f1faee", padding:"12px 12px 10px", marginBottom:10, display:"flex", flexDirection:"column", alignItems:"center", gap:6 }}>
-          {reviewUrl && <QRCode value={reviewUrl} size={118} level="M" fgColor="#1d3557"/>}
-          <div style={{ fontSize:8, color:"#1d3557", letterSpacing:"2px", fontWeight:700 }}>QRコードをスキャン</div>
-        </div>
-        {incentive && (
-          <div style={{ width:"100%", background:"#1d3557", padding:"10px 12px", textAlign:"center", marginBottom:10 }}>
-            <div style={{ fontSize:9, color:"rgba(241,250,238,.5)", marginBottom:2 }}>レビューご記入で</div>
-            <div style={{ fontSize:13, fontWeight:700, color:"#f1faee" }}>🎁 {incentive}</div>
-            <div style={{ fontSize:8, color:"rgba(241,250,238,.4)", marginTop:2 }}>スタッフにお声がけください</div>
-          </div>
-        )}
-        <div style={{ display:"flex", gap:12, marginTop:"auto" }}>
-          {["①スキャン","②評価","③完了"].map((s)=>(
-            <div key={s} style={{ fontSize:9, color:"rgba(241,250,238,.7)", background:"rgba(0,0,0,.2)", padding:"3px 7px", borderRadius:4 }}>{s}</div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ═══════════════════════════════════════════════════
-   7. WABI  — organic shapes, warm botanical
-═══════════════════════════════════════════════════ */
-function PosterWabi({ storeName, incentive, reviewUrl }: PosterProps) {
-  return (
-    <div style={{ width:"100%", height:"100%", background:"#f7f0e6", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
-      {/* organic blobs */}
-      <svg style={{ position:"absolute", inset:0, width:"100%", height:"100%" }} viewBox="0 0 100 148" preserveAspectRatio="none">
-        <ellipse cx="85" cy="25" rx="28" ry="32" fill="#d4b896" opacity=".25" transform="rotate(-20 85 25)"/>
-        <ellipse cx="15" cy="120" rx="32" ry="26" fill="#8fad88" opacity=".2" transform="rotate(15 15 120)"/>
-        <ellipse cx="90" cy="110" rx="18" ry="24" fill="#c4956a" opacity=".15" transform="rotate(-10 90 110)"/>
-        <path d="M0,80 Q20,70 15,95 Q10,115 0,110Z" fill="#8fad88" opacity=".15"/>
-      </svg>
-      {/* leaf motif top right */}
-      <svg style={{ position:"absolute", top:8, right:10, width:50, height:60, opacity:.3 }} viewBox="0 0 50 60">
-        <path d="M40,5 Q55,5 55,25 Q55,50 30,58 Q5,60 5,40 Q5,15 40,5Z" fill="#5a7a52"/>
-        <path d="M40,5 L20,50" stroke="#fff" strokeWidth="1.5" fill="none" opacity=".5"/>
-        <path d="M40,15 Q30,30 25,45" stroke="#fff" strokeWidth="0.8" fill="none" opacity=".3"/>
-        <path d="M40,15 Q48,28 42,42" stroke="#fff" strokeWidth="0.8" fill="none" opacity=".3"/>
-      </svg>
-      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", alignItems:"center", padding:"20px 20px 14px" }}>
-        <div style={{ fontSize:8, letterSpacing:"5px", color:"#8b6f47", marginBottom:4 }}>🌿 おこしやす 🌿</div>
-        <div style={{ width:16, height:2, background:"#c4956a", marginBottom:12 }}/>
-        <div style={{ fontSize:22, fontWeight:900, color:"#3d2b1f", textAlign:"center", lineHeight:1.2, marginBottom:4 }}>{storeName}</div>
-        <div style={{ fontSize:9, color:"#8b6f47", marginBottom:14 }}>本日もご来店ありがとうございます</div>
-        <Stars5 c="#c4956a"/>
-        <div style={{ fontSize:10, color:"#5a4030", margin:"10px 0 14px", textAlign:"center" }}>本日のご感想をお聞かせください</div>
-        <div style={{ border:"2px solid #d4b896", background:"#fffdf7", padding:10, marginBottom:10, display:"flex", flexDirection:"column", alignItems:"center", gap:6, borderRadius:4 }}>
-          {reviewUrl && <QRCode value={reviewUrl} size={116} level="M" fgColor="#3d2b1f"/>}
-          <div style={{ fontSize:8, color:"#8b6f47", letterSpacing:"2px" }}>QRコードをスキャン</div>
-        </div>
-        {incentive && (
-          <div style={{ width:"100%", border:"1px dashed #c4956a", background:"rgba(196,149,106,.08)", borderRadius:8, padding:"10px 12px", textAlign:"center", marginBottom:10 }}>
-            <div style={{ fontSize:9, color:"#8b6f47" }}>レビューご記入で</div>
-            <div style={{ fontSize:13, fontWeight:700, color:"#3d2b1f", margin:"3px 0" }}>🎁 {incentive}</div>
-            <div style={{ fontSize:8, color:"#a0856a" }}>スタッフにお声がけください</div>
-          </div>
-        )}
-        <div style={{ fontSize:8, color:"#c4b09a", marginTop:"auto" }}>またのお越しをお待ちしております</div>
-      </div>
-    </div>
-  );
-}
-
-/* ═══════════════════════════════════════════════════
-   8. HUD  — holographic terminal, hex grid
-═══════════════════════════════════════════════════ */
-function buildHexPoints(): string[] {
-  const pts: string[] = [];
-  for(let row=0;row<7;row++)for(let col=0;col<7;col++){
-    const x=col*18+(row%2?9:0), y=row*15.6;
-    pts.push(`${x},${y-10} ${x+8.66},${y-5} ${x+8.66},${y+5} ${x},${y+10} ${x-8.66},${y+5} ${x-8.66},${y-5}`);
-  }
-  return pts;
-}
-const HEX_PTS = buildHexPoints();
-
-function PosterHUD({ storeName, incentive, reviewUrl }: PosterProps) {
-  return (
-    <div style={{ width:"100%", height:"100%", background:"#030d1a", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
-      {/* hex grid */}
-      <svg style={{ position:"absolute", inset:0, width:"100%", height:"100%", opacity:.12 }} viewBox="0 0 100 148" preserveAspectRatio="xMidYMid slice">
-        {HEX_PTS.map((p,i)=><polygon key={i} points={p} fill="none" stroke="#00e5ff" strokeWidth="0.4"/>)}
-      </svg>
-      {/* glow center */}
-      <div style={{ position:"absolute", top:"30%", left:"50%", transform:"translate(-50%,-50%)", width:"60%", height:"50%", background:"radial-gradient(circle,rgba(0,229,255,.15) 0%,transparent 70%)", filter:"blur(15px)" }}/>
-      {/* corner brackets */}
-      <div style={{ position:"absolute", top:12, left:12, width:16, height:16, borderTop:"2px solid #00e5ff", borderLeft:"2px solid #00e5ff" }}/>
-      <div style={{ position:"absolute", top:12, right:12, width:16, height:16, borderTop:"2px solid #00e5ff", borderRight:"2px solid #00e5ff" }}/>
-      <div style={{ position:"absolute", bottom:12, left:12, width:16, height:16, borderBottom:"2px solid #00e5ff", borderLeft:"2px solid #00e5ff" }}/>
-      <div style={{ position:"absolute", bottom:12, right:12, width:16, height:16, borderBottom:"2px solid #00e5ff", borderRight:"2px solid #00e5ff" }}/>
-      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", alignItems:"center", padding:"22px 16px 12px" }}>
-        <div style={{ fontSize:8, letterSpacing:"4px", color:"#00e5ff", marginBottom:6, fontFamily:"monospace" }}>[ REVIEW.SYS ]</div>
-        <div style={{ width:"100%", height:1, background:"linear-gradient(to right,transparent,#00e5ff,transparent)", marginBottom:14 }}/>
-        <div style={{ fontSize:20, fontWeight:900, color:"#e0f8ff", textAlign:"center", lineHeight:1.2, textShadow:"0 0 20px rgba(0,229,255,.5)", marginBottom:4 }}>{storeName}</div>
-        <div style={{ fontSize:8, color:"rgba(0,229,255,.45)", fontFamily:"monospace", marginBottom:12 }}>&gt;&gt; THANK_YOU_FOR_VISITING</div>
-        <Stars5 c="#00e5ff"/>
-        <div style={{ fontSize:9, color:"rgba(224,248,255,.5)", margin:"10px 0 12px", fontFamily:"monospace" }}>INPUT: ご感想を入力してください</div>
-        <div style={{ border:"1px solid #00e5ff", background:"rgba(0,229,255,.05)", padding:10, marginBottom:10, boxShadow:"0 0 16px rgba(0,229,255,.2)", display:"flex", flexDirection:"column", alignItems:"center", gap:6 }}>
-          <div style={{ background:"#e0f8ff", padding:6 }}>
-            {reviewUrl && <QRCode value={reviewUrl} size={114} level="M" fgColor="#030d1a"/>}
-          </div>
-          <div style={{ fontSize:8, letterSpacing:"2px", color:"rgba(0,229,255,.65)", fontFamily:"monospace" }}>SCAN → EXECUTE</div>
-        </div>
-        {incentive && (
-          <div style={{ width:"100%", border:"1px solid rgba(0,229,255,.25)", background:"rgba(0,229,255,.04)", padding:"10px 12px", textAlign:"center", marginBottom:10, fontFamily:"monospace" }}>
-            <div style={{ fontSize:8, color:"rgba(0,229,255,.45)" }}>REWARD_ON_COMPLETE:</div>
-            <div style={{ fontSize:12, fontWeight:700, color:"#00e5ff", margin:"3px 0" }}>🎁 {incentive}</div>
-            <div style={{ fontSize:8, color:"rgba(0,229,255,.3)" }}>ASK_STAFF &gt;&gt; CLAIM</div>
-          </div>
-        )}
-        <div style={{ marginTop:"auto", width:"100%", height:1, background:"linear-gradient(to right,transparent,#00e5ff,transparent)" }}/>
-      </div>
-    </div>
-  );
-}
-
-/* ═══════════════════════════════════════════════════
-   9. COUTURE  — diagonal split, fashion editorial
-═══════════════════════════════════════════════════ */
-function PosterCouture({ storeName, incentive, reviewUrl }: PosterProps) {
-  return (
-    <div style={{ width:"100%", height:"100%", background:"#fdf8f5", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
-      {/* diagonal blocks */}
-      <svg style={{ position:"absolute", inset:0, width:"100%", height:"100%" }} viewBox="0 0 100 148" preserveAspectRatio="none">
-        <polygon points="0,0 38,0 0,148" fill="#1a0a1a"/>
-        <polygon points="0,0 40,0 0,148" fill="none" stroke="#b8860b" strokeWidth="0.4" opacity=".5"/>
-      </svg>
-      {/* vertical store name on dark strip */}
-      <div style={{ position:"absolute", left:0, top:0, bottom:0, width:"38%", display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center", paddingBottom:"40px" }}>
-        <div style={{ writingMode:"vertical-rl", textOrientation:"mixed", transform:"rotate(180deg)", fontSize:16, fontWeight:900, color:"#fdf8f5", letterSpacing:2, lineHeight:1, textAlign:"center" }}>{storeName}</div>
-        <div style={{ marginTop:10, writingMode:"vertical-rl", textOrientation:"mixed", transform:"rotate(180deg)", fontSize:7, color:"rgba(255,255,255,.35)", letterSpacing:3 }}>REVIEW</div>
-      </div>
-      {/* right content */}
-      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", alignItems:"center", paddingLeft:"42%", paddingRight:"10px", paddingTop:18, paddingBottom:12 }}>
-        <div style={{ fontSize:8, letterSpacing:"3px", color:"#b8860b", marginBottom:10 }}>✦ AVIS</div>
-        <Stars5 c="#b8860b"/>
-        <div style={{ fontSize:9, color:"#4a3728", margin:"10px 0 12px", textAlign:"center" }}>ご感想を<br/>お聞かせください</div>
-        <div style={{ border:"2px solid #1a0a1a", padding:8, marginBottom:8, display:"flex", flexDirection:"column", alignItems:"center", gap:5 }}>
-          {reviewUrl && <QRCode value={reviewUrl} size={100} level="M" fgColor="#1a0a1a"/>}
-          <div style={{ fontSize:7, color:"#888", letterSpacing:"2px" }}>SCAN ME</div>
-        </div>
-        {incentive && (
-          <div style={{ width:"100%", background:"#1a0a1a", padding:"8px 10px", textAlign:"center", marginBottom:8 }}>
-            <div style={{ fontSize:8, color:"rgba(255,255,255,.4)", marginBottom:2 }}>ご記入で</div>
-            <div style={{ fontSize:11, fontWeight:700, color:"#fdf8f5" }}>🎁 {incentive}</div>
-            <div style={{ fontSize:7, color:"rgba(255,255,255,.3)", marginTop:2 }}>スタッフへ</div>
-          </div>
-        )}
-        <div style={{ marginTop:"auto", display:"flex", flexDirection:"column", gap:4 }}>
-          {["① スキャン","② 評価","③ 完了"].map(s=><div key={s} style={{ fontSize:8, color:"#888" }}>{s}</div>)}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ═══════════════════════════════════════════════════
-   10. RIOT  — brutalist B&W, giant star
-═══════════════════════════════════════════════════ */
-function PosterRiot({ storeName, incentive, reviewUrl }: PosterProps) {
-  return (
-    <div style={{ width:"100%", height:"100%", background:"#fff", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
-      {/* giant background star */}
-      <div style={{ position:"absolute", top:"-5%", left:"50%", transform:"translateX(-50%)", fontSize:"clamp(120px,35vw,260px)", fontWeight:900, color:"rgba(0,0,0,.04)", lineHeight:1, pointerEvents:"none", whiteSpace:"nowrap" }}>★</div>
-      {/* black accent bar */}
-      <div style={{ position:"absolute", top:0, left:0, right:0, height:8, background:"#111" }}/>
-      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column" }}>
-        <div style={{ padding:"18px 20px 0" }}>
-          <div style={{ fontSize:7, letterSpacing:"6px", color:"#999", marginBottom:4 }}>YOUR VOICE MATTERS</div>
-          <div style={{ fontSize:26, fontWeight:900, color:"#111", lineHeight:.9, letterSpacing:"-1px" }}>{storeName}</div>
-          <div style={{ width:20, height:4, background:"#111", marginTop:8 }}/>
-        </div>
-        <div style={{ flex:1, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", padding:"0 20px" }}>
-          <div style={{ fontSize:10, color:"#555", marginBottom:8, textAlign:"center" }}>本日のご感想をお聞かせください</div>
-          <Stars5 c="#222"/>
-          <div style={{ marginTop:12, border:"4px solid #111", padding:10 }}>
-            {reviewUrl && <QRCode value={reviewUrl} size={114} level="M" fgColor="#111"/>}
-          </div>
-          <div style={{ fontSize:8, letterSpacing:"3px", color:"#bbb", marginTop:8 }}>QRコードをスキャン</div>
-        </div>
-        <div style={{ background:"#111", padding:"12px 20px" }}>
-          {incentive ? (
-            <div style={{ textAlign:"center" }}>
-              <div style={{ fontSize:8, color:"#666", marginBottom:3 }}>レビューご記入で</div>
-              <div style={{ fontSize:14, fontWeight:900, color:"#fff" }}>🎁 {incentive}</div>
-              <div style={{ fontSize:8, color:"#555", marginTop:3 }}>スタッフにお声がけください</div>
-            </div>
-          ) : (
-            <div style={{ display:"flex", justifyContent:"center", gap:16 }}>
-              {["SCAN","RATE","DONE"].map((s,i)=>(
-                <div key={s} style={{ display:"flex", alignItems:"center", gap:4 }}>
-                  <div style={{ width:16, height:16, borderRadius:"50%", background:"#fff", display:"flex", alignItems:"center", justifyContent:"center", fontSize:8, fontWeight:900, color:"#111" }}>{i+1}</div>
-                  <span style={{ fontSize:9, color:"#fff", fontWeight:700 }}>{s}</span>
-                  {i<2&&<span style={{ color:"#555" }}>›</span>}
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ═══════════════════════════════════════════════════
-   11. CLINIC  — medical precision, blue+white
-═══════════════════════════════════════════════════ */
-function PosterClinic({ storeName, incentive, reviewUrl }: PosterProps) {
-  return (
-    <div style={{ width:"100%", height:"100%", background:"#fff", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
-      {/* top banner */}
-      <div style={{ background:"linear-gradient(90deg,#0369a1,#0ea5e9)", padding:"16px 20px 14px", display:"flex", alignItems:"center", gap:10 }}>
-        {/* plus mark */}
-        <div style={{ position:"relative", width:26, height:26, flexShrink:0 }}>
-          <div style={{ position:"absolute", top:"50%", left:0, right:0, height:8, background:"rgba(255,255,255,.9)", transform:"translateY(-50%)", borderRadius:2 }}/>
-          <div style={{ position:"absolute", left:"50%", top:0, bottom:0, width:8, background:"rgba(255,255,255,.9)", transform:"translateX(-50%)", borderRadius:2 }}/>
-        </div>
-        <div>
-          <div style={{ fontSize:7, color:"rgba(255,255,255,.65)", letterSpacing:"3px" }}>PATIENT REVIEW</div>
-          <div style={{ fontSize:16, fontWeight:900, color:"#fff", lineHeight:1.1 }}>{storeName}</div>
-        </div>
-      </div>
-      {/* subtle dot grid */}
-      <svg style={{ position:"absolute", inset:0, width:"100%", height:"100%", opacity:.04 }}>
-        <defs><pattern id="dot" width="12" height="12" patternUnits="userSpaceOnUse"><circle cx="6" cy="6" r="1" fill="#0ea5e9"/></pattern></defs>
-        <rect width="100%" height="100%" fill="url(#dot)"/>
-      </svg>
-      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", alignItems:"center", padding:"18px 20px 14px" }}>
-        <div style={{ width:"100%", background:"#f0f9ff", border:"1px solid #bae6fd", borderRadius:12, padding:"14px 16px", display:"flex", flexDirection:"column", alignItems:"center", gap:10, marginBottom:14 }}>
-          <div style={{ fontSize:10, fontWeight:600, color:"#0369a1", textAlign:"center" }}>本日の対応はいかがでしたか？</div>
-          <div style={{ fontSize:9, color:"#7dd3fc", textAlign:"center" }}>皆様のご意見がサービス向上に繋がります</div>
-          <Stars5 c="#0ea5e9"/>
-          <div style={{ background:"#fff", border:"1px solid #bae6fd", padding:8, borderRadius:8 }}>
-            {reviewUrl && <QRCode value={reviewUrl} size={114} level="M" fgColor="#0369a1"/>}
-          </div>
-          <div style={{ fontSize:8, color:"#7dd3fc", letterSpacing:"2px" }}>📱 QRコードをスキャン</div>
-        </div>
-        {incentive && (
-          <div style={{ width:"100%", border:"1px solid #bae6fd", background:"#f0f9ff", borderRadius:10, padding:"10px 14px", textAlign:"center", marginBottom:10 }}>
-            <div style={{ fontSize:9, color:"#0ea5e9", marginBottom:2 }}>アンケートご回答で</div>
-            <div style={{ fontSize:13, fontWeight:700, color:"#0369a1" }}>🎁 {incentive}</div>
-            <div style={{ fontSize:8, color:"#7dd3fc", marginTop:2 }}>受付にてお申し付けください</div>
-          </div>
-        )}
-        <div style={{ marginTop:"auto", fontSize:8, color:"#cbd5e1", letterSpacing:"3px" }}>より良い医療のために</div>
-      </div>
-    </div>
-  );
-}
-
-/* ═══════════════════════════════════════════════════
-   12. ZEN  — concentric rings, sage wellness
-═══════════════════════════════════════════════════ */
-function PosterZen({ storeName, incentive, reviewUrl }: PosterProps) {
-  return (
-    <div style={{ width:"100%", height:"100%", background:"linear-gradient(160deg,#f0fdf4,#d1fae5 60%,#a7f3d0)", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
-      {/* concentric rings */}
-      <svg style={{ position:"absolute", top:"30%", left:"50%", transform:"translate(-50%,-50%)", width:"120%", opacity:.12 }} viewBox="0 0 200 200">
-        {[90,75,60,45,30].map((r,i)=><circle key={i} cx="100" cy="100" r={r} fill="none" stroke="#059669" strokeWidth="0.8"/>)}
-      </svg>
-      <div style={{ position:"absolute", bottom:0, left:0, right:0, height:"28%" }}>
-        <svg viewBox="0 0 100 40" preserveAspectRatio="none" style={{ width:"100%", height:"100%" }}>
-          <path d="M0,20 Q25,0 50,20 Q75,40 100,20 L100,40 L0,40Z" fill="#34d399" opacity=".25"/>
-          <path d="M0,28 Q25,8 50,28 Q75,48 100,28 L100,40 L0,40Z" fill="#6ee7b7" opacity=".2"/>
-        </svg>
-      </div>
-      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", alignItems:"center", padding:"22px 20px 14px" }}>
-        <div style={{ fontSize:8, letterSpacing:"5px", color:"#059669", marginBottom:4 }}>🌿 WELLNESS</div>
-        <div style={{ width:20, height:1, background:"#a7f3d0", marginBottom:14 }}/>
-        <div style={{ fontSize:21, fontWeight:900, color:"#064e3b", textAlign:"center", lineHeight:1.2, marginBottom:4 }}>{storeName}</div>
-        <div style={{ fontSize:9, color:"#10b981", marginBottom:14 }}>ご来院ありがとうございます</div>
-        <Stars5 c="#34d399"/>
-        <div style={{ fontSize:10, color:"#065f46", margin:"10px 0 14px", textAlign:"center" }}>本日の施術はいかがでしたか？</div>
-        <div style={{ background:"rgba(255,255,255,.75)", backdropFilter:"blur(8px)", border:"1.5px solid #a7f3d0", borderRadius:20, padding:"12px 12px 8px", display:"flex", flexDirection:"column", alignItems:"center", gap:6, marginBottom:12 }}>
-          {reviewUrl && <QRCode value={reviewUrl} size={114} level="M" fgColor="#064e3b"/>}
-          <div style={{ fontSize:8, color:"#10b981", letterSpacing:"2px" }}>📱 QRコードをスキャン</div>
-        </div>
-        {incentive && (
-          <div style={{ width:"100%", background:"rgba(52,211,153,.15)", border:"1.5px solid #a7f3d0", borderRadius:12, padding:"10px 14px", textAlign:"center", marginBottom:10 }}>
-            <div style={{ fontSize:9, color:"#059669" }}>ご記入いただいた方に</div>
-            <div style={{ fontSize:13, fontWeight:700, color:"#064e3b", margin:"3px 0" }}>🎁 {incentive}</div>
-            <div style={{ fontSize:8, color:"#6ee7b7" }}>スタッフへお声がけください</div>
-          </div>
-        )}
-        <div style={{ fontSize:8, color:"#a7f3d0", marginTop:"auto" }}>心身ともに健やかに</div>
-      </div>
-    </div>
-  );
-}
-
-/* ═══════════════════════════════════════════════════
-   13. STUDIO  — fashion B&W, editorial, CENTERED
-═══════════════════════════════════════════════════ */
-function PosterStudio({ storeName, incentive, reviewUrl }: PosterProps) {
-  return (
-    <div style={{ width:"100%", height:"100%", background:"#fff", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
-      {/* bold black top section */}
-      <div style={{ background:"#111", padding:"20px 20px 16px", display:"flex", flexDirection:"column", alignItems:"center" }}>
-        <div style={{ fontSize:8, letterSpacing:"8px", color:"rgba(255,255,255,.4)", marginBottom:6 }}>HAIR & BEAUTY SALON</div>
-        <div style={{ fontSize:24, fontWeight:900, color:"#fff", textAlign:"center", lineHeight:.95, letterSpacing:"-1px" }}>{storeName}</div>
-        <div style={{ width:30, height:3, background:"#fff", marginTop:10 }}/>
-      </div>
-      {/* white content */}
-      <div style={{ flex:1, display:"flex", flexDirection:"column", alignItems:"center", padding:"16px 20px 14px" }}>
-        <div style={{ fontSize:10, color:"#333", marginBottom:8, textAlign:"center" }}>本日のスタイルはいかがでしたか？</div>
-        <Stars5 c="#111"/>
-        <div style={{ margin:"14px 0", border:"3px solid #111", padding:10, display:"flex", flexDirection:"column", alignItems:"center", gap:6 }}>
-          {reviewUrl && <QRCode value={reviewUrl} size={114} level="M" fgColor="#111"/>}
-          <div style={{ fontSize:8, letterSpacing:"3px", color:"#555" }}>SCAN TO REVIEW</div>
-        </div>
-        {incentive && (
-          <div style={{ width:"100%", background:"#111", padding:"10px 14px", textAlign:"center", marginBottom:10 }}>
-            <div style={{ fontSize:8, color:"#666", marginBottom:2 }}>レビューご記入で</div>
-            <div style={{ fontSize:13, fontWeight:700, color:"#fff" }}>🎁 {incentive}</div>
-            <div style={{ fontSize:8, color:"#555", marginTop:2 }}>スタッフにお声がけください</div>
-          </div>
-        )}
-        <div style={{ marginTop:"auto", display:"flex", gap:16 }}>
-          {["① SCAN","② RATE","③ DONE"].map(s=><div key={s} style={{ fontSize:8, color:"#999" }}>{s}</div>)}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ═══════════════════════════════════════════════════
-   14. MARBLE  — marble veins, warm gold spa
-═══════════════════════════════════════════════════ */
-function PosterMarble({ storeName, incentive, reviewUrl }: PosterProps) {
-  return (
-    <div style={{ width:"100%", height:"100%", background:"#faf6f0", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
-      {/* marble veins SVG */}
-      <svg style={{ position:"absolute", inset:0, width:"100%", height:"100%", opacity:.2 }} viewBox="0 0 100 148" preserveAspectRatio="none">
-        <path d="M20,0 Q35,30 15,60 Q5,90 25,148" stroke="#c4a882" strokeWidth="2.5" fill="none"/>
-        <path d="M60,0 Q75,40 55,80 Q45,110 70,148" stroke="#d4b896" strokeWidth="1.5" fill="none"/>
-        <path d="M85,10 Q95,50 80,90 Q70,120 90,148" stroke="#c4a882" strokeWidth="1" fill="none"/>
-        <path d="M0,40 Q30,45 50,35 Q70,25 100,30" stroke="#d4b896" strokeWidth="0.8" fill="none"/>
-        <path d="M0,100 Q20,95 40,110 Q60,120 100,105" stroke="#c4a882" strokeWidth="0.8" fill="none"/>
-      </svg>
-      {/* gold frame */}
-      <div style={{ position:"absolute", inset:10, border:"1px solid rgba(201,168,76,.35)", pointerEvents:"none" }}/>
-      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", alignItems:"center", padding:"22px 20px 14px" }}>
-        <div style={{ fontSize:8, letterSpacing:"6px", color:"#c9a84c", marginBottom:4 }}>S P A</div>
-        <div style={{ width:30, height:1, background:"linear-gradient(to right,transparent,#c9a84c,transparent)", marginBottom:14 }}/>
-        <div style={{ fontSize:20, fontWeight:900, color:"#3d2b1f", textAlign:"center", lineHeight:1.2, marginBottom:4 }}>{storeName}</div>
-        <div style={{ fontSize:9, color:"#b8966a", marginBottom:14 }}>癒しのひとときをご提供できましたか</div>
-        <Stars5 c="#c9a84c"/>
-        <div style={{ fontSize:10, color:"#5c3d2a", margin:"10px 0 14px", textAlign:"center" }}>本日のご感想をお聞かせください</div>
-        <div style={{ background:"rgba(255,255,255,.85)", border:"1.5px solid #dfc090", borderRadius:4, padding:"12px 12px 8px", display:"flex", flexDirection:"column", alignItems:"center", gap:6, marginBottom:12 }}>
-          {reviewUrl && <QRCode value={reviewUrl} size={114} level="M" fgColor="#3d2b1f"/>}
-          <div style={{ fontSize:8, color:"#b8966a", letterSpacing:"2px" }}>QRコードをスキャン</div>
-        </div>
-        {incentive && (
-          <div style={{ width:"100%", border:"1px solid #dfc090", background:"rgba(201,168,76,.06)", borderRadius:4, padding:"10px 14px", textAlign:"center", marginBottom:10 }}>
-            <div style={{ fontSize:9, color:"#b8966a" }}>レビューご記入で</div>
-            <div style={{ fontSize:13, fontWeight:700, color:"#3d2b1f", margin:"3px 0" }}>🎁 {incentive}</div>
-            <div style={{ fontSize:8, color:"#c9a84c" }}>スタッフへお申し付けください</div>
-          </div>
-        )}
-        <div style={{ marginTop:"auto", width:30, height:1, background:"linear-gradient(to right,transparent,#c9a84c,transparent)" }}/>
-      </div>
-    </div>
-  );
-}
-
-/* ═══════════════════════════════════════════════════
-   15. RUSH  — sports, speed wedge, explosive
+   15. RUSH  — sports, dynamic diagonal orange band
 ═══════════════════════════════════════════════════ */
 function PosterRush({ storeName, incentive, reviewUrl }: PosterProps) {
   return (
-    <div style={{ width:"100%", height:"100%", background:"#0a0a0a", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
-      {/* speed wedges */}
+    <div style={{ width:"100%", height:"100%", background:"#0c0c0c", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
+      {/* diagonal orange band */}
       <svg style={{ position:"absolute", inset:0, width:"100%", height:"100%" }} viewBox="0 0 100 148" preserveAspectRatio="none">
-        <polygon points="0,0 55,0 0,55" fill="#ef4444" opacity=".9"/>
-        <polygon points="0,0 40,0 0,40" fill="#f97316" opacity=".8"/>
-        <polygon points="100,148 45,148 100,93" fill="#ef4444" opacity=".4"/>
-        <polygon points="100,148 60,148 100,108" fill="#f97316" opacity=".3"/>
+        <polygon points="0,38 100,8 100,52 0,82" fill="#f97316" opacity=".9"/>
+        <polygon points="0,38 100,8 100,44 0,68" fill="#ef4444" opacity=".6"/>
       </svg>
-      {/* halftone */}
-      <svg style={{ position:"absolute", right:0, top:"20%", width:"50%", height:"60%", opacity:.06 }} viewBox="0 0 80 100">
-        {Array.from({length:7},(_,row)=>Array.from({length:5},(_,col)=><circle key={`${row}-${col}`} cx={col*16+8} cy={row*14+7} r="5" fill="#f97316"/>))}
+      {/* halftone dots */}
+      <svg style={{ position:"absolute", right:0, bottom:"10%", width:"40%", height:"40%", opacity:.07 }} viewBox="0 0 80 80">
+        {Array.from({length:5},(_,row)=>Array.from({length:5},(_,col)=>(
+          <circle key={row*5+col} cx={col*16+8} cy={row*16+8} r="5" fill="#f97316"/>
+        ))).flat()}
       </svg>
-      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", alignItems:"center", padding:"20px 18px 12px" }}>
-        <div style={{ fontSize:8, letterSpacing:"5px", color:"#f97316", marginBottom:6 }}>💪 GYM REVIEW</div>
-        <div style={{ fontSize:22, fontWeight:900, color:"#fff", textAlign:"center", lineHeight:1.1, textShadow:"0 0 20px rgba(249,115,22,.4)", marginBottom:4 }}>{storeName}</div>
-        <div style={{ width:24, height:3, background:"linear-gradient(to right,#ef4444,#f97316)", marginBottom:12 }}/>
+      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", padding:"20px 18px 18px" }}>
+        <div style={{ fontSize:8, letterSpacing:"6px", color:"rgba(249,115,22,.8)", marginBottom:10 }}>GYM REVIEW</div>
+        <div style={{ fontSize:38, fontWeight:900, color:"#fff", lineHeight:.9, letterSpacing:"-2px", textShadow:"0 0 30px rgba(249,115,22,.5)", marginBottom:8 }}>{storeName}</div>
+        <div style={{ width:36, height:4, background:"linear-gradient(to right,#ef4444,#f97316)", marginBottom:16 }}/>
         <Stars5 c="#f97316"/>
-        <div style={{ fontSize:10, color:"rgba(255,255,255,.6)", margin:"10px 0 14px", textAlign:"center" }}>本日のトレーニングはいかがでしたか？</div>
-        <div style={{ border:"2px solid #f97316", background:"rgba(249,115,22,.06)", padding:10, marginBottom:10, display:"flex", flexDirection:"column", alignItems:"center", gap:6, boxShadow:"0 0 20px rgba(249,115,22,.2)" }}>
-          <div style={{ background:"#1a1a1a", padding:8 }}>
-            {reviewUrl && <QRCode value={reviewUrl} size={112} level="M" fgColor="#f9fafb" bgColor="#1a1a1a"/>}
-          </div>
-          <div style={{ fontSize:8, color:"#f97316", letterSpacing:"2px" }}>QRコードをスキャン</div>
-        </div>
-        {incentive && (
-          <div style={{ width:"100%", background:"linear-gradient(90deg,#ef4444,#f97316)", padding:"10px 14px", textAlign:"center", marginBottom:10 }}>
-            <div style={{ fontSize:9, color:"rgba(255,255,255,.7)", marginBottom:2 }}>レビューご記入で</div>
-            <div style={{ fontSize:13, fontWeight:900, color:"#fff" }}>🎁 {incentive}</div>
-            <div style={{ fontSize:8, color:"rgba(255,255,255,.5)", marginTop:2 }}>スタッフにお声がけください</div>
-          </div>
-        )}
-        <div style={{ display:"flex", gap:14, marginTop:"auto" }}>
-          {["SCAN","RATE","DONE"].map((s,i)=>(
-            <div key={s} style={{ display:"flex", alignItems:"center", gap:4 }}>
-              <div style={{ width:16, height:16, borderRadius:3, background:i===0?"#ef4444":i===1?"#f97316":"#fff", display:"flex", alignItems:"center", justifyContent:"center", fontSize:8, fontWeight:900, color:i===2?"#111":"#fff" }}>{i+1}</div>
-              <span style={{ fontSize:9, color:"rgba(255,255,255,.5)", fontWeight:700 }}>{s}</span>
-              {i<2&&<span style={{ color:"rgba(255,255,255,.2)" }}>›</span>}
+        <div style={{ fontSize:10, color:"rgba(255,255,255,.55)", marginTop:12, lineHeight:1.5 }}>本日のトレーニングは<br/>いかがでしたか？</div>
+        <div style={{ flex:1, display:"flex", alignItems:"flex-end", justifyContent:"flex-end" }}>
+          <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:8 }}>
+            {incentive && (
+              <div style={{ background:"linear-gradient(90deg,#ef4444,#f97316)", padding:"8px 14px", textAlign:"center" as React.CSSProperties["textAlign"] }}>
+                <div style={{ fontSize:8, color:"rgba(255,255,255,.7)", marginBottom:2 }}>レビューご記入で</div>
+                <div style={{ fontSize:12, fontWeight:900, color:"#fff" }}>{incentive}</div>
+              </div>
+            )}
+            <div style={{ border:"3px solid #f97316", padding:8, background:"rgba(249,115,22,.06)", boxShadow:"0 0 24px rgba(249,115,22,.25)" }}>
+              <div style={{ background:"#1a1a1a", padding:6 }}>
+                {reviewUrl && <QRCode value={reviewUrl} size={128} level="M" fgColor="#f9fafb" bgColor="#1a1a1a"/>}
+              </div>
             </div>
-          ))}
+            <div style={{ fontSize:8, color:"rgba(249,115,22,.7)", letterSpacing:"2px" }}>QRをスキャン</div>
+          </div>
         </div>
       </div>
     </div>
@@ -740,212 +631,197 @@ function PosterRush({ storeName, incentive, reviewUrl }: PosterProps) {
 }
 
 /* ═══════════════════════════════════════════════════
-   16. INK  — 2-color risograph, vintage poster
+   16. INK  — craft paper, stamp aesthetic, zig-zag QR border
 ═══════════════════════════════════════════════════ */
 function PosterInk({ storeName, incentive, reviewUrl }: PosterProps) {
   return (
-    <div style={{ width:"100%", height:"100%", background:"#f2ead8", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
-      {/* large circle stamp */}
-      <div style={{ position:"absolute", top:"8%", left:"50%", transform:"translateX(-50%)", width:"75%", paddingTop:"75%", borderRadius:"50%", border:"4px solid #2c3e50", opacity:.08 }}/>
-      <div style={{ position:"absolute", top:"10%", left:"50%", transform:"translateX(-50%)", width:"68%", paddingTop:"68%", borderRadius:"50%", background:"#2c3e50", opacity:.05 }}/>
-      {/* texture overlay */}
-      <svg style={{ position:"absolute", inset:0, width:"100%", height:"100%", opacity:.06 }}>
-        <filter id="noise2"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="4"/><feColorMatrix type="saturate" values="0"/></filter>
-        <rect width="100%" height="100%" filter="url(#noise2)"/>
-      </svg>
+    <div style={{ width:"100%", height:"100%", background:"#f0e8d4", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
       {/* double frame */}
       <div style={{ position:"absolute", inset:8, border:"3px solid #2c3e50" }}/>
-      <div style={{ position:"absolute", inset:12, border:"1px solid #2c3e50", opacity:.4 }}/>
-      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", alignItems:"center", padding:"22px 22px 14px" }}>
-        <div style={{ fontSize:8, letterSpacing:"6px", color:"#2c3e50", marginBottom:6 }}>〜 お客様の声 〜</div>
-        <div style={{ fontSize:22, fontWeight:900, color:"#2c3e50", textAlign:"center", lineHeight:1.2, marginBottom:4 }}>{storeName}</div>
-        <div style={{ fontSize:9, color:"#5d6d7e", marginBottom:14, letterSpacing:"2px" }}>ご愛顧ありがとうございます</div>
+      <div style={{ position:"absolute", inset:13, border:"1px solid rgba(44,62,80,.35)" }}/>
+      {/* stamp background circle */}
+      <div style={{ position:"absolute", top:"5%", left:"50%", transform:"translateX(-50%)", width:"72%", paddingTop:"72%", borderRadius:"50%", border:"4px solid #2c3e50", opacity:.07 }}/>
+      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", padding:"22px 22px 18px" }}>
+        <div style={{ fontSize:7, letterSpacing:"7px", color:"rgba(44,62,80,.7)", textTransform:"uppercase" as React.CSSProperties["textTransform"], marginBottom:10 }}>〜 お客様の声 〜</div>
+        <div style={{ fontSize:38, fontWeight:900, color:"#2c3e50", lineHeight:.9, letterSpacing:"-1px", marginBottom:14 }}>{storeName}</div>
+        <div style={{ width:36, height:3, background:"#e67e22", marginBottom:14 }}/>
         <Stars5 c="#e67e22"/>
-        <div style={{ fontSize:10, color:"#2c3e50", margin:"10px 0 14px", textAlign:"center" }}>本日のご感想をお聞かせください</div>
-        <div style={{ border:"3px solid #2c3e50", padding:8, background:"#fffdf5", marginBottom:10, display:"flex", flexDirection:"column", alignItems:"center", gap:6 }}>
-          {reviewUrl && <QRCode value={reviewUrl} size={112} level="M" fgColor="#2c3e50" bgColor="#fffdf5"/>}
-          <div style={{ fontSize:8, color:"#5d6d7e", letterSpacing:"2px" }}>QRコードをスキャン</div>
-        </div>
-        {incentive && (
-          <div style={{ width:"100%", border:"2px solid #2c3e50", padding:"10px 14px", textAlign:"center", marginBottom:10, background:"rgba(44,62,80,.04)" }}>
-            <div style={{ fontSize:9, color:"#5d6d7e" }}>ご記入いただいた方へ</div>
-            <div style={{ fontSize:13, fontWeight:700, color:"#2c3e50", margin:"3px 0" }}>🎁 {incentive}</div>
-            <div style={{ fontSize:8, color:"#5d6d7e" }}>店員にお声がけください</div>
+        <div style={{ fontSize:10, color:"#2c3e50", margin:"12px 0 0", lineHeight:1.5 }}>本日のご感想を<br/>お聞かせください</div>
+        <div style={{ flex:1, display:"flex", alignItems:"flex-end", justifyContent:"flex-end" }}>
+          <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:8 }}>
+            {incentive && (
+              <div style={{ border:"2px solid #2c3e50", padding:"8px 12px", textAlign:"center" as React.CSSProperties["textAlign"], background:"rgba(44,62,80,.04)" }}>
+                <div style={{ fontSize:8, color:"rgba(44,62,80,.55)", marginBottom:2 }}>ご記入で</div>
+                <div style={{ fontSize:12, fontWeight:700, color:"#2c3e50" }}>{incentive}</div>
+              </div>
+            )}
+            {/* stamp-style QR */}
+            <div style={{ border:"4px solid #2c3e50", padding:8, background:"#fffdf5" }}>
+              {reviewUrl && <QRCode value={reviewUrl} size={126} level="M" fgColor="#2c3e50" bgColor="#fffdf5"/>}
+            </div>
+            <div style={{ fontSize:8, letterSpacing:"3px", color:"rgba(44,62,80,.6)" }}>QRコードをスキャン</div>
           </div>
-        )}
-        <div style={{ fontSize:8, color:"#8d9ea7", marginTop:"auto", letterSpacing:"3px" }}>またのお越しをお待ちしております</div>
+        </div>
       </div>
     </div>
   );
 }
 
 /* ═══════════════════════════════════════════════════
-   17. HYGGE  — Scandinavian, warm minimal
+   17. HYGGE  — Scandinavian, warm minimal, generous whitespace
 ═══════════════════════════════════════════════════ */
 function PosterHygge({ storeName, incentive, reviewUrl }: PosterProps) {
   return (
-    <div style={{ width:"100%", height:"100%", background:"#f5f0ea", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
-      {/* warm geometric */}
-      <div style={{ position:"absolute", top:0, left:0, right:0, height:6, background:"#2d2926" }}/>
-      <div style={{ position:"absolute", bottom:0, left:0, right:0, height:6, background:"#2d2926" }}/>
-      <div style={{ position:"absolute", top:20, right:16, width:50, height:50, borderRadius:"50%", background:"#e8ddd0", opacity:.8 }}/>
-      <div style={{ position:"absolute", bottom:24, left:14, width:36, height:36, background:"#d6c8b8", opacity:.5, transform:"rotate(45deg)" }}/>
-      {/* Scandi cross motif */}
-      <svg style={{ position:"absolute", top:"55%", right:"10%", width:40, height:40, opacity:.12 }} viewBox="0 0 40 40">
-        <line x1="20" y1="0" x2="20" y2="40" stroke="#2d2926" strokeWidth="3"/>
-        <line x1="0" y1="20" x2="40" y2="20" stroke="#2d2926" strokeWidth="3"/>
+    <div style={{ width:"100%", height:"100%", background:"#f3ede4", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
+      {/* top/bottom dark rules */}
+      <div style={{ position:"absolute", top:0, left:0, right:0, height:5, background:"#2d2926" }}/>
+      <div style={{ position:"absolute", bottom:0, left:0, right:0, height:5, background:"#2d2926" }}/>
+      {/* Scandi cross motif top-right */}
+      <svg style={{ position:"absolute", top:18, right:18, width:44, height:44, opacity:.15 }} viewBox="0 0 44 44">
+        <line x1="22" y1="0" x2="22" y2="44" stroke="#2d2926" strokeWidth="4"/>
+        <line x1="0" y1="22" x2="44" y2="22" stroke="#2d2926" strokeWidth="4"/>
       </svg>
-      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", alignItems:"center", padding:"20px 20px 14px" }}>
-        <div style={{ fontSize:8, letterSpacing:"6px", color:"#8b7355", marginBottom:6 }}>RECENSIONE</div>
-        <div style={{ fontSize:22, fontWeight:900, color:"#2d2926", textAlign:"center", lineHeight:1.2, marginBottom:4 }}>{storeName}</div>
-        <div style={{ width:16, height:2, background:"#2d2926", marginBottom:14 }}/>
+      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", padding:"28px 22px 22px" }}>
+        <div style={{ fontSize:8, letterSpacing:"6px", color:"rgba(45,41,38,.5)", marginBottom:20 }}>RECENSIONE</div>
+        <div style={{ fontSize:38, fontWeight:900, color:"#2d2926", lineHeight:.9, letterSpacing:"-1px", marginBottom:16 }}>{storeName}</div>
+        <div style={{ width:32, height:3, background:"#2d2926", marginBottom:16 }}/>
         <Stars5 c="#c4a882"/>
-        <div style={{ fontSize:10, color:"#5c5248", margin:"10px 0 14px", textAlign:"center" }}>本日のご体験はいかがでしたか？</div>
-        <div style={{ border:"2px solid #2d2926", padding:10, background:"#fff", marginBottom:10, display:"flex", flexDirection:"column", alignItems:"center", gap:6 }}>
-          {reviewUrl && <QRCode value={reviewUrl} size={112} level="M" fgColor="#2d2926"/>}
-          <div style={{ fontSize:8, letterSpacing:"3px", color:"#8b7355" }}>SCAN QR CODE</div>
-        </div>
-        {incentive && (
-          <div style={{ width:"100%", background:"#2d2926", padding:"10px 14px", textAlign:"center", marginBottom:10 }}>
-            <div style={{ fontSize:8, color:"#8b7355", marginBottom:2 }}>レビューご記入で</div>
-            <div style={{ fontSize:13, fontWeight:700, color:"#f5f0ea" }}>🎁 {incentive}</div>
-            <div style={{ fontSize:8, color:"#5c5248", marginTop:2 }}>スタッフにお声がけください</div>
+        <div style={{ fontSize:10, fontWeight:300, color:"#5c5248", margin:"14px 0 0", lineHeight:1.7 }}>本日のご体験は<br/>いかがでしたか？</div>
+        <div style={{ flex:1, display:"flex", alignItems:"flex-end", justifyContent:"center", paddingBottom:6 }}>
+          <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:8 }}>
+            {incentive && (
+              <div style={{ background:"#2d2926", padding:"10px 16px", textAlign:"center" as React.CSSProperties["textAlign"] }}>
+                <div style={{ fontSize:8, color:"rgba(195,168,130,.6)", marginBottom:2 }}>レビューご記入で</div>
+                <div style={{ fontSize:12, fontWeight:700, color:"#f3ede4" }}>{incentive}</div>
+              </div>
+            )}
+            <div style={{ border:"3px solid #2d2926", padding:8, background:"#fff" }}>
+              {reviewUrl && <QRCode value={reviewUrl} size={130} level="M" fgColor="#2d2926"/>}
+            </div>
+            <div style={{ fontSize:8, letterSpacing:"3px", color:"rgba(45,41,38,.5)" }}>SCAN QR CODE</div>
           </div>
-        )}
-        <div style={{ fontSize:8, letterSpacing:"4px", color:"#c4b5a0", marginTop:"auto" }}>TACK · ありがとう</div>
+        </div>
       </div>
     </div>
   );
 }
 
 /* ═══════════════════════════════════════════════════
-   18. CANDY  — rainbow gradient, kawaii
+   18. CANDY  — kawaii pastel, rainbow wave top
 ═══════════════════════════════════════════════════ */
 function PosterCandy({ storeName, incentive, reviewUrl }: PosterProps) {
   return (
-    <div style={{ width:"100%", height:"100%", background:"linear-gradient(160deg,#fff0f5 0%,#f0f0ff 40%,#f0fff8 100%)", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
-      {/* wavy rainbow top */}
-      <svg style={{ position:"absolute", top:0, left:0, right:0, width:"100%", height:28 }} viewBox="0 0 100 20" preserveAspectRatio="none">
-        <defs><linearGradient id="rb" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stopColor="#ff9de2"/><stop offset="25%" stopColor="#a78bfa"/><stop offset="50%" stopColor="#67e8f9"/><stop offset="75%" stopColor="#86efac"/><stop offset="100%" stopColor="#fde68a"/></linearGradient></defs>
-        <rect width="100" height="20" fill="url(#rb)"/>
+    <div style={{ width:"100%", height:"100%", background:"linear-gradient(160deg,#fdf0ff 0%,#f0eeff 50%,#f0fffa 100%)", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
+      {/* rainbow wave top */}
+      <svg style={{ position:"absolute", top:0, left:0, width:"100%", height:32 }} viewBox="0 0 100 20" preserveAspectRatio="none">
+        <defs><linearGradient id="rbG" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stopColor="#ff9de2"/><stop offset="25%" stopColor="#a78bfa"/><stop offset="50%" stopColor="#67e8f9"/><stop offset="75%" stopColor="#86efac"/><stop offset="100%" stopColor="#fde68a"/></linearGradient></defs>
+        <rect width="100" height="20" fill="url(#rbG)"/>
+        <path d="M0,20 Q25,10 50,20 Q75,28 100,20 L100,20 L0,20Z" fill="rgba(255,255,255,.5)"/>
       </svg>
-      {/* bubbly shapes */}
-      <div style={{ position:"absolute", top:"12%", left:"8%", width:20, height:20, borderRadius:"50%", background:"#fda4af", opacity:.45 }}/>
-      <div style={{ position:"absolute", top:"15%", right:"10%", width:14, height:14, borderRadius:"50%", background:"#93c5fd", opacity:.45 }}/>
-      <div style={{ position:"absolute", bottom:"18%", left:"5%", width:16, height:16, borderRadius:"50%", background:"#86efac", opacity:.45 }}/>
-      <div style={{ position:"absolute", bottom:"14%", right:"8%", width:18, height:18, borderRadius:"50%", background:"#c4b5fd", opacity:.45 }}/>
-      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", alignItems:"center", padding:"32px 18px 14px" }}>
-        <div style={{ fontSize:9, fontWeight:700, color:"#a78bfa", marginBottom:6 }}>🌈 ご感想をおしえてね！</div>
-        <div style={{ fontSize:21, fontWeight:900, color:"#6d28d9", textAlign:"center", lineHeight:1.2, marginBottom:4 }}>{storeName}</div>
-        <div style={{ fontSize:9, color:"#a78bfa", marginBottom:12 }}>ご来店ありがとうございます！</div>
-        <div style={{ display:"flex", gap:3 }}>
+      {/* bubble decorations */}
+      {[{top:"12%",left:"6%",size:24,color:"#fda4af"},{top:"16%",right:"8%",size:18,color:"#93c5fd"},{bottom:"20%",left:"4%",size:20,color:"#86efac"},{bottom:"16%",right:"6%",size:22,color:"#c4b5fd"}].map((b,i)=>{
+        const {size,color,...pos} = b;
+        return <div key={i} style={{ position:"absolute", ...pos, width:size, height:size, borderRadius:"50%", background:color, opacity:.5 }}/>;
+      })}
+      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", alignItems:"center", padding:"36px 18px 16px" }}>
+        <div style={{ fontSize:10, fontWeight:700, color:"#a78bfa", marginBottom:8 }}>ご感想をおしえてね！</div>
+        <div style={{ fontSize:32, fontWeight:900, color:"#6d28d9", textAlign:"center", lineHeight:1.1, marginBottom:8 }}>{storeName}</div>
+        <div style={{ display:"flex", gap:4, marginBottom:10 }}>
           {["#fda4af","#fbbf24","#86efac","#93c5fd","#c4b5fd"].map((c,i)=>(
-            <svg key={i} width="20" height="20" viewBox="0 0 24 24" fill={c}><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg key={i} width="22" height="22" viewBox="0 0 24 24" fill={c}><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           ))}
         </div>
-        <div style={{ fontSize:10, color:"#7c3aed", margin:"10px 0 12px", textAlign:"center" }}>今日はどうでしたか？</div>
-        <div style={{ border:"3px solid #e9d5ff", background:"#fff", borderRadius:24, padding:"12px 12px 8px", display:"flex", flexDirection:"column", alignItems:"center", gap:6, marginBottom:12, boxShadow:"0 4px 20px rgba(167,139,250,.15)" }}>
-          {reviewUrl && <QRCode value={reviewUrl} size={112} level="M" fgColor="#4c1d95"/>}
-          <div style={{ fontSize:8, color:"#a78bfa", letterSpacing:"1px" }}>📱 スキャンしてね！</div>
+        <div style={{ fontSize:9, color:"#7c3aed", marginBottom:16, textAlign:"center" }}>今日はどうでしたか？</div>
+        <div style={{ border:"3px solid #e9d5ff", background:"#fff", borderRadius:24, padding:"14px 14px 10px", display:"flex", flexDirection:"column", alignItems:"center", gap:8, boxShadow:"0 6px 24px rgba(167,139,250,.2)" }}>
+          {reviewUrl && <QRCode value={reviewUrl} size={128} level="M" fgColor="#4c1d95"/>}
+          <div style={{ fontSize:8, color:"#a78bfa", letterSpacing:"1px" }}>スキャンしてね！</div>
         </div>
         {incentive && (
-          <div style={{ width:"100%", background:"linear-gradient(135deg,rgba(253,164,175,.2),rgba(147,197,253,.2),rgba(196,181,253,.2))", border:"2px solid #e9d5ff", borderRadius:20, padding:"10px 14px", textAlign:"center", marginBottom:10 }}>
+          <div style={{ width:"100%", marginTop:12, background:"linear-gradient(135deg,rgba(253,164,175,.25),rgba(196,181,253,.25))", border:"2px solid #e9d5ff", borderRadius:20, padding:"10px 14px", textAlign:"center" as React.CSSProperties["textAlign"] }}>
             <div style={{ fontSize:9, color:"#7c3aed", marginBottom:2 }}>レビューで</div>
-            <div style={{ fontSize:13, fontWeight:900, color:"#6d28d9" }}>🎁 {incentive}</div>
-            <div style={{ fontSize:8, color:"#a78bfa", marginTop:2 }}>スタッフに話しかけてね</div>
+            <div style={{ fontSize:13, fontWeight:900, color:"#6d28d9" }}>{incentive}</div>
           </div>
         )}
-        <div style={{ fontSize:8, color:"#ddd6fe", marginTop:"auto" }}>またきてね～！✨</div>
       </div>
     </div>
   );
 }
 
 /* ═══════════════════════════════════════════════════
-   19. NOIR  — dark wine, editorial sophistication
+   19. NOIR  — film noir, deep crimson glow, dramatic
 ═══════════════════════════════════════════════════ */
 function PosterNoir({ storeName, incentive, reviewUrl }: PosterProps) {
   return (
-    <div style={{ width:"100%", height:"100%", background:"#100608", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
-      {/* wine gradient wash */}
-      <div style={{ position:"absolute", top:"-10%", left:"-10%", width:"70%", height:"60%", background:"radial-gradient(circle,rgba(153,27,27,.35) 0%,transparent 70%)", filter:"blur(25px)" }}/>
-      <div style={{ position:"absolute", bottom:"-10%", right:"-10%", width:"60%", height:"50%", background:"radial-gradient(circle,rgba(120,10,35,.3) 0%,transparent 70%)", filter:"blur(20px)" }}/>
-      {/* thin rule lines */}
-      <div style={{ position:"absolute", top:12, left:14, right:14, height:1, background:"linear-gradient(to right,transparent,rgba(220,38,38,.4),transparent)" }}/>
-      <div style={{ position:"absolute", bottom:12, left:14, right:14, height:1, background:"linear-gradient(to right,transparent,rgba(220,38,38,.4),transparent)" }}/>
-      <div style={{ position:"absolute", top:14, left:12, bottom:14, width:1, background:"linear-gradient(to bottom,transparent,rgba(220,38,38,.2),transparent)" }}/>
-      <div style={{ position:"absolute", top:14, right:12, bottom:14, width:1, background:"linear-gradient(to bottom,transparent,rgba(220,38,38,.2),transparent)" }}/>
-      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", alignItems:"center", padding:"22px 20px 14px" }}>
-        <div style={{ fontSize:8, letterSpacing:"6px", color:"rgba(220,38,38,.6)", marginBottom:4 }}>✦  CRITIQUE  ✦</div>
-        <div style={{ width:30, height:1, background:"rgba(220,38,38,.3)", marginBottom:14 }}/>
-        <div style={{ fontSize:20, fontWeight:900, color:"#fce7f3", textAlign:"center", lineHeight:1.2, marginBottom:4 }}>{storeName}</div>
-        <div style={{ fontSize:8, color:"rgba(220,38,38,.4)", letterSpacing:"3px", marginBottom:14 }}>ご来店ありがとうございます</div>
+    <div style={{ width:"100%", height:"100%", background:"#0c0406", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
+      <div style={{ position:"absolute", top:"-10%", left:"-10%", width:"70%", height:"60%", background:"radial-gradient(ellipse,rgba(153,27,27,.4) 0%,transparent 70%)", filter:"blur(30px)", pointerEvents:"none" }}/>
+      <div style={{ position:"absolute", bottom:"-10%", right:"-10%", width:"60%", height:"50%", background:"radial-gradient(ellipse,rgba(120,10,35,.35) 0%,transparent 70%)", filter:"blur(25px)", pointerEvents:"none" }}/>
+      {/* thin rules */}
+      <div style={{ position:"absolute", top:12, left:14, right:14, height:1, background:"linear-gradient(to right,transparent,rgba(220,38,38,.5),transparent)" }}/>
+      <div style={{ position:"absolute", bottom:12, left:14, right:14, height:1, background:"linear-gradient(to right,transparent,rgba(220,38,38,.5),transparent)" }}/>
+      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", padding:"26px 20px 18px" }}>
+        <div style={{ fontSize:8, letterSpacing:"8px", color:"rgba(220,38,38,.6)", marginBottom:14 }}>✦  CRITIQUE  ✦</div>
+        <div style={{ width:40, height:1, background:"rgba(220,38,38,.4)", marginBottom:16 }}/>
+        <div style={{ fontSize:36, fontWeight:900, color:"#fce7f3", lineHeight:.95, letterSpacing:"-1px", marginBottom:8, textShadow:"0 0 30px rgba(153,27,27,.5)" }}>{storeName}</div>
         <Stars5 c="#991b1b"/>
-        <div style={{ fontSize:9, color:"rgba(252,231,243,.45)", margin:"10px 0 14px", textAlign:"center" }}>本日のご体験はいかがでしたでしょうか</div>
-        <div style={{ border:"1px solid rgba(220,38,38,.4)", background:"rgba(153,27,27,.1)", padding:10, marginBottom:10, display:"flex", flexDirection:"column", alignItems:"center", gap:6 }}>
-          <div style={{ background:"#1a0408", padding:8 }}>
-            {reviewUrl && <QRCode value={reviewUrl} size={112} level="M" fgColor="#fce7f3" bgColor="#1a0408"/>}
+        <div style={{ fontSize:9, color:"rgba(252,231,243,.4)", margin:"12px 0 0", lineHeight:1.6 }}>本日のご体験は<br/>いかがでしたでしょうか</div>
+        <div style={{ flex:1, display:"flex", alignItems:"flex-end", justifyContent:"flex-end" }}>
+          <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:8 }}>
+            {incentive && (
+              <div style={{ border:"1px solid rgba(153,27,27,.5)", background:"rgba(153,27,27,.12)", padding:"8px 12px", textAlign:"center" as React.CSSProperties["textAlign"] }}>
+                <div style={{ fontSize:8, color:"rgba(220,38,38,.5)", marginBottom:2 }}>レビューご記入で</div>
+                <div style={{ fontSize:12, fontWeight:700, color:"#fda4af" }}>{incentive}</div>
+              </div>
+            )}
+            <div style={{ border:"1px solid rgba(220,38,38,.5)", background:"rgba(153,27,27,.12)", padding:10 }}>
+              <div style={{ background:"#1a0408", padding:7 }}>
+                {reviewUrl && <QRCode value={reviewUrl} size={126} level="M" fgColor="#fce7f3" bgColor="#1a0408"/>}
+              </div>
+            </div>
+            <div style={{ fontSize:8, color:"rgba(220,38,38,.5)", letterSpacing:"3px" }}>QRをスキャン</div>
           </div>
-          <div style={{ fontSize:8, color:"rgba(220,38,38,.5)", letterSpacing:"2px" }}>QRコードをスキャン</div>
         </div>
-        {incentive && (
-          <div style={{ width:"100%", border:"1px solid rgba(153,27,27,.4)", background:"rgba(153,27,27,.1)", padding:"10px 14px", textAlign:"center", marginBottom:10 }}>
-            <div style={{ fontSize:8, color:"rgba(220,38,38,.4)" }}>レビューご記入で</div>
-            <div style={{ fontSize:12, fontWeight:600, color:"#fda4af", margin:"4px 0" }}>✦ {incentive} ✦</div>
-            <div style={{ fontSize:8, color:"rgba(153,27,27,.4)" }}>スタッフへお申し付けください</div>
-          </div>
-        )}
-        <div style={{ marginTop:"auto", width:30, height:1, background:"rgba(220,38,38,.3)" }}/>
       </div>
     </div>
   );
 }
 
 /* ═══════════════════════════════════════════════════
-   20. VITALITY  — fresh green, health forward
+   20. VITALITY  — deep forest green, glassmorphism
 ═══════════════════════════════════════════════════ */
 function PosterVitality({ storeName, incentive, reviewUrl }: PosterProps) {
   return (
-    <div style={{ width:"100%", height:"100%", background:"linear-gradient(160deg,#052e16 0%,#064e3b 40%,#065f46 100%)", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
+    <div style={{ width:"100%", height:"100%", background:"linear-gradient(160deg,#021a0c 0%,#052e16 45%,#064e3b 100%)", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
       {/* leaf shapes */}
-      <svg style={{ position:"absolute", top:0, right:0, width:"45%", opacity:.2 }} viewBox="0 0 100 120">
-        <path d="M85,5 Q110,5 110,35 Q110,75 70,100 Q30,115 15,90 Q0,65 25,40 Q50,5 85,5Z" fill="#34d399"/>
-        <path d="M85,5 L45,95" stroke="rgba(255,255,255,.4)" strokeWidth="2" fill="none"/>
-        <path d="M85,20 Q65,50 55,80" stroke="rgba(255,255,255,.2)" strokeWidth="1" fill="none"/>
+      <svg style={{ position:"absolute", top:0, right:0, width:"48%", opacity:.2 }} viewBox="0 0 100 120">
+        <path d="M85,5 Q112,5 112,38 Q112,78 70,104 Q28,118 12,92 Q-4,66 22,40 Q50,5 85,5Z" fill="#34d399"/>
+        <path d="M85,5 L42,98" stroke="rgba(255,255,255,.45)" strokeWidth="2" fill="none"/>
+        <path d="M86,22 Q62,52 52,82" stroke="rgba(255,255,255,.2)" strokeWidth="1.2" fill="none"/>
       </svg>
-      <svg style={{ position:"absolute", bottom:0, left:0, width:"35%", opacity:.15 }} viewBox="0 0 100 100">
-        <path d="M15,90 Q-10,90 -10,60 Q-10,20 30,5 Q70,-5 85,20 Q100,45 75,65 Q50,90 15,90Z" fill="#6ee7b7"/>
+      <svg style={{ position:"absolute", bottom:0, left:0, width:"38%", opacity:.15 }} viewBox="0 0 100 100">
+        <path d="M15,95 Q-12,95 -12,62 Q-12,18 32,3 Q72,-8 88,20 Q104,48 76,68 Q52,95 15,95Z" fill="#6ee7b7"/>
       </svg>
-      {/* glow */}
-      <div style={{ position:"absolute", top:"25%", left:"50%", transform:"translateX(-50%)", width:"70%", height:"40%", background:"radial-gradient(circle,rgba(52,211,153,.2) 0%,transparent 70%)", filter:"blur(20px)" }}/>
-      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", alignItems:"center", padding:"22px 18px 14px" }}>
-        <div style={{ fontSize:8, letterSpacing:"5px", color:"#6ee7b7", marginBottom:4 }}>🌱 HEALTH REVIEW</div>
-        <div style={{ width:20, height:1, background:"#34d399", marginBottom:14 }}/>
-        <div style={{ fontSize:21, fontWeight:900, color:"#ecfdf5", textAlign:"center", lineHeight:1.2, marginBottom:4, textShadow:"0 0 20px rgba(52,211,153,.3)" }}>{storeName}</div>
-        <div style={{ fontSize:9, color:"rgba(110,231,183,.6)", marginBottom:14 }}>ご利用ありがとうございます</div>
+      <div style={{ position:"absolute", top:"22%", left:"50%", transform:"translateX(-50%)", width:"65%", height:"40%", background:"radial-gradient(circle,rgba(52,211,153,.18) 0%,transparent 70%)", filter:"blur(25px)", pointerEvents:"none" }}/>
+      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", padding:"24px 20px 18px" }}>
+        <div style={{ fontSize:8, letterSpacing:"5px", color:"#6ee7b7", marginBottom:6 }}>HEALTH REVIEW</div>
+        <div style={{ width:24, height:1, background:"#34d399", marginBottom:16 }}/>
+        <div style={{ fontSize:34, fontWeight:900, color:"#ecfdf5", lineHeight:.95, marginBottom:8, textShadow:"0 0 24px rgba(52,211,153,.35)" }}>{storeName}</div>
         <Stars5 c="#34d399"/>
-        <div style={{ fontSize:10, color:"rgba(236,253,245,.65)", margin:"10px 0 14px", textAlign:"center" }}>本日のご満足度をお聞かせください</div>
-        <div style={{ background:"rgba(255,255,255,.08)", backdropFilter:"blur(8px)", border:"1.5px solid rgba(52,211,153,.4)", borderRadius:16, padding:"12px 12px 8px", display:"flex", flexDirection:"column", alignItems:"center", gap:6, marginBottom:12 }}>
-          <div style={{ background:"#ecfdf5", padding:8, borderRadius:8 }}>
-            {reviewUrl && <QRCode value={reviewUrl} size={112} level="M" fgColor="#064e3b"/>}
-          </div>
-          <div style={{ fontSize:8, color:"#6ee7b7", letterSpacing:"2px" }}>📱 QRコードをスキャン</div>
-        </div>
-        {incentive && (
-          <div style={{ width:"100%", background:"rgba(52,211,153,.15)", border:"1.5px solid rgba(52,211,153,.35)", borderRadius:12, padding:"10px 14px", textAlign:"center", marginBottom:10 }}>
-            <div style={{ fontSize:9, color:"#6ee7b7", marginBottom:2 }}>レビューご記入で</div>
-            <div style={{ fontSize:13, fontWeight:700, color:"#ecfdf5" }}>🎁 {incentive}</div>
-            <div style={{ fontSize:8, color:"rgba(110,231,183,.5)", marginTop:2 }}>スタッフへお申し付けください</div>
-          </div>
-        )}
-        <div style={{ display:"flex", gap:14, marginTop:"auto" }}>
-          {["スキャン","評価","完了"].map((s,i)=>(
-            <div key={s} style={{ display:"flex", alignItems:"center", gap:4 }}>
-              <div style={{ width:16, height:16, borderRadius:"50%", background:"rgba(52,211,153,.4)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:8, fontWeight:700, color:"#ecfdf5" }}>{i+1}</div>
-              <span style={{ fontSize:9, color:"rgba(110,231,183,.6)" }}>{s}</span>
-              {i<2&&<span style={{ color:"rgba(52,211,153,.3)" }}>›</span>}
+        <div style={{ fontSize:10, color:"rgba(236,253,245,.55)", marginTop:12, lineHeight:1.5 }}>本日のご満足度を<br/>お聞かせください</div>
+        <div style={{ flex:1, display:"flex", alignItems:"flex-end", justifyContent:"flex-end" }}>
+          <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:8 }}>
+            {incentive && (
+              <div style={{ background:"rgba(52,211,153,.2)", border:"1.5px solid rgba(52,211,153,.4)", borderRadius:10, padding:"8px 12px", textAlign:"center" as React.CSSProperties["textAlign"] }}>
+                <div style={{ fontSize:8, color:"#6ee7b7", marginBottom:2 }}>レビューご記入で</div>
+                <div style={{ fontSize:12, fontWeight:700, color:"#ecfdf5" }}>{incentive}</div>
+              </div>
+            )}
+            <div style={{ background:"rgba(255,255,255,.08)", backdropFilter:"blur(8px)", border:"1.5px solid rgba(52,211,153,.4)", borderRadius:16, padding:"12px 12px 8px", display:"flex", flexDirection:"column", alignItems:"center", gap:8 }}>
+              <div style={{ background:"#ecfdf5", borderRadius:8, padding:8 }}>
+                {reviewUrl && <QRCode value={reviewUrl} size={126} level="M" fgColor="#064e3b"/>}
+              </div>
+              <div style={{ fontSize:8, color:"#6ee7b7", letterSpacing:"2px" }}>QRをスキャン</div>
             </div>
-          ))}
+          </div>
         </div>
       </div>
     </div>
@@ -953,47 +829,41 @@ function PosterVitality({ storeName, incentive, reviewUrl }: PosterProps) {
 }
 
 /* ═══════════════════════════════════════════════════
-   21. MESH  — fluid color mesh gradient
+   21. MESH  — fluid color mesh, gradient text
 ═══════════════════════════════════════════════════ */
 function PosterMesh({ storeName, incentive, reviewUrl }: PosterProps) {
   return (
-    <div style={{ width:"100%", height:"100%", background:"#0f0824", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
-      {/* mesh blobs */}
-      <div style={{ position:"absolute", top:"-15%", left:"10%", width:"60%", height:"60%", background:"radial-gradient(circle,#f43f5e 0%,transparent 65%)", filter:"blur(35px)", opacity:.7 }}/>
-      <div style={{ position:"absolute", top:"20%", right:"-10%", width:"55%", height:"55%", background:"radial-gradient(circle,#6366f1 0%,transparent 65%)", filter:"blur(30px)", opacity:.6 }}/>
-      <div style={{ position:"absolute", bottom:"-10%", left:"20%", width:"60%", height:"55%", background:"radial-gradient(circle,#0ea5e9 0%,transparent 65%)", filter:"blur(35px)", opacity:.5 }}/>
-      <div style={{ position:"absolute", bottom:"30%", left:"-5%", width:"40%", height:"40%", background:"radial-gradient(circle,#a855f7 0%,transparent 65%)", filter:"blur(25px)", opacity:.5 }}/>
-      {/* noise overlay */}
-      <div style={{ position:"absolute", inset:0, background:"rgba(15,8,36,.35)" }}/>
-      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", alignItems:"center", padding:"22px 18px 14px" }}>
-        <div style={{ fontSize:8, letterSpacing:"5px", color:"rgba(255,255,255,.5)", marginBottom:6 }}>REVIEW</div>
-        <div style={{ fontSize:22, fontWeight:900, color:"#fff", textAlign:"center", lineHeight:1.15, marginBottom:6 }}>{storeName}</div>
-        <div style={{ width:40, height:2, background:"linear-gradient(to right,#f43f5e,#a855f7,#0ea5e9)", borderRadius:2, marginBottom:14 }}/>
+    <div style={{ width:"100%", height:"100%", background:"#0c0820", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
+      <div style={{ position:"absolute", top:"-18%", left:"5%", width:"65%", height:"65%", background:"radial-gradient(circle,#f43f5e 0%,transparent 65%)", filter:"blur(40px)", opacity:.7, pointerEvents:"none" }}/>
+      <div style={{ position:"absolute", top:"18%", right:"-12%", width:"60%", height:"58%", background:"radial-gradient(circle,#6366f1 0%,transparent 65%)", filter:"blur(35px)", opacity:.6, pointerEvents:"none" }}/>
+      <div style={{ position:"absolute", bottom:"-12%", left:"18%", width:"65%", height:"58%", background:"radial-gradient(circle,#0ea5e9 0%,transparent 65%)", filter:"blur(40px)", opacity:.5, pointerEvents:"none" }}/>
+      <div style={{ position:"absolute", bottom:"28%", left:"-8%", width:"42%", height:"42%", background:"radial-gradient(circle,#a855f7 0%,transparent 65%)", filter:"blur(28px)", opacity:.5, pointerEvents:"none" }}/>
+      <div style={{ position:"absolute", inset:0, background:"rgba(12,8,32,.3)", pointerEvents:"none" }}/>
+      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", padding:"24px 20px 18px" }}>
+        <div style={{ fontSize:8, letterSpacing:"5px", color:"rgba(255,255,255,.45)", marginBottom:10 }}>REVIEW</div>
+        {/* gradient text store name */}
+        <div style={{ fontSize:36, fontWeight:900, lineHeight:.95, letterSpacing:"-1px", marginBottom:8, background:"linear-gradient(135deg,#f43f5e 0%,#a855f7 50%,#0ea5e9 100%)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent" }}>{storeName}</div>
+        <div style={{ width:48, height:3, background:"linear-gradient(to right,#f43f5e,#a855f7,#0ea5e9)", borderRadius:2, marginBottom:14 }}/>
         <Stars5 c="#f43f5e"/>
-        <div style={{ fontSize:10, color:"rgba(255,255,255,.55)", margin:"10px 0 14px", textAlign:"center" }}>本日のご感想をお聞かせください</div>
-        <div style={{ position:"relative", padding:2, borderRadius:18, background:"linear-gradient(135deg,#f43f5e,#a855f7,#0ea5e9)", marginBottom:12 }}>
-          <div style={{ background:"rgba(15,8,36,.85)", backdropFilter:"blur(12px)", borderRadius:16, padding:"12px 12px 8px", display:"flex", flexDirection:"column", alignItems:"center", gap:6 }}>
-            <div style={{ background:"#fff", borderRadius:10, padding:8 }}>
-              {reviewUrl && <QRCode value={reviewUrl} size={112} level="M" fgColor="#0f0824"/>}
+        <div style={{ fontSize:10, color:"rgba(255,255,255,.5)", marginTop:12, lineHeight:1.5 }}>本日のご感想を<br/>お聞かせください</div>
+        <div style={{ flex:1, display:"flex", alignItems:"flex-end", justifyContent:"flex-end" }}>
+          <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:8 }}>
+            {incentive && (
+              <div style={{ background:"rgba(255,255,255,.07)", border:"1px solid rgba(255,255,255,.12)", borderRadius:10, padding:"8px 12px", textAlign:"center" as React.CSSProperties["textAlign"] }}>
+                <div style={{ fontSize:8, color:"rgba(255,255,255,.4)", marginBottom:2 }}>レビューご記入で</div>
+                <div style={{ fontSize:12, fontWeight:700, color:"#fff" }}>{incentive}</div>
+              </div>
+            )}
+            {/* gradient border QR */}
+            <div style={{ position:"relative", padding:2, borderRadius:18, background:"linear-gradient(135deg,#f43f5e,#a855f7,#0ea5e9)" }}>
+              <div style={{ background:"rgba(12,8,32,.9)", backdropFilter:"blur(12px)", borderRadius:16, padding:"12px 12px 8px", display:"flex", flexDirection:"column", alignItems:"center", gap:8 }}>
+                <div style={{ background:"#fff", borderRadius:10, padding:8 }}>
+                  {reviewUrl && <QRCode value={reviewUrl} size={126} level="M" fgColor="#0c0820"/>}
+                </div>
+                <div style={{ fontSize:8, background:"linear-gradient(to right,#f43f5e,#0ea5e9)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", letterSpacing:"2px" }}>QRをスキャン</div>
+              </div>
             </div>
-            <div style={{ fontSize:8, background:"linear-gradient(to right,#f43f5e,#0ea5e9)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", letterSpacing:"2px" }}>QRコードをスキャン</div>
           </div>
-        </div>
-        {incentive && (
-          <div style={{ width:"100%", background:"rgba(255,255,255,.07)", border:"1px solid rgba(255,255,255,.12)", borderRadius:12, padding:"10px 14px", textAlign:"center", marginBottom:10 }}>
-            <div style={{ fontSize:9, color:"rgba(255,255,255,.4)" }}>レビューご記入で</div>
-            <div style={{ fontSize:13, fontWeight:700, color:"#fff", margin:"3px 0" }}>🎁 {incentive}</div>
-            <div style={{ fontSize:8, color:"rgba(255,255,255,.3)" }}>スタッフにお声がけください</div>
-          </div>
-        )}
-        <div style={{ display:"flex", gap:14, marginTop:"auto" }}>
-          {["スキャン","評価","完了"].map((s,i)=>(
-            <div key={s} style={{ display:"flex", alignItems:"center", gap:4 }}>
-              <div style={{ width:16, height:16, borderRadius:"50%", background:["#f43f5e","#a855f7","#0ea5e9"][i], display:"flex", alignItems:"center", justifyContent:"center", fontSize:8, fontWeight:700, color:"#fff" }}>{i+1}</div>
-              <span style={{ fontSize:9, color:"rgba(255,255,255,.45)" }}>{s}</span>
-              {i<2&&<span style={{ color:"rgba(255,255,255,.2)" }}>›</span>}
-            </div>
-          ))}
         </div>
       </div>
     </div>
@@ -1001,91 +871,78 @@ function PosterMesh({ storeName, incentive, reviewUrl }: PosterProps) {
 }
 
 /* ═══════════════════════════════════════════════════
-   22. FOREST  — dark green+gold, hotel/ryokan
+   22. FOREST  — dark forest, tree silhouettes, gold
 ═══════════════════════════════════════════════════ */
 function PosterForest({ storeName, incentive, reviewUrl }: PosterProps) {
   return (
-    <div style={{ width:"100%", height:"100%", background:"linear-gradient(160deg,#071a0e 0%,#0d2b18 50%,#0a2010 100%)", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
-      {/* tree silhouettes */}
-      <svg style={{ position:"absolute", bottom:0, left:0, right:0, width:"100%", opacity:.18 }} viewBox="0 0 100 50" preserveAspectRatio="none">
-        <polygon points="10,50 15,20 20,50" fill="#34d399"/>
-        <polygon points="25,50 32,10 39,50" fill="#4ade80"/>
-        <polygon points="50,50 58,5 66,50" fill="#34d399"/>
-        <polygon points="72,50 78,18 84,50" fill="#4ade80"/>
-        <polygon points="85,50 91,25 97,50" fill="#34d399"/>
+    <div style={{ width:"100%", height:"100%", background:"linear-gradient(160deg,#060e08 0%,#0a1e10 50%,#0d2416 100%)", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
+      {/* tree silhouettes bottom */}
+      <svg style={{ position:"absolute", bottom:0, left:0, right:0, width:"100%", opacity:.2 }} viewBox="0 0 100 55" preserveAspectRatio="none">
+        <polygon points="8,55 14,16 20,55" fill="#34d399"/>
+        <polygon points="24,55 32,6 40,55" fill="#4ade80"/>
+        <polygon points="48,55 58,2 68,55" fill="#34d399"/>
+        <polygon points="70,55 77,14 84,55" fill="#4ade80"/>
+        <polygon points="84,55 91,22 98,55" fill="#34d399"/>
+        <rect x="0" y="48" width="100" height="7" fill="#0d2416"/>
       </svg>
-      {/* gold accent */}
-      <div style={{ position:"absolute", top:0, left:0, right:0, height:3, background:"linear-gradient(to right,transparent,#d4af37,transparent)" }}/>
-      <div style={{ position:"absolute", bottom:0, left:0, right:0, height:3, background:"linear-gradient(to right,transparent,#d4af37,transparent)" }}/>
-      {/* glow */}
-      <div style={{ position:"absolute", top:"20%", left:"50%", transform:"translateX(-50%)", width:"70%", height:"50%", background:"radial-gradient(circle,rgba(52,211,153,.12) 0%,transparent 70%)", filter:"blur(20px)" }}/>
-      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", alignItems:"center", padding:"22px 20px 14px" }}>
-        <div style={{ fontSize:8, letterSpacing:"6px", color:"#d4af37", marginBottom:4 }}>✦ WELCOME ✦</div>
-        <div style={{ width:30, height:1, background:"linear-gradient(to right,transparent,#d4af37,transparent)", marginBottom:14 }}/>
-        <div style={{ fontSize:20, fontWeight:900, color:"#ecfdf5", textAlign:"center", lineHeight:1.2, marginBottom:4 }}>{storeName}</div>
-        <div style={{ fontSize:9, color:"rgba(212,175,55,.55)", letterSpacing:"2px", marginBottom:14 }}>ご滞在ありがとうございます</div>
+      {/* gold bars */}
+      <div style={{ position:"absolute", top:0, left:0, right:0, height:3, background:"linear-gradient(to right,transparent,#d4af37 30%,#d4af37 70%,transparent)" }}/>
+      <div style={{ position:"absolute", bottom:0, left:0, right:0, height:3, background:"linear-gradient(to right,transparent,#d4af37 30%,#d4af37 70%,transparent)" }}/>
+      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", alignItems:"center", padding:"24px 20px 18px" }}>
+        <div style={{ fontSize:8, letterSpacing:"6px", color:"#d4af37", marginBottom:6 }}>✦ WELCOME ✦</div>
+        <div style={{ width:36, height:1, background:"linear-gradient(to right,transparent,#d4af37,transparent)", marginBottom:16 }}/>
+        <div style={{ fontSize:34, fontWeight:900, color:"#ecfdf5", textAlign:"center", lineHeight:1.05, marginBottom:6 }}>{storeName}</div>
         <Stars5 c="#d4af37"/>
-        <div style={{ fontSize:10, color:"rgba(236,253,245,.55)", margin:"10px 0 14px", textAlign:"center" }}>本日のご感想をお聞かせください</div>
-        <div style={{ border:"1px solid rgba(212,175,55,.4)", background:"rgba(212,175,55,.05)", padding:10, marginBottom:10, display:"flex", flexDirection:"column", alignItems:"center", gap:6 }}>
-          <div style={{ background:"#ecfdf5", padding:8 }}>
-            {reviewUrl && <QRCode value={reviewUrl} size={112} level="M" fgColor="#071a0e"/>}
+        <div style={{ fontSize:9, color:"rgba(212,175,55,.55)", margin:"10px 0 0", letterSpacing:"1px" }}>ご滞在ありがとうございます</div>
+        <div style={{ flex:1, display:"flex", alignItems:"center", justifyContent:"center", padding:"14px 0" }}>
+          <div style={{ border:"1px solid rgba(212,175,55,.5)", background:"rgba(212,175,55,.05)", padding:12, display:"flex", flexDirection:"column", alignItems:"center", gap:8 }}>
+            <div style={{ background:"#ecfdf5", padding:8 }}>
+              {reviewUrl && <QRCode value={reviewUrl} size={130} level="M" fgColor="#060e08"/>}
+            </div>
+            <div style={{ fontSize:8, color:"rgba(212,175,55,.7)", letterSpacing:"3px" }}>QRコードをスキャン</div>
           </div>
-          <div style={{ fontSize:8, color:"rgba(212,175,55,.6)", letterSpacing:"2px" }}>QRコードをスキャン</div>
         </div>
         {incentive && (
-          <div style={{ width:"100%", border:"1px solid rgba(212,175,55,.25)", background:"rgba(212,175,55,.06)", padding:"10px 14px", textAlign:"center", marginBottom:10 }}>
-            <div style={{ fontSize:9, color:"rgba(212,175,55,.5)" }}>レビューご記入で</div>
-            <div style={{ fontSize:13, fontWeight:700, color:"#d4af37", margin:"3px 0" }}>🎁 {incentive}</div>
-            <div style={{ fontSize:8, color:"rgba(212,175,55,.35)" }}>スタッフへお申し付けください</div>
+          <div style={{ width:"100%", border:"1px solid rgba(212,175,55,.3)", background:"rgba(212,175,55,.06)", padding:"10px 14px", textAlign:"center" as React.CSSProperties["textAlign"] }}>
+            <div style={{ fontSize:9, color:"rgba(212,175,55,.55)", marginBottom:2 }}>レビューご記入で</div>
+            <div style={{ fontSize:13, fontWeight:700, color:"#d4af37" }}>{incentive}</div>
           </div>
         )}
-        <div style={{ marginTop:"auto", width:30, height:1, background:"linear-gradient(to right,transparent,#d4af37,transparent)" }}/>
       </div>
     </div>
   );
 }
 
 /* ═══════════════════════════════════════════════════
-   23. SUNSET  — warm orange-pink, resort/beach
+   23. SUNSET  — gradient sky, large radial sun
 ═══════════════════════════════════════════════════ */
 function PosterSunset({ storeName, incentive, reviewUrl }: PosterProps) {
   return (
-    <div style={{ width:"100%", height:"100%", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column", background:"linear-gradient(180deg,#1e3a5f 0%,#2d6a9f 20%,#f97316 55%,#f43f5e 75%,#ec4899 100%)" }}>
-      {/* sun */}
-      <div style={{ position:"absolute", top:"25%", left:"50%", transform:"translate(-50%,-50%)", width:"55%", paddingTop:"55%", borderRadius:"50%", background:"radial-gradient(circle,#fde68a 0%,#fbbf24 40%,rgba(251,191,36,0) 70%)", opacity:.6 }}/>
-      {/* horizon line */}
+    <div style={{ width:"100%", height:"100%", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column", background:"linear-gradient(180deg,#1a3158 0%,#2d6a9f 22%,#e8742a 55%,#e84393 78%,#c33080 100%)" }}>
+      {/* large radial sun */}
+      <div style={{ position:"absolute", top:"26%", left:"50%", transform:"translate(-50%,-50%)", width:"60%", paddingTop:"60%", borderRadius:"50%", background:"radial-gradient(circle,#fde68a 0%,#fbbf24 35%,rgba(251,191,36,0) 70%)", opacity:.65, pointerEvents:"none" }}/>
       <div style={{ position:"absolute", top:"50%", left:0, right:0, height:1, background:"rgba(255,255,255,.2)" }}/>
-      {/* wave reflection */}
-      <svg style={{ position:"absolute", bottom:0, left:0, right:0, width:"100%", height:"25%", opacity:.2 }} viewBox="0 0 100 30" preserveAspectRatio="none">
-        <path d="M0,15 Q25,5 50,15 Q75,25 100,15 L100,30 L0,30Z" fill="#fde68a"/>
-      </svg>
-      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", alignItems:"center", padding:"20px 18px 14px" }}>
-        <div style={{ fontSize:8, letterSpacing:"5px", color:"rgba(255,255,255,.7)", marginBottom:6 }}>🌅 REVIEW</div>
-        <div style={{ fontSize:21, fontWeight:900, color:"#fff", textAlign:"center", lineHeight:1.15, textShadow:"0 2px 12px rgba(0,0,0,.3)", marginBottom:4 }}>{storeName}</div>
-        <div style={{ fontSize:9, color:"rgba(255,255,255,.65)", marginBottom:14 }}>ご来店ありがとうございます</div>
+      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", padding:"22px 20px 18px" }}>
+        <div style={{ fontSize:8, letterSpacing:"5px", color:"rgba(255,255,255,.65)", marginBottom:14 }}>SUNSET REVIEW</div>
+        {/* silhouette store name */}
+        <div style={{ fontSize:38, fontWeight:900, color:"rgba(255,255,255,.9)", lineHeight:.9, letterSpacing:"-2px", textShadow:"0 2px 16px rgba(0,0,0,.35)", marginBottom:8 }}>{storeName}</div>
         <Stars5 c="#fde68a"/>
-        <div style={{ fontSize:10, color:"rgba(255,255,255,.7)", margin:"10px 0 14px", textAlign:"center" }}>本日のご感想をお聞かせください</div>
-        <div style={{ background:"rgba(255,255,255,.15)", backdropFilter:"blur(12px)", border:"1px solid rgba(255,255,255,.3)", borderRadius:20, padding:"12px 12px 8px", display:"flex", flexDirection:"column", alignItems:"center", gap:6, marginBottom:12 }}>
-          <div style={{ background:"#fff", borderRadius:12, padding:8 }}>
-            {reviewUrl && <QRCode value={reviewUrl} size={112} level="M" fgColor="#1e3a5f"/>}
-          </div>
-          <div style={{ fontSize:8, color:"rgba(255,255,255,.75)", letterSpacing:"2px" }}>📱 QRコードをスキャン</div>
-        </div>
-        {incentive && (
-          <div style={{ width:"100%", background:"rgba(255,255,255,.12)", border:"1px solid rgba(255,255,255,.2)", borderRadius:12, padding:"10px 14px", textAlign:"center", marginBottom:10 }}>
-            <div style={{ fontSize:9, color:"rgba(255,255,255,.6)" }}>レビューご記入で</div>
-            <div style={{ fontSize:13, fontWeight:700, color:"#fde68a", margin:"3px 0" }}>🎁 {incentive}</div>
-            <div style={{ fontSize:8, color:"rgba(255,255,255,.45)" }}>スタッフにお声がけください</div>
-          </div>
-        )}
-        <div style={{ display:"flex", gap:14, marginTop:"auto" }}>
-          {["スキャン","評価","完了"].map((s,i)=>(
-            <div key={s} style={{ display:"flex", alignItems:"center", gap:4 }}>
-              <div style={{ width:16, height:16, borderRadius:"50%", background:"rgba(253,230,138,.4)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:8, fontWeight:700, color:"#fff" }}>{i+1}</div>
-              <span style={{ fontSize:9, color:"rgba(255,255,255,.6)" }}>{s}</span>
-              {i<2&&<span style={{ color:"rgba(255,255,255,.3)" }}>›</span>}
+        <div style={{ fontSize:10, color:"rgba(255,255,255,.65)", marginTop:12, lineHeight:1.5 }}>本日のご感想を<br/>お聞かせください</div>
+        <div style={{ flex:1, display:"flex", alignItems:"flex-end", justifyContent:"flex-end" }}>
+          <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:8 }}>
+            {incentive && (
+              <div style={{ background:"rgba(255,255,255,.15)", backdropFilter:"blur(8px)", border:"1px solid rgba(255,255,255,.25)", borderRadius:10, padding:"8px 12px", textAlign:"center" as React.CSSProperties["textAlign"] }}>
+                <div style={{ fontSize:8, color:"rgba(253,230,138,.8)", marginBottom:2 }}>レビューご記入で</div>
+                <div style={{ fontSize:12, fontWeight:700, color:"#fde68a" }}>{incentive}</div>
+              </div>
+            )}
+            <div style={{ background:"rgba(255,255,255,.18)", backdropFilter:"blur(14px)", border:"1px solid rgba(255,255,255,.3)", borderRadius:20, padding:"12px 12px 8px", display:"flex", flexDirection:"column", alignItems:"center", gap:8 }}>
+              <div style={{ background:"#fff", borderRadius:12, padding:8 }}>
+                {reviewUrl && <QRCode value={reviewUrl} size={126} level="M" fgColor="#1a3158"/>}
+              </div>
+              <div style={{ fontSize:8, color:"rgba(255,255,255,.75)", letterSpacing:"2px" }}>QRをスキャン</div>
             </div>
-          ))}
+          </div>
         </div>
       </div>
     </div>
@@ -1093,40 +950,36 @@ function PosterSunset({ storeName, incentive, reviewUrl }: PosterProps) {
 }
 
 /* ═══════════════════════════════════════════════════
-   24. TYPO  — typography-only composition
+   24. TYPO  — ghost REVIEW background, left rule
 ═══════════════════════════════════════════════════ */
 function PosterTypo({ storeName, incentive, reviewUrl }: PosterProps) {
   return (
-    <div style={{ width:"100%", height:"100%", background:"#fffff8", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
-      {/* giant "★" background art */}
-      <div style={{ position:"absolute", top:"-8%", right:"-5%", fontSize:"clamp(80px,24vw,180px)", fontWeight:900, color:"rgba(0,0,0,.04)", lineHeight:1, pointerEvents:"none" }}>★</div>
-      {/* side thick rule */}
-      <div style={{ position:"absolute", top:0, left:0, bottom:0, width:8, background:"#111" }}/>
-      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", paddingLeft:18, paddingRight:16, paddingTop:16, paddingBottom:12 }}>
-        <div style={{ fontSize:7, letterSpacing:"6px", color:"#aaa", marginBottom:10 }}>REVIEW</div>
-        <div style={{ fontSize:10, fontWeight:900, color:"#111", letterSpacing:"-0.5px", lineHeight:1, marginBottom:2 }}>本日の</div>
-        <div style={{ fontSize:10, fontWeight:900, color:"#111", lineHeight:1, marginBottom:2 }}>ご感想を</div>
-        <div style={{ fontSize:10, fontWeight:900, color:"#111", lineHeight:1, marginBottom:10 }}>お聞かせください</div>
-        <div style={{ fontSize:22, fontWeight:900, color:"#111", lineHeight:.95, letterSpacing:"-1px", marginBottom:10 }}>{storeName}</div>
-        <div style={{ width:"100%", height:4, background:"#111", marginBottom:14 }}/>
-        <div style={{ display:"flex", alignItems:"center", gap:10, marginBottom:14 }}>
-          <div style={{ border:"3px solid #111", padding:8, flexShrink:0 }}>
-            {reviewUrl && <QRCode value={reviewUrl} size={100} level="M" fgColor="#111"/>}
+    <div style={{ width:"100%", height:"100%", background:"#fff", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
+      {/* giant ghost REVIEW */}
+      <div style={{ position:"absolute", top:"18%", left:"-2%", fontSize:"clamp(60px,18vw,140px)", fontWeight:900, color:"rgba(0,0,0,.04)", lineHeight:1, pointerEvents:"none", whiteSpace:"nowrap", userSelect:"none" }}>REVIEW</div>
+      {/* left thick rule */}
+      <div style={{ position:"absolute", top:0, left:0, bottom:0, width:10, background:"#111" }}/>
+      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", paddingLeft:22, paddingRight:18, paddingTop:22, paddingBottom:18 }}>
+        <div style={{ fontSize:7, letterSpacing:"7px", color:"#bbb", marginBottom:12 }}>REVIEW</div>
+        <div style={{ fontSize:44, fontWeight:900, color:"#111", lineHeight:.88, letterSpacing:"-3px", marginBottom:14 }}>{storeName}</div>
+        <div style={{ width:"100%", height:5, background:"#111", marginBottom:16 }}/>
+        <div style={{ fontSize:10, color:"#555", marginBottom:12, lineHeight:1.6, fontWeight:300 }}>本日のご感想を<br/>お聞かせください</div>
+        <Stars5 c="#111"/>
+        <div style={{ flex:1, display:"flex", alignItems:"flex-end" }}>
+          <div style={{ display:"flex", alignItems:"center", gap:12, width:"100%" }}>
+            <div style={{ border:"4px solid #111", padding:8, flexShrink:0 }}>
+              {reviewUrl && <QRCode value={reviewUrl} size={124} level="M" fgColor="#111"/>}
+            </div>
+            <div style={{ flex:1 }}>
+              {incentive && (
+                <div style={{ borderTop:"3px solid #111", paddingTop:10 }}>
+                  <div style={{ fontSize:7, color:"#bbb", marginBottom:2, letterSpacing:"4px" }}>SPECIAL OFFER</div>
+                  <div style={{ fontSize:14, fontWeight:900, color:"#111" }}>{incentive}</div>
+                </div>
+              )}
+              <div style={{ fontSize:7, color:"#ccc", letterSpacing:"3px", marginTop:10 }}>QRコードをスキャン</div>
+            </div>
           </div>
-          <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
-            <Stars5 c="#111"/>
-            <div style={{ fontSize:8, letterSpacing:"1px", color:"#555", lineHeight:1.4 }}>QRコードをスキャンして評価してください</div>
-          </div>
-        </div>
-        {incentive && (
-          <div style={{ borderTop:"2px solid #111", paddingTop:10, marginBottom:8 }}>
-            <div style={{ fontSize:7, color:"#aaa", marginBottom:2, letterSpacing:"3px" }}>SPECIAL OFFER</div>
-            <div style={{ fontSize:14, fontWeight:900, color:"#111" }}>🎁 {incentive}</div>
-            <div style={{ fontSize:8, color:"#888", marginTop:2 }}>スタッフにお声がけください</div>
-          </div>
-        )}
-        <div style={{ marginTop:"auto", display:"flex", gap:14 }}>
-          {["①SCAN","②RATE","③DONE"].map(s=><div key={s} style={{ fontSize:8, color:"#bbb" }}>{s}</div>)}
         </div>
       </div>
     </div>
@@ -1134,43 +987,43 @@ function PosterTypo({ storeName, incentive, reviewUrl }: PosterProps) {
 }
 
 /* ═══════════════════════════════════════════════════
-   25. GLITCH  — digital noise, game/entertainment
+   25. GLITCH  — cyberpunk glitch effect, scanlines
 ═══════════════════════════════════════════════════ */
 function PosterGlitch({ storeName, incentive, reviewUrl }: PosterProps) {
   return (
-    <div style={{ width:"100%", height:"100%", background:"#0a0010", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
-      {/* glitch color channels */}
-      <div style={{ position:"absolute", top:"15%", left:"3%", fontSize:"clamp(22px,6vw,44px)", fontWeight:900, color:"rgba(255,0,80,.25)", lineHeight:1, pointerEvents:"none", whiteSpace:"nowrap" }}>{storeName}</div>
-      <div style={{ position:"absolute", top:"calc(15% + 3px)", left:"1%", fontSize:"clamp(22px,6vw,44px)", fontWeight:900, color:"rgba(0,255,255,.2)", lineHeight:1, pointerEvents:"none", whiteSpace:"nowrap" }}>{storeName}</div>
-      {/* scan lines */}
-      <div style={{ position:"absolute", inset:0, backgroundImage:"repeating-linear-gradient(0deg,rgba(255,255,255,.015) 0,transparent 1px,transparent 3px)", pointerEvents:"none" }}/>
+    <div style={{ width:"100%", height:"100%", background:"#080010", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
+      {/* glitch ghost layers */}
+      <div style={{ position:"absolute", top:"20%", left:"4%", fontSize:"clamp(22px,7vw,48px)", fontWeight:900, color:"rgba(255,0,80,.2)", lineHeight:1, pointerEvents:"none", whiteSpace:"nowrap" }}>{storeName}</div>
+      <div style={{ position:"absolute", top:"calc(20% + 4px)", left:"2%", fontSize:"clamp(22px,7vw,48px)", fontWeight:900, color:"rgba(0,255,255,.15)", lineHeight:1, pointerEvents:"none", whiteSpace:"nowrap" }}>{storeName}</div>
+      {/* scanlines */}
+      <div style={{ position:"absolute", inset:0, backgroundImage:"repeating-linear-gradient(0deg,rgba(255,255,255,.012) 0,transparent 1px,transparent 3px)", pointerEvents:"none" }}/>
       {/* noise bars */}
-      <div style={{ position:"absolute", top:"42%", left:0, right:0, height:3, background:"rgba(255,0,80,.15)" }}/>
-      <div style={{ position:"absolute", top:"44%", left:"10%", right:"20%", height:1, background:"rgba(0,255,255,.12)" }}/>
+      <div style={{ position:"absolute", top:"40%", left:0, right:0, height:3, background:"rgba(255,0,80,.12)" }}/>
+      <div style={{ position:"absolute", top:"42.5%", left:"8%", right:"15%", height:1, background:"rgba(0,255,255,.1)" }}/>
       {/* pixel border */}
-      <div style={{ position:"absolute", inset:6, border:"1px solid rgba(255,0,80,.2)" }}/>
-      <div style={{ position:"absolute", inset:8, border:"1px solid rgba(0,255,255,.1)" }}/>
-      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", alignItems:"center", padding:"24px 18px 14px" }}>
-        <div style={{ fontSize:8, letterSpacing:"5px", color:"#ff0050", fontFamily:"monospace", marginBottom:8 }}>[ REVIEW.EXE ]</div>
-        <div style={{ fontSize:22, fontWeight:900, color:"#fff", textAlign:"center", lineHeight:1.1, marginBottom:4 }}>{storeName}</div>
-        <div style={{ fontSize:8, color:"rgba(0,255,255,.5)", fontFamily:"monospace", marginBottom:12 }}>PLAYER_FEEDBACK_MODE: ON</div>
+      <div style={{ position:"absolute", inset:8, border:"1px solid rgba(255,0,80,.25)" }}/>
+      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", padding:"26px 20px 18px" }}>
+        <div style={{ fontSize:8, letterSpacing:"5px", color:"#ff0050", fontFamily:"monospace", marginBottom:10 }}>[ REVIEW.EXE ]</div>
+        {/* glitch store name with text-shadow effect */}
+        <div style={{ fontSize:34, fontWeight:900, color:"#fff", lineHeight:.95, letterSpacing:"-1px", textShadow:"2px 0 #ff0050, -2px 0 #00ffff", marginBottom:8 }}>{storeName}</div>
+        <div style={{ width:36, height:2, background:"#ff0050", marginBottom:10 }}/>
         <Stars5 c="#ff0050"/>
-        <div style={{ fontSize:9, color:"rgba(255,255,255,.45)", fontFamily:"monospace", margin:"10px 0 12px", textAlign:"center" }}>ご感想を入力してください</div>
-        <div style={{ border:"1px solid #ff0050", boxShadow:"0 0 12px rgba(255,0,80,.3),inset 0 0 8px rgba(255,0,80,.05)", padding:10, marginBottom:10, display:"flex", flexDirection:"column", alignItems:"center", gap:6 }}>
-          <div style={{ background:"#0a0010", padding:8, border:"1px solid rgba(0,255,255,.2)" }}>
-            {reviewUrl && <QRCode value={reviewUrl} size={110} level="M" fgColor="#ff0050" bgColor="#0a0010"/>}
+        <div style={{ fontSize:8, color:"rgba(0,255,255,.55)", fontFamily:"monospace", marginTop:10, lineHeight:1.6 }}>PLAYER_FEEDBACK_MODE: ON<br/>ご感想を入力してください</div>
+        <div style={{ flex:1, display:"flex", alignItems:"flex-end", justifyContent:"flex-end" }}>
+          <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:8 }}>
+            {incentive && (
+              <div style={{ background:"rgba(255,0,80,.06)", border:"1px solid rgba(255,0,80,.3)", padding:"8px 12px", textAlign:"center" as React.CSSProperties["textAlign"], fontFamily:"monospace" }}>
+                <div style={{ fontSize:8, color:"rgba(0,255,255,.45)", marginBottom:2 }}>REWARD_UNLOCKED:</div>
+                <div style={{ fontSize:12, fontWeight:700, color:"#ff0050" }}>{incentive}</div>
+              </div>
+            )}
+            <div style={{ border:"1px solid #ff0050", boxShadow:"0 0 14px rgba(255,0,80,.3)", padding:10 }}>
+              <div style={{ background:"#080010", border:"1px solid rgba(0,255,255,.2)", padding:7 }}>
+                {reviewUrl && <QRCode value={reviewUrl} size={124} level="M" fgColor="#ff0050" bgColor="#080010"/>}
+              </div>
+            </div>
+            <div style={{ fontSize:8, letterSpacing:"3px", color:"rgba(0,255,255,.6)", fontFamily:"monospace" }}>SCAN &gt;&gt; SUBMIT</div>
           </div>
-          <div style={{ fontSize:8, letterSpacing:"2px", color:"rgba(0,255,255,.6)", fontFamily:"monospace" }}>SCAN &gt;&gt; SUBMIT</div>
-        </div>
-        {incentive && (
-          <div style={{ width:"100%", background:"rgba(255,0,80,.06)", border:"1px solid rgba(255,0,80,.25)", padding:"10px 14px", textAlign:"center", marginBottom:10, fontFamily:"monospace" }}>
-            <div style={{ fontSize:8, color:"rgba(0,255,255,.4)" }}>REWARD_UNLOCKED:</div>
-            <div style={{ fontSize:13, fontWeight:700, color:"#ff0050", margin:"3px 0" }}>🎁 {incentive}</div>
-            <div style={{ fontSize:8, color:"rgba(255,255,255,.25)" }}>CLAIM AT DESK</div>
-          </div>
-        )}
-        <div style={{ display:"flex", gap:12, marginTop:"auto", fontFamily:"monospace" }}>
-          {["[1]SCAN","[2]RATE","[3]WIN"].map((s,i)=><div key={i} style={{ fontSize:8, color:i===2?"#ff0050":"rgba(0,255,255,.5)" }}>{s}</div>)}
         </div>
       </div>
     </div>
@@ -1178,133 +1031,115 @@ function PosterGlitch({ storeName, incentive, reviewUrl }: PosterProps) {
 }
 
 /* ═══════════════════════════════════════════════════
-   26. WATERCOLOR  — soft wash, floral gallery
+   26. WATERCOLOR  — soft floral wash, gentle aesthetic
 ═══════════════════════════════════════════════════ */
 function PosterWatercolor({ storeName, incentive, reviewUrl }: PosterProps) {
   return (
     <div style={{ width:"100%", height:"100%", background:"#fefcfa", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
-      {/* watercolor washes */}
       <svg style={{ position:"absolute", inset:0, width:"100%", height:"100%" }} viewBox="0 0 100 148" preserveAspectRatio="none">
         <defs>
-          <filter id="wc"><feTurbulence type="turbulence" baseFrequency="0.04" numOctaves="5" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G"/></filter>
+          <filter id="wcFilter"><feTurbulence type="turbulence" baseFrequency="0.04" numOctaves="5" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G"/></filter>
         </defs>
-        <ellipse cx="25" cy="20" rx="28" ry="22" fill="#fda4af" opacity=".35" filter="url(#wc)"/>
-        <ellipse cx="78" cy="35" rx="22" ry="26" fill="#93c5fd" opacity=".3" filter="url(#wc)"/>
-        <ellipse cx="15" cy="100" rx="24" ry="20" fill="#86efac" opacity=".25" filter="url(#wc)"/>
-        <ellipse cx="85" cy="120" rx="20" ry="22" fill="#fbbf24" opacity=".25" filter="url(#wc)"/>
-        <ellipse cx="50" cy="75" rx="18" ry="15" fill="#c4b5fd" opacity=".2" filter="url(#wc)"/>
+        <ellipse cx="20" cy="18" rx="32" ry="25" fill="#fda4af" opacity=".4" filter="url(#wcFilter)"/>
+        <ellipse cx="80" cy="32" rx="26" ry="30" fill="#93c5fd" opacity=".35" filter="url(#wcFilter)"/>
+        <ellipse cx="12" cy="110" rx="28" ry="22" fill="#86efac" opacity=".3" filter="url(#wcFilter)"/>
+        <ellipse cx="88" cy="125" rx="24" ry="26" fill="#fbbf24" opacity=".3" filter="url(#wcFilter)"/>
+        <ellipse cx="50" cy="72" rx="20" ry="18" fill="#c4b5fd" opacity=".25" filter="url(#wcFilter)"/>
       </svg>
-      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", alignItems:"center", padding:"22px 20px 14px" }}>
-        <div style={{ fontSize:8, letterSpacing:"4px", color:"#d4919c", marginBottom:6 }}>🎨 REVIEW</div>
-        <div style={{ fontSize:21, fontWeight:900, color:"#4a3728", textAlign:"center", lineHeight:1.2, marginBottom:4 }}>{storeName}</div>
-        <div style={{ fontSize:9, color:"#9b7e6e", marginBottom:14 }}>ご来店ありがとうございます</div>
+      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", alignItems:"center", padding:"26px 22px 18px" }}>
+        <div style={{ fontSize:8, letterSpacing:"4px", color:"#d4919c", marginBottom:8 }}>REVIEW</div>
+        <div style={{ fontSize:34, fontWeight:900, color:"#4a3728", textAlign:"center", lineHeight:1.1, marginBottom:8 }}>{storeName}</div>
+        <div style={{ width:28, height:1, background:"rgba(249,168,212,.6)", marginBottom:14 }}/>
         <Stars5 c="#f9a8d4"/>
-        <div style={{ fontSize:10, color:"#5c4033", margin:"10px 0 14px", textAlign:"center" }}>本日のご感想をお聞かせください</div>
-        <div style={{ background:"rgba(255,255,255,.8)", backdropFilter:"blur(4px)", border:"2px solid rgba(249,168,212,.4)", borderRadius:20, padding:"12px 12px 8px", display:"flex", flexDirection:"column", alignItems:"center", gap:6, marginBottom:12, boxShadow:"0 4px 20px rgba(249,168,212,.15)" }}>
-          {reviewUrl && <QRCode value={reviewUrl} size={110} level="M" fgColor="#4a3728"/>}
-          <div style={{ fontSize:8, color:"#d4919c", letterSpacing:"2px" }}>📱 QRコードをスキャン</div>
+        <div style={{ fontSize:10, color:"#5c4033", margin:"12px 0 16px", textAlign:"center", lineHeight:1.6, fontWeight:300 }}>本日のご感想を<br/>お聞かせください</div>
+        <div style={{ background:"rgba(255,255,255,.85)", backdropFilter:"blur(6px)", border:"2px solid rgba(249,168,212,.45)", borderRadius:24, padding:"14px 14px 10px", display:"flex", flexDirection:"column", alignItems:"center", gap:8, boxShadow:"0 6px 24px rgba(249,168,212,.2)" }}>
+          {reviewUrl && <QRCode value={reviewUrl} size={130} level="M" fgColor="#4a3728"/>}
+          <div style={{ fontSize:8, color:"#d4919c", letterSpacing:"2px" }}>QRコードをスキャン</div>
         </div>
         {incentive && (
-          <div style={{ width:"100%", background:"rgba(249,168,212,.12)", border:"1.5px solid rgba(249,168,212,.35)", borderRadius:16, padding:"10px 14px", textAlign:"center", marginBottom:10 }}>
-            <div style={{ fontSize:9, color:"#d4919c" }}>レビューご記入で</div>
-            <div style={{ fontSize:13, fontWeight:700, color:"#4a3728", margin:"3px 0" }}>🎁 {incentive}</div>
-            <div style={{ fontSize:8, color:"#9b7e6e" }}>スタッフにお声がけください</div>
+          <div style={{ width:"100%", marginTop:14, background:"rgba(249,168,212,.12)", border:"1.5px solid rgba(249,168,212,.4)", borderRadius:16, padding:"10px 14px", textAlign:"center" as React.CSSProperties["textAlign"] }}>
+            <div style={{ fontSize:9, color:"#d4919c", marginBottom:2 }}>レビューご記入で</div>
+            <div style={{ fontSize:13, fontWeight:700, color:"#4a3728" }}>{incentive}</div>
           </div>
         )}
-        <div style={{ fontSize:8, color:"#c9b0a4", marginTop:"auto" }}>またのお越しをお待ちしております</div>
       </div>
     </div>
   );
 }
 
 /* ═══════════════════════════════════════════════════
-   27. ORIENTAL  — Chinese/Asian luxury
+   27. ORIENTAL  — deep red-black, gold lattice, heavy
 ═══════════════════════════════════════════════════ */
 function PosterOriental({ storeName, incentive, reviewUrl }: PosterProps) {
   return (
-    <div style={{ width:"100%", height:"100%", background:"#1a0505", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
-      {/* red wash */}
-      <div style={{ position:"absolute", top:0, left:0, right:0, height:"45%", background:"linear-gradient(180deg,#7f1d1d 0%,transparent 100%)", opacity:.6 }}/>
-      {/* geometric pattern top */}
-      <svg style={{ position:"absolute", top:0, left:0, right:0, width:"100%", height:"30%", opacity:.15 }} viewBox="0 0 100 44" preserveAspectRatio="none">
-        {Array.from({length:6},(_,i)=><rect key={i} x={i*18-2} y="0" width="14" height="44" fill="none" stroke="#d4af37" strokeWidth="0.5"/>)}
-        {Array.from({length:4},(_,i)=><line key={i} x1="0" y1={i*14} x2="100" y2={i*14} stroke="#d4af37" strokeWidth="0.5"/>)}
+    <div style={{ width:"100%", height:"100%", background:"#180305", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
+      {/* gold lattice top */}
+      <svg style={{ position:"absolute", top:0, left:0, right:0, width:"100%", height:"32%", opacity:.2 }} viewBox="0 0 100 48" preserveAspectRatio="none">
+        {Array.from({length:7},(_,i)=><rect key={i} x={i*16-2} y="0" width="14" height="48" fill="none" stroke="#d4af37" strokeWidth="0.6"/>)}
+        {Array.from({length:4},(_,i)=><line key={i} x1="0" y1={i*14} x2="100" y2={i*14} stroke="#d4af37" strokeWidth="0.6"/>)}
       </svg>
-      {/* gold top bar */}
-      <div style={{ position:"absolute", top:0, left:0, right:0, height:4, background:"linear-gradient(to right,#b8860b,#ffd700,#b8860b)" }}/>
-      <div style={{ position:"absolute", bottom:0, left:0, right:0, height:4, background:"linear-gradient(to right,#b8860b,#ffd700,#b8860b)" }}/>
-      {/* cloud motif sides */}
-      <svg style={{ position:"absolute", left:0, top:"30%", width:16, height:60, opacity:.25 }} viewBox="0 0 16 60">
-        <path d="M8,5 Q15,15 8,25 Q1,35 8,45 Q15,55 8,60" stroke="#d4af37" strokeWidth="1.5" fill="none"/>
-      </svg>
-      <svg style={{ position:"absolute", right:0, top:"30%", width:16, height:60, opacity:.25 }} viewBox="0 0 16 60">
-        <path d="M8,5 Q1,15 8,25 Q15,35 8,45 Q1,55 8,60" stroke="#d4af37" strokeWidth="1.5" fill="none"/>
-      </svg>
-      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", alignItems:"center", padding:"20px 20px 14px" }}>
-        <div style={{ fontSize:8, letterSpacing:"6px", color:"#d4af37", marginBottom:4 }}>口コミ  REVIEW</div>
-        <div style={{ width:40, height:1, background:"linear-gradient(to right,transparent,#d4af37,transparent)", marginBottom:14 }}/>
-        <div style={{ fontSize:20, fontWeight:900, color:"#fff9f0", textAlign:"center", lineHeight:1.2, marginBottom:4 }}>{storeName}</div>
-        <div style={{ fontSize:8, color:"rgba(212,175,55,.5)", letterSpacing:"3px", marginBottom:14 }}>ご来店ありがとうございます</div>
+      {/* crimson wash */}
+      <div style={{ position:"absolute", top:0, left:0, right:0, height:"42%", background:"linear-gradient(180deg,rgba(120,10,10,.7) 0%,transparent 100%)", pointerEvents:"none" }}/>
+      {/* gold bars */}
+      <div style={{ position:"absolute", top:0, left:0, right:0, height:4, background:"linear-gradient(to right,#8b6914,#ffd700,#8b6914)" }}/>
+      <div style={{ position:"absolute", bottom:0, left:0, right:0, height:4, background:"linear-gradient(to right,#8b6914,#ffd700,#8b6914)" }}/>
+      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", alignItems:"center", padding:"22px 20px 18px" }}>
+        <div style={{ fontSize:8, letterSpacing:"6px", color:"#d4af37", marginBottom:6 }}>口コミ  REVIEW</div>
+        <div style={{ width:48, height:1, background:"linear-gradient(to right,transparent,#d4af37,transparent)", marginBottom:16 }}/>
+        <div style={{ fontSize:34, fontWeight:900, color:"#fff9f0", textAlign:"center", lineHeight:1.0, marginBottom:6 }}>{storeName}</div>
         <Stars5 c="#d4af37"/>
-        <div style={{ fontSize:9, color:"rgba(255,249,240,.55)", margin:"10px 0 14px", textAlign:"center" }}>本日のご感想をお聞かせください</div>
-        <div style={{ border:"1px solid rgba(212,175,55,.5)", background:"rgba(212,175,55,.05)", padding:10, marginBottom:10, display:"flex", flexDirection:"column", alignItems:"center", gap:6 }}>
-          <div style={{ background:"#fff9f0", padding:8 }}>
-            {reviewUrl && <QRCode value={reviewUrl} size={110} level="M" fgColor="#1a0505"/>}
+        <div style={{ fontSize:9, color:"rgba(212,175,55,.55)", margin:"12px 0 0", letterSpacing:"2px" }}>ご来店ありがとうございます</div>
+        <div style={{ flex:1, display:"flex", alignItems:"center", justifyContent:"center", padding:"12px 0" }}>
+          <div style={{ border:"1.5px solid #d4af37", padding:2 }}>
+            <div style={{ border:"1px solid rgba(212,175,55,.25)", background:"rgba(212,175,55,.04)", padding:12, display:"flex", flexDirection:"column", alignItems:"center", gap:8 }}>
+              <div style={{ background:"#fff9f0", padding:8 }}>
+                {reviewUrl && <QRCode value={reviewUrl} size={130} level="M" fgColor="#180305"/>}
+              </div>
+              <div style={{ fontSize:8, color:"rgba(212,175,55,.7)", letterSpacing:"3px" }}>QRコードをスキャン</div>
+            </div>
           </div>
-          <div style={{ fontSize:8, color:"rgba(212,175,55,.6)", letterSpacing:"2px" }}>QRコードをスキャン</div>
         </div>
         {incentive && (
-          <div style={{ width:"100%", border:"1px solid rgba(212,175,55,.3)", background:"rgba(127,29,29,.2)", padding:"10px 14px", textAlign:"center", marginBottom:10 }}>
-            <div style={{ fontSize:9, color:"rgba(212,175,55,.5)" }}>レビューご記入で</div>
-            <div style={{ fontSize:12, fontWeight:700, color:"#d4af37", margin:"4px 0" }}>🎁 {incentive}</div>
-            <div style={{ fontSize:8, color:"rgba(212,175,55,.35)" }}>スタッフへお申し付けください</div>
+          <div style={{ width:"100%", border:"1px solid rgba(212,175,55,.35)", background:"rgba(120,10,10,.2)", padding:"10px 14px", textAlign:"center" as React.CSSProperties["textAlign"] }}>
+            <div style={{ fontSize:9, color:"rgba(212,175,55,.55)", marginBottom:2 }}>レビューご記入で</div>
+            <div style={{ fontSize:13, fontWeight:700, color:"#d4af37" }}>{incentive}</div>
           </div>
         )}
-        <div style={{ marginTop:"auto", width:40, height:1, background:"linear-gradient(to right,transparent,#d4af37,transparent)" }}/>
       </div>
     </div>
   );
 }
 
 /* ═══════════════════════════════════════════════════
-   28. BARBER  — high contrast B&W, barbershop
+   28. BARBER  — barbershop pole, diagonal stripe BG
 ═══════════════════════════════════════════════════ */
 function PosterBarber({ storeName, incentive, reviewUrl }: PosterProps) {
   return (
     <div style={{ width:"100%", height:"100%", background:"#fff", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
-      {/* bold diagonal stripe */}
-      <div style={{ position:"absolute", inset:0, background:"repeating-linear-gradient(135deg,transparent,transparent 24px,rgba(0,0,0,.04) 24px,rgba(0,0,0,.04) 25px)" }}/>
-      {/* left thick bar */}
+      {/* diagonal stripe BG */}
+      <div style={{ position:"absolute", inset:0, background:"repeating-linear-gradient(135deg,transparent,transparent 24px,rgba(0,0,0,.035) 24px,rgba(0,0,0,.035) 26px)", pointerEvents:"none" }}/>
+      {/* left barbershop pole: black with red center */}
       <div style={{ position:"absolute", top:0, left:0, bottom:0, width:14, background:"#111" }}/>
-      {/* red stripe on bar */}
-      <div style={{ position:"absolute", top:"35%", left:0, bottom:"35%", width:14, background:"#dc2626" }}/>
-      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", paddingLeft:24, paddingRight:16, paddingTop:18, paddingBottom:12 }}>
-        <div style={{ fontSize:7, letterSpacing:"7px", color:"#555", marginBottom:6 }}>BARBER · REVIEW</div>
-        <div style={{ fontSize:24, fontWeight:900, color:"#111", lineHeight:.9, letterSpacing:"-1px", marginBottom:8 }}>{storeName}</div>
-        <div style={{ width:24, height:3, background:"#111", marginBottom:14 }}/>
-        <div style={{ fontSize:10, color:"#444", marginBottom:8, textAlign:"left" }}>本日の仕上がりはいかがでしたか？</div>
+      <div style={{ position:"absolute", top:"30%", left:0, bottom:"30%", width:14, background:"#dc2626" }}/>
+      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", paddingLeft:24, paddingRight:18, paddingTop:20, paddingBottom:18 }}>
+        <div style={{ fontSize:7, letterSpacing:"7px", color:"rgba(0,0,0,.4)", textTransform:"uppercase" as React.CSSProperties["textTransform"], marginBottom:8 }}>BARBER · REVIEW</div>
+        <div style={{ fontSize:44, fontWeight:900, color:"#111", lineHeight:.88, letterSpacing:"-3px", marginBottom:10 }}>{storeName}</div>
+        <div style={{ width:36, height:4, background:"#dc2626", marginBottom:16 }}/>
+        <div style={{ fontSize:10, color:"#444", marginBottom:12, lineHeight:1.5 }}>本日の仕上がりは<br/>いかがでしたか？</div>
         <Stars5 c="#111"/>
-        <div style={{ margin:"14px 0 8px", display:"flex", flexDirection:"column", alignItems:"center", gap:6 }}>
-          <div style={{ border:"4px solid #111", padding:8 }}>
-            {reviewUrl && <QRCode value={reviewUrl} size={108} level="M" fgColor="#111"/>}
-          </div>
-          <div style={{ fontSize:8, letterSpacing:"3px", color:"#888" }}>QRコードをスキャン</div>
-        </div>
-        {incentive && (
-          <div style={{ width:"100%", background:"#111", padding:"10px 14px", textAlign:"center", marginTop:4, marginBottom:10 }}>
-            <div style={{ fontSize:8, color:"#555", marginBottom:2 }}>ご記入で</div>
-            <div style={{ fontSize:13, fontWeight:700, color:"#fff" }}>🎁 {incentive}</div>
-            <div style={{ fontSize:8, color:"#444", marginTop:2 }}>スタッフへ</div>
-          </div>
-        )}
-        <div style={{ marginTop:"auto", display:"flex", gap:14 }}>
-          {["SCAN","RATE","DONE"].map((s,i)=>(
-            <div key={s} style={{ display:"flex", alignItems:"center", gap:4 }}>
-              <div style={{ width:15, height:15, borderRadius:"50%", background:i===0?"#dc2626":"#111", display:"flex", alignItems:"center", justifyContent:"center", fontSize:7, fontWeight:900, color:"#fff" }}>{i+1}</div>
-              <span style={{ fontSize:8, color:"#888" }}>{s}</span>
-              {i<2&&<span style={{ color:"#ddd" }}>›</span>}
+        <div style={{ flex:1, display:"flex", alignItems:"flex-end", justifyContent:"flex-end" }}>
+          <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:8 }}>
+            {incentive && (
+              <div style={{ background:"#111", padding:"8px 14px", textAlign:"center" as React.CSSProperties["textAlign"] }}>
+                <div style={{ fontSize:8, color:"rgba(255,255,255,.45)", marginBottom:2 }}>ご記入で</div>
+                <div style={{ fontSize:12, fontWeight:700, color:"#fff" }}>{incentive}</div>
+              </div>
+            )}
+            <div style={{ border:"5px solid #111", padding:8, background:"#fff" }}>
+              {reviewUrl && <QRCode value={reviewUrl} size={126} level="M" fgColor="#111"/>}
             </div>
-          ))}
+            <div style={{ fontSize:8, letterSpacing:"3px", color:"rgba(0,0,0,.45)" }}>QRコードをスキャン</div>
+          </div>
         </div>
       </div>
     </div>
@@ -1312,53 +1147,48 @@ function PosterBarber({ storeName, incentive, reviewUrl }: PosterProps) {
 }
 
 /* ═══════════════════════════════════════════════════
-   29. WAVE  — soundwave, music/karaoke
+   29. WAVE  — soundwave SVG center, indigo dark
 ═══════════════════════════════════════════════════ */
 function PosterWave({ storeName, incentive, reviewUrl }: PosterProps) {
+  const waveHeights = [3,5,8,12,18,22,18,12,8,14,20,24,20,14,8,12,18,14,8,5,3,6,10,16,20,22,16,10,6,4,8,12,18,22,18,14,8,12,16,10,6,4,8,14,20,24,18,10,6,3];
   return (
-    <div style={{ width:"100%", height:"100%", background:"#0c0920", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
-      {/* soundwave bars */}
-      <svg style={{ position:"absolute", top:"50%", transform:"translateY(-50%)", left:0, right:0, width:"100%", height:"50%", opacity:.12 }} viewBox="0 0 100 50" preserveAspectRatio="none">
-        {[3,5,8,12,18,22,18,12,8,14,20,24,20,14,8,12,18,14,8,5,3,6,10,16,20,22,16,10,6,4,8,12,18,22,18,14,8,12,16,10,6,4,8,14,20,24,18,10,6,3].map((h,i)=>(
-          <rect key={i} x={i*2} y={(50-h)/2} width="1.5" height={h} fill="#818cf8" rx="0.5"/>
+    <div style={{ width:"100%", height:"100%", background:"#0a0820", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
+      {/* soundwave SVG center */}
+      <svg style={{ position:"absolute", top:"50%", transform:"translateY(-50%)", left:0, right:0, width:"100%", height:"55%", opacity:.13 }} viewBox="0 0 100 50" preserveAspectRatio="none">
+        {waveHeights.map((h,i)=>(
+          <rect key={i} x={i*2} y={(50-h)/2} width="1.6" height={h} fill="#818cf8" rx="0.5"/>
         ))}
       </svg>
-      {/* gradient accent */}
-      <div style={{ position:"absolute", top:"30%", left:"50%", transform:"translateX(-50%)", width:"80%", height:"40%", background:"radial-gradient(circle,rgba(129,140,248,.2) 0%,transparent 70%)", filter:"blur(20px)" }}/>
-      {/* top/bottom wave */}
-      <svg style={{ position:"absolute", top:0, left:0, right:0, width:"100%", opacity:.3 }} viewBox="0 0 100 8" preserveAspectRatio="none" height="20">
+      {/* glow */}
+      <div style={{ position:"absolute", top:"30%", left:"50%", transform:"translateX(-50%)", width:"75%", height:"40%", background:"radial-gradient(circle,rgba(129,140,248,.18) 0%,transparent 70%)", filter:"blur(20px)", pointerEvents:"none" }}/>
+      {/* wave top/bottom */}
+      <svg style={{ position:"absolute", top:0, left:0, right:0, width:"100%", opacity:.35 }} viewBox="0 0 100 8" preserveAspectRatio="none" height="22">
         <path d="M0,4 Q12,0 25,4 Q37,8 50,4 Q62,0 75,4 Q87,8 100,4" fill="none" stroke="#6366f1" strokeWidth="1.5"/>
       </svg>
-      <svg style={{ position:"absolute", bottom:0, left:0, right:0, width:"100%", opacity:.3 }} viewBox="0 0 100 8" preserveAspectRatio="none" height="20">
+      <svg style={{ position:"absolute", bottom:0, left:0, right:0, width:"100%", opacity:.35 }} viewBox="0 0 100 8" preserveAspectRatio="none" height="22">
         <path d="M0,4 Q12,8 25,4 Q37,0 50,4 Q62,8 75,4 Q87,0 100,4" fill="none" stroke="#6366f1" strokeWidth="1.5"/>
       </svg>
-      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", alignItems:"center", padding:"22px 18px 14px" }}>
-        <div style={{ fontSize:8, letterSpacing:"5px", color:"#818cf8", marginBottom:6 }}>🎵 REVIEW</div>
-        <div style={{ fontSize:21, fontWeight:900, color:"#fff", textAlign:"center", lineHeight:1.15, marginBottom:4 }}>{storeName}</div>
-        <div style={{ fontSize:9, color:"rgba(129,140,248,.55)", marginBottom:14 }}>ご来店ありがとうございます</div>
+      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", padding:"24px 20px 18px" }}>
+        <div style={{ fontSize:8, letterSpacing:"5px", color:"#818cf8", marginBottom:10 }}>REVIEW</div>
+        <div style={{ fontSize:34, fontWeight:900, color:"#fff", lineHeight:.95, marginBottom:8, textShadow:"0 0 20px rgba(99,102,241,.5)" }}>{storeName}</div>
+        <div style={{ width:36, height:3, background:"linear-gradient(to right,#6366f1,#818cf8)", marginBottom:14 }}/>
         <Stars5 c="#818cf8"/>
-        <div style={{ fontSize:10, color:"rgba(255,255,255,.5)", margin:"10px 0 14px", textAlign:"center" }}>本日のご感想をお聞かせください</div>
-        <div style={{ border:"1px solid rgba(99,102,241,.5)", background:"rgba(99,102,241,.08)", padding:10, marginBottom:10, borderRadius:8, display:"flex", flexDirection:"column", alignItems:"center", gap:6, boxShadow:"0 0 20px rgba(99,102,241,.2)" }}>
-          <div style={{ background:"#1c1a3a", padding:8, borderRadius:6 }}>
-            {reviewUrl && <QRCode value={reviewUrl} size={110} level="M" fgColor="#e0e7ff" bgColor="#1c1a3a"/>}
-          </div>
-          <div style={{ fontSize:8, color:"rgba(129,140,248,.65)", letterSpacing:"2px" }}>📱 QRコードをスキャン</div>
-        </div>
-        {incentive && (
-          <div style={{ width:"100%", background:"rgba(99,102,241,.12)", border:"1px solid rgba(99,102,241,.3)", borderRadius:10, padding:"10px 14px", textAlign:"center", marginBottom:10 }}>
-            <div style={{ fontSize:9, color:"rgba(129,140,248,.55)" }}>レビューご記入で</div>
-            <div style={{ fontSize:13, fontWeight:700, color:"#818cf8", margin:"3px 0" }}>🎁 {incentive}</div>
-            <div style={{ fontSize:8, color:"rgba(129,140,248,.4)" }}>スタッフにお声がけください</div>
-          </div>
-        )}
-        <div style={{ display:"flex", gap:14, marginTop:"auto" }}>
-          {["スキャン","評価","完了"].map((s,i)=>(
-            <div key={s} style={{ display:"flex", alignItems:"center", gap:4 }}>
-              <div style={{ width:16, height:16, borderRadius:"50%", background:"rgba(99,102,241,.4)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:8, fontWeight:700, color:"#fff" }}>{i+1}</div>
-              <span style={{ fontSize:9, color:"rgba(129,140,248,.5)" }}>{s}</span>
-              {i<2&&<span style={{ color:"rgba(99,102,241,.3)" }}>›</span>}
+        <div style={{ fontSize:10, color:"rgba(129,140,248,.6)", marginTop:12, lineHeight:1.5 }}>本日のご感想を<br/>お聞かせください</div>
+        <div style={{ flex:1, display:"flex", alignItems:"flex-end", justifyContent:"flex-end" }}>
+          <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:8 }}>
+            {incentive && (
+              <div style={{ background:"rgba(99,102,241,.12)", border:"1px solid rgba(99,102,241,.35)", borderRadius:10, padding:"8px 12px", textAlign:"center" as React.CSSProperties["textAlign"] }}>
+                <div style={{ fontSize:8, color:"rgba(129,140,248,.6)", marginBottom:2 }}>レビューご記入で</div>
+                <div style={{ fontSize:12, fontWeight:700, color:"#818cf8" }}>{incentive}</div>
+              </div>
+            )}
+            <div style={{ border:"1.5px solid rgba(99,102,241,.55)", background:"rgba(99,102,241,.08)", borderRadius:10, padding:10, boxShadow:"0 0 24px rgba(99,102,241,.2)" }}>
+              <div style={{ background:"#1c1a3a", borderRadius:6, padding:8 }}>
+                {reviewUrl && <QRCode value={reviewUrl} size={126} level="M" fgColor="#e0e7ff" bgColor="#1c1a3a"/>}
+              </div>
             </div>
-          ))}
+            <div style={{ fontSize:8, color:"rgba(129,140,248,.7)", letterSpacing:"2px" }}>QRをスキャン</div>
+          </div>
         </div>
       </div>
     </div>
@@ -1366,45 +1196,43 @@ function PosterWave({ storeName, incentive, reviewUrl }: PosterProps) {
 }
 
 /* ═══════════════════════════════════════════════════
-   30. KIDS  — children, playful illustration
+   30. KIDS  — playful yellow, sun, clouds, rainbow stars
 ═══════════════════════════════════════════════════ */
 function PosterKids({ storeName, incentive, reviewUrl }: PosterProps) {
   return (
-    <div style={{ width:"100%", height:"100%", background:"linear-gradient(160deg,#fffbeb 0%,#fef9c3 50%,#fefce8 100%)", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
-      {/* sun */}
-      <div style={{ position:"absolute", top:"-5%", right:"-5%", width:"35%", paddingTop:"35%", borderRadius:"50%", background:"radial-gradient(circle,#fbbf24 40%,rgba(251,191,36,.3) 70%,transparent 100%)" }}/>
-      {/* cloud shapes */}
-      {[["-5%","30%",60,30],["75%","10%",50,25]].map(([l,t,w,h],i)=>(
-        <div key={i} style={{ position:"absolute", top:t as string, left:l as string, width:w, height:h, background:"rgba(255,255,255,.7)", borderRadius:30 }}/>
+    <div style={{ width:"100%", height:"100%", background:"linear-gradient(160deg,#fffbeb 0%,#fef9c3 55%,#fefce8 100%)", position:"relative", overflow:"hidden", display:"flex", flexDirection:"column" }}>
+      {/* radial gradient sun top-right */}
+      <div style={{ position:"absolute", top:"-6%", right:"-6%", width:"40%", paddingTop:"40%", borderRadius:"50%", background:"radial-gradient(circle,#fbbf24 35%,rgba(251,191,36,.4) 65%,transparent 100%)" }}/>
+      {/* cloud left */}
+      <div style={{ position:"absolute", top:"14%", left:"-6%", width:72, height:38, background:"rgba(255,255,255,.75)", borderRadius:30 }}/>
+      <div style={{ position:"absolute", top:"10%", left:"6%", width:50, height:30, background:"rgba(255,255,255,.65)", borderRadius:24 }}/>
+      {/* cloud right lower */}
+      <div style={{ position:"absolute", top:"48%", right:"-4%", width:60, height:30, background:"rgba(255,255,255,.6)", borderRadius:28 }}/>
+      {/* rainbow stars */}
+      {[{left:"18%",top:"6%",color:"#fbbf24"},{left:"42%",top:"3%",color:"#f87171"},{left:"62%",top:"8%",color:"#34d399"},{left:"78%",top:"3%",color:"#60a5fa"}].map((s,i)=>(
+        <div key={i} style={{ position:"absolute", left:s.left, top:s.top, fontSize:16, color:s.color, opacity:.6 }}>★</div>
       ))}
-      {/* stars scattered */}
-      {[["15%","8%","★"],["40%","4%","✦"],["65%","10%","★"],["85%","5%","✦"]].map(([l,t,s],i)=>(
-        <div key={i} style={{ position:"absolute", top:t as string, left:l as string, fontSize:14, color:"#fbbf24", opacity:.5 }}>{s}</div>
-      ))}
-      {/* ground strip */}
-      <div style={{ position:"absolute", bottom:0, left:0, right:0, height:"12%", background:"#bbf7d0", borderRadius:"50% 50% 0 0 / 20% 20% 0 0" }}/>
-      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", alignItems:"center", padding:"20px 18px 16px" }}>
-        <div style={{ fontSize:10, fontWeight:700, color:"#d97706", marginBottom:6 }}>😊 みなさまのこえ 😊</div>
-        <div style={{ fontSize:20, fontWeight:900, color:"#92400e", textAlign:"center", lineHeight:1.2, marginBottom:4 }}>{storeName}</div>
-        <div style={{ fontSize:9, color:"#b45309", marginBottom:12 }}>きてくれてありがとう！</div>
-        <div style={{ display:"flex", gap:3 }}>
+      {/* green ground */}
+      <div style={{ position:"absolute", bottom:0, left:0, right:0, height:"10%", background:"#bbf7d0", borderRadius:"60% 60% 0 0 / 30% 30% 0 0" }}/>
+      <div style={{ position:"relative", zIndex:1, flex:1, display:"flex", flexDirection:"column", alignItems:"center", padding:"22px 18px 16px" }}>
+        <div style={{ fontSize:11, fontWeight:700, color:"#d97706", marginBottom:8 }}>みなさまのこえ</div>
+        <div style={{ fontSize:32, fontWeight:900, color:"#92400e", textAlign:"center", lineHeight:1.1, marginBottom:8 }}>{storeName}</div>
+        <div style={{ display:"flex", gap:4, marginBottom:12 }}>
           {["#fbbf24","#f87171","#34d399","#60a5fa","#a78bfa"].map((c,i)=>(
-            <svg key={i} width="22" height="22" viewBox="0 0 24 24" fill={c}><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg key={i} width="24" height="24" viewBox="0 0 24 24" fill={c}><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           ))}
         </div>
-        <div style={{ fontSize:10, fontWeight:600, color:"#78350f", margin:"10px 0 12px", textAlign:"center" }}>きょうはどうだったかな？</div>
-        <div style={{ background:"#fff", border:"3px solid #fbbf24", borderRadius:20, padding:"12px 12px 8px", display:"flex", flexDirection:"column", alignItems:"center", gap:6, marginBottom:12, boxShadow:"0 4px 12px rgba(251,191,36,.2)" }}>
-          {reviewUrl && <QRCode value={reviewUrl} size={108} level="M" fgColor="#78350f"/>}
-          <div style={{ fontSize:8, color:"#b45309", fontWeight:700 }}>📱 スキャンしてね！</div>
+        <div style={{ fontSize:10, fontWeight:700, color:"#78350f", marginBottom:16, textAlign:"center" }}>きょうはどうでしたか？</div>
+        <div style={{ background:"#fff", border:"3px solid #fbbf24", borderRadius:22, padding:"14px 14px 10px", display:"flex", flexDirection:"column", alignItems:"center", gap:8, boxShadow:"0 6px 16px rgba(251,191,36,.25)" }}>
+          {reviewUrl && <QRCode value={reviewUrl} size={130} level="M" fgColor="#78350f"/>}
+          <div style={{ fontSize:8, fontWeight:700, color:"#b45309" }}>スキャンしてね！</div>
         </div>
         {incentive && (
-          <div style={{ width:"100%", background:"linear-gradient(135deg,rgba(251,191,36,.2),rgba(52,211,153,.2))", border:"2px solid #fbbf24", borderRadius:16, padding:"10px 14px", textAlign:"center", marginBottom:8 }}>
-            <div style={{ fontSize:9, color:"#92400e", fontWeight:600 }}>かいてくれたら</div>
-            <div style={{ fontSize:13, fontWeight:900, color:"#78350f", margin:"3px 0" }}>🎁 {incentive}</div>
-            <div style={{ fontSize:8, color:"#b45309" }}>スタッフにはなしかけてね</div>
+          <div style={{ width:"100%", marginTop:12, background:"linear-gradient(135deg,rgba(251,191,36,.25),rgba(52,211,153,.2))", border:"2px solid #fbbf24", borderRadius:18, padding:"10px 14px", textAlign:"center" as React.CSSProperties["textAlign"] }}>
+            <div style={{ fontSize:9, color:"#92400e", fontWeight:600, marginBottom:2 }}>かいてくれたら</div>
+            <div style={{ fontSize:14, fontWeight:900, color:"#78350f" }}>{incentive}</div>
           </div>
         )}
-        <div style={{ fontSize:8, color:"#d97706", marginTop:"auto", fontWeight:600 }}>またあそびにきてね！🌟</div>
       </div>
     </div>
   );
