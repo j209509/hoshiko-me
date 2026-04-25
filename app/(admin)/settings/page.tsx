@@ -170,7 +170,7 @@ export default function SettingsPage() {
                     autoFocus
                   />
                   <div className="flex gap-1">
-                    <Button size="sm" onClick={handleCreate} disabled={creating || !newStoreName.trim()} className="flex-1 h-7 text-xs bg-indigo-600 hover:bg-indigo-700">
+                    <Button size="sm" onClick={handleCreate} disabled={creating || !newStoreName.trim()} className="flex-1 h-7 text-xs bg-indigo-600 hover:bg-indigo-700 text-white">
                       {creating ? <Loader2 className="w-3 h-3 animate-spin" /> : "追加"}
                     </Button>
                     <Button size="sm" variant="ghost" onClick={() => { setShowNewForm(false); setNewStoreName(""); }} className="flex-1 h-7 text-xs">
@@ -244,7 +244,7 @@ export default function SettingsPage() {
                       </div>
                     </div>
                     <div className="flex items-center gap-3 pt-2">
-                      <Button onClick={handleSave} disabled={saving} className="bg-indigo-600 hover:bg-indigo-700 gap-2">
+                      <Button onClick={handleSave} disabled={saving} className="bg-indigo-600 hover:bg-indigo-700 text-white gap-2">
                         {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : saved ? <><CheckCircle2 className="w-4 h-4" />保存しました</> : "変更を保存"}
                       </Button>
                       <Button variant="outline" onClick={handleDelete} disabled={deleting}
@@ -297,7 +297,7 @@ export default function SettingsPage() {
                       <Input value={form.googleMapsUrl} onChange={(e) => update("googleMapsUrl", e.target.value)}
                         className="border-gray-200" placeholder="https://maps.google.com/?q=..." />
                     </div>
-                    <Button onClick={handleSave} disabled={saving} className="bg-indigo-600 hover:bg-indigo-700">
+                    <Button onClick={handleSave} disabled={saving} className="bg-indigo-600 hover:bg-indigo-700 text-white">
                       {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : saved ? "保存しました ✓" : "変更を保存"}
                     </Button>
                   </CardContent>
@@ -324,7 +324,7 @@ export default function SettingsPage() {
                         </SelectContent>
                       </Select>
                     </div>
-                    <Button onClick={handleSave} disabled={saving} className="bg-indigo-600 hover:bg-indigo-700">
+                    <Button onClick={handleSave} disabled={saving} className="bg-indigo-600 hover:bg-indigo-700 text-white">
                       {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : saved ? "保存しました ✓" : "変更を保存"}
                     </Button>
                   </CardContent>
@@ -379,7 +379,7 @@ export default function SettingsPage() {
                       </p>
                     )}
 
-                    <Button onClick={handleSave} disabled={saving} className="bg-indigo-600 hover:bg-indigo-700">
+                    <Button onClick={handleSave} disabled={saving} className="bg-indigo-600 hover:bg-indigo-700 text-white">
                       {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : saved ? "保存しました ✓" : "変更を保存"}
                     </Button>
                   </CardContent>
