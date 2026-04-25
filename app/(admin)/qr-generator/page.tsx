@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,8 +22,6 @@ const SIZES = [
 ] as const;
 type SizeId = typeof SIZES[number]["id"];
 
-// ポスターは常にこの幅でレンダリングし、コンテナに合わせてscale縮小する
-const CANONICAL_W = 320;
 
 interface PosterProps { storeName: string; incentive: string; reviewUrl: string; }
 
@@ -1491,20 +1489,7 @@ export default function QrGeneratorPage() {
   const [templateExpanded, setTemplateExpanded] = useState(false);
   const [sizeId, setSizeId] = useState<SizeId>("hagaki");
   const [orientation, setOrientation] = useState<"portrait" | "landscape">("portrait");
-  const [previewPx, setPreviewPx] = useState(288);
   const posterRef = useRef<HTMLDivElement>(null);
-  const previewRef = useRef<HTMLDivElement>(null);
-
-  // コンテナ幅を監視してscaleを計算
-  useEffect(() => {
-    const el = previewRef.current;
-    if (!el) return;
-    const ro = new ResizeObserver(entries => {
-      setPreviewPx(entries[0].contentRect.width);
-    });
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
 
   const displayIncentive = incentive === "特典なし" ? "" : (customIncentive || incentive);
   const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://review-guard-demo.vercel.app";
@@ -1518,14 +1503,6 @@ export default function QrGeneratorPage() {
   const mmH = orientation === "portrait" ? size.ph : size.pw;
   const maxW = orientation === "portrait" ? size.pmaxW : size.lmaxW;
   const aspectRatio = `${mmW}/${mmH}`;
-
-  // 縦: portrait高さ / 横: landscape専用レイアウトなのでlandscape高さそのまま使用
-  const canonicalH = orientation === "portrait"
-    ? CANONICAL_W * (size.ph / size.pw)  // portrait: 縦長canvas
-    : CANONICAL_W * (mmH / mmW);          // landscape: 横長canvas (専用レイアウト)
-  const posterScale = previewPx / CANONICAL_W;
-  const offsetX = 0;
-  const offsetY = 0;
 
   if (loading) {
     return (
@@ -1704,31 +1681,21 @@ export default function QrGeneratorPage() {
             </div>
           </div>
 
-          {/* ポスタープレビュー：常にportrait寸法でレンダリングし、縦横両方に収まるようscale+センタリング */}
-          <div ref={previewRef} className={`mx-auto ${maxW}`}>
-            <div
+          {/* ポスタープレビュー */}
+          <div className={`mx-auto ${maxW}`}>
+            <div ref={posterRef}
               className="border border-gray-200 rounded-xl overflow-hidden shadow-lg"
-              style={{ aspectRatio, position: "relative" }}
+              style={{ aspectRatio }}
             >
-              <div ref={posterRef} style={{
-                position: "absolute",
-                top: offsetY,
-                left: offsetX,
-                width: CANONICAL_W,
-                height: canonicalH,
-                transformOrigin: "top left",
-                transform: `scale(${posterScale})`,
-              }}>
-                {selectedStore && reviewUrl ? (
-                  orientation === "portrait"
-                    ? <PosterComponent storeName={selectedStore.name} incentive={displayIncentive} reviewUrl={reviewUrl}/>
-                    : <LandscapePoster storeName={selectedStore.name} incentive={displayIncentive} reviewUrl={reviewUrl} theme={template.theme as LT}/>
-                ) : (
-                  <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", background: "#f9fafb", color: "#9ca3af", fontSize: 14 }}>
-                    店舗を選択してください
-                  </div>
-                )}
-              </div>
+              {selectedStore && reviewUrl ? (
+                orientation === "portrait"
+                  ? <PosterComponent storeName={selectedStore.name} incentive={displayIncentive} reviewUrl={reviewUrl}/>
+                  : <LandscapePoster storeName={selectedStore.name} incentive={displayIncentive} reviewUrl={reviewUrl} theme={template.theme as LT}/>
+              ) : (
+                <div className="w-full h-full flex items-center justify-center bg-gray-50 text-gray-400 text-sm">
+                  店舗を選択してください
+                </div>
+              )}
             </div>
           </div>
         </div>
